@@ -66,7 +66,7 @@ class _IoTDashboardScreenState extends State<IoTDashboardScreen>
                     const SizedBox(height: 16),
                     _buildOverviewCards(isDark, l10n, role),
                     const SizedBox(height: 24),
-                    if (role == UserRole.admin) ...[
+                    if (role == UserRole.superAdmin || role == UserRole.stateAdmin) ...[
                       _buildAdminSection(isDark, l10n),
                     ] else ...[
                       _buildCitizenSection(isDark, l10n),
@@ -201,7 +201,7 @@ class _IoTDashboardScreenState extends State<IoTDashboardScreen>
 
   Widget _buildOverviewCards(
       bool isDark, AppLocalizations l10n, UserRole? role) {
-    final isAdmin = role == UserRole.admin;
+    final isAdmin = role == UserRole.superAdmin || role == UserRole.stateAdmin;
     final cards = isAdmin
         ? [
             _OverviewData(

@@ -102,18 +102,21 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           // Set user in provider before navigating
           final userProvider = context.read<UserProvider>();
           switch (widget.role) {
-            case UserRole.admin:
-              userProvider.setUser(User.mockAdmin());
+            case UserRole.superAdmin:
+              userProvider.setUser(User.mockNationalAdmin());
               break;
-            case UserRole.fieldWorker:
-              userProvider.setUser(User.mockFieldWorker());
+            case UserRole.stateAdmin:
+              // For demo, using CityAdmin mock as fallback for State
+              userProvider.setUser(User.mockCityAdmin());
               break;
-            case UserRole.doctor:
-              userProvider.setUser(User.mockDoctor());
+            case UserRole.cityAdmin:
+              userProvider.setUser(User.mockCityAdmin());
               break;
-            case UserRole.citizen:
-            case UserRole.guest:
-              userProvider.setUser(User.mockCitizen());
+            case UserRole.fieldInspector:
+              userProvider.setUser(User.mockFieldInspector());
+              break;
+            case UserRole.viewer:
+              userProvider.setUser(User.mockViewer());
               break;
           }
 
@@ -148,25 +151,20 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   void _navigateToRoleHome() {
     // Navigate based on role
     switch (widget.role) {
-      case UserRole.admin:
-        // Navigate to Admin Dashboard
-        Navigator.pushReplacementNamed(context, AppRoutes.adminDashboard);
+      case UserRole.superAdmin:
+        Navigator.pushReplacementNamed(context, AppRoutes.nationalDashboard);
         break;
-      case UserRole.fieldWorker:
-        // Navigate to Field Worker Home
-        Navigator.pushReplacementNamed(context, AppRoutes.fieldWorkerHome);
+      case UserRole.stateAdmin:
+        Navigator.pushReplacementNamed(context, AppRoutes.stateDashboard);
         break;
-      case UserRole.doctor:
-        // Navigate to Hospital Dashboard
-        Navigator.pushReplacementNamed(context, AppRoutes.hospitalDashboard);
+      case UserRole.cityAdmin:
+        Navigator.pushReplacementNamed(context, AppRoutes.cityDashboard);
         break;
-      case UserRole.citizen:
-        // Navigate to Citizen Home
-        Navigator.pushReplacementNamed(context, AppRoutes.citizenHome);
+      case UserRole.fieldInspector:
+        Navigator.pushReplacementNamed(context, AppRoutes.inspectorHome);
         break;
-      case UserRole.guest:
-        // Guest also goes to Citizen Home for now
-        Navigator.pushReplacementNamed(context, AppRoutes.citizenHome);
+      case UserRole.viewer:
+        Navigator.pushReplacementNamed(context, AppRoutes.viewerHome);
         break;
     }
   }

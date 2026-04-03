@@ -1,0 +1,27 @@
+prj_id,name,category,state,district,budget,progress,status
+ST-MH-01,Pune Metro Phase 2,Metro,Maharashtra,Pune,₹1200Cr,45,Active
+ST-KA-05,Bengaluru Peripheral Ring Road,Highway,Karnataka,Bengaluru,₹850Cr,12,Delayed
+ST-GJ-12,GIFT City Fin-Tech Pave,Smart Infra,Gujarat,Gandhinagar,₹400Cr,88,Maintenance
+ST-TN-04,Chennai-Salem Expressway,Highway,Tamil Nadu,Salem,₹2100Cr,65,Active
+ST-DL-02,Yamuna Riverfront,Waterfront,Delhi,North Delhi,₹550Cr,30,Warning
+ST-UP-09,Ganga Expressway Sec 4,Highway,UP,Prayagraj,₹3400Cr,72,Active
+ST-AP-03,Visakhapatnam Port Road,Logistics,AP,Vizag,₹220Cr,95,Stable
+ST-WB-06,Kolkata Underwater Metro,Metro,West Bengal,Kolkata,₹900Cr,98,Stable
+ST-PB-01,Ludhiana Waste-to-Energy,Sanitation,Punjab,Ludhiana,₹120Cr,50,Active
+ST-RJ-08,Jaipur Smart Streetlight,IoT,Rajasthan,Jaipur,₹45Cr,100,Stable
+ST-MH-10,Mumbai Coastal Road South,Highway,Maharashtra,Mumbai,₹12000Cr,92,Active
+ST-TS-02,Hyderabad Pharma City Access,Logistics,Telangana,Hyderabad,₹1400Cr,15,Active
+ST-GJ-15,Surat Diamond Bourse Connectivity,Smart Infra,Gujarat,Surat,₹600Cr,80,Active
+ST-MP-01,Indore Smart Grid Phase 3,Energy,MP,Indore,₹320Cr,40,Active
+ST-MP-05,Bhopal Metro Line 1,Metro,MP,Bhopal,₹950Cr,25,Active
+ST-MH-22,Nagpur Multi-Modal Hub,Logistics,Maharashtra,Nagpur,₹450Cr,60,Active
+ST-KL-04,Kochi Water Metro Expansion,Waterfront,Kerala,Kochi,₹740Cr,35,Active
+ST-UP-15,Lucknow Gomti Clean-up,Sanitation,UP,Lucknow,₹210Cr,42,Warning
+ST-UP-20,Kanpur Leather Cluster Park,Logistics,UP,Kanpur,₹180Cr,10,Active
+ST-BR-02,Patna Marine Drive,Highway,Bihar,Patna,₹680Cr,75,Active
+ST-HR-05,Gurugram Integrated Traffic,IoT,Haryana,Gurugram,₹55Cr,90,Active
+ST-UK-03,Dehradun Smart Mobility,IoT,Uttarakhand,Dehradun,₹38Cr,55,Active
+ST-GA-01,Panaji Heritage Waterfront,Waterfront,Goa,Panaji,₹110Cr,20,Active
+ST-AS-04,Guwahati Brahmaputra Bridge,Highway,Assam,Guwahati,₹1600Cr,18,Active
+ST-JH-02,Ranchi Smart Sanitation,Sanitation,Jharkhand,Ranchi,₹92Cr,70,Active
+ST-CH-01,Chandigarh Solar Grid,Energy,Chandigarh,Sector 17,₹28Cr,100,Stable

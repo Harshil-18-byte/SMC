@@ -86,8 +86,8 @@ class HospitalIntakeStatus {
     required this.triageWaitMinutes,
     this.intakeLocked = false,
     this.lockReason,
-    this.latitude = 17.6599, // Default Solapur
-    this.longitude = 75.9064, // Default Solapur
+    this.latitude = 17.6599, // Default Bharat
+    this.longitude = 75.9064, // Default Bharat
   });
 
   factory HospitalIntakeStatus.fromMap(Map<String, dynamic> map, String id) {

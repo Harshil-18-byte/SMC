@@ -9,7 +9,7 @@ class RoleSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connect to SMC'),
+        title: const Text('Bharat Infra Inspect'),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -22,41 +22,37 @@ class RoleSelectionScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(
-                'Select Role',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                'Direct Access Portals',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to Admin Dashboard or Login
-                  Navigator.pushNamed(context, AppRoutes.adminDashboard);
+                  Navigator.pushNamed(context, AppRoutes.nationalDashboard);
                 },
-                child: const Text('Admin Dashboard'),
+                child: const Text('National Dashboard (Level 1)'),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to Hospital Dashboard
-                  Navigator.pushNamed(context, AppRoutes.hospitalDashboard);
+                  Navigator.pushNamed(context, AppRoutes.stateDashboard);
                 },
-                child: const Text('Hospital Staff'),
+                child: const Text('State Governance (Level 2)'),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to Field Worker Home
-                  Navigator.pushNamed(context, AppRoutes.fieldWorkerHome);
+                  Navigator.pushNamed(context, AppRoutes.inspectorHome);
                 },
-                child: const Text('Field Worker'),
+                child: const Text('Field Inspector Module'),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to Citizen Home
-                  Navigator.pushNamed(context, AppRoutes.citizenHome);
+                  Navigator.pushNamed(context, AppRoutes.viewerHome);
                 },
-                child: const Text('Citizen App'),
+                child: const Text('Public Compliance Viewer'),
               ),
             ],
           ),

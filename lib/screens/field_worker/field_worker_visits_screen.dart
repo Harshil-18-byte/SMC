@@ -3,7 +3,7 @@ import 'package:smc/core/widgets/smc_back_button.dart';
 import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/data/models/visit_record_model.dart';
 import 'package:smc/config/routes.dart';
-import 'package:smc/core/utils/solapur_location_utils.dart';
+import 'package:smc/core/utils/india_location_utils.dart';
 import 'package:smc/core/ui/hand_drawn_illustration.dart';
 import 'package:smc/core/ui/milestone_tracker.dart';
 
@@ -97,7 +97,7 @@ class _FieldWorkerVisitsScreenState extends State<FieldWorkerVisitsScreen> {
         onPressed: () {
           Navigator.pushNamed(
             context,
-            AppRoutes.fieldWorkerNewVisit,
+            AppRoutes.newInspection,
             arguments: {'fieldWorkerId': widget.fieldWorkerId},
           );
         },
@@ -160,7 +160,7 @@ class _FieldWorkerVisitsScreenState extends State<FieldWorkerVisitsScreen> {
                         Icons.location_on_outlined,
                         'Address',
                         visit.latitude != 0.0
-                            ? SolapurLocationUtils.getHumanReadableLocation(
+                            ? IndiaLocationUtils.getHumanReadableLocation(
                                     visit.latitude, visit.longitude)
                                 .replaceAll('\n', ', ')
                             : visit.address),

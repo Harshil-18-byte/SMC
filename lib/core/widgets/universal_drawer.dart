@@ -22,7 +22,7 @@ class UniversalDrawer extends StatelessWidget {
     final theme = Theme.of(context);
     final userProvider = Provider.of<UserProvider>(context);
     final user = userProvider.currentUser;
-    final role = user?.role ?? UserRole.citizen;
+    final role = user?.role ?? UserRole.viewer;
 
     return Drawer(
       elevation: isPermanent ? 0 : 16,
@@ -44,37 +44,52 @@ class UniversalDrawer extends StatelessWidget {
                 _buildNavItem(
                   context,
                   Icons.dashboard_rounded,
-                  AppLocalizations.of(context).menuDashboard,
-                  role == UserRole.admin
-                      ? AppRoutes.adminDashboard
-                      : role == UserRole.fieldWorker
-                          ? AppRoutes.fieldWorkerHome
-                          : AppRoutes.citizenHome,
+                  "COMMAND CENTER",
+                  role.homeRoute,
                 ),
+                _buildNavItem(
+                  context,
+                  Icons.report_problem_rounded,
+                  "PUBLIC GRIEVANCE",
+                  AppRoutes.viewerHome,
+                ),
+                if (role == UserRole.superAdmin) ...[
+                  const Divider(),
+                  _buildSectionHeader(context, "NATIONAL STRATEGY"),
+                  _buildNavItem(context, Icons.policy_rounded, "National SOPs", AppRoutes.adminSurveillance),
+                  _buildNavItem(context, Icons.analytics_rounded, "State Leaderboard", AppRoutes.nationalDashboard),
+                ],
+                if (role == UserRole.stateAdmin) ...[
+                  const Divider(),
+                  _buildSectionHeader(context, "REGIONAL COORDINATION"),
+                  _buildNavItem(context, Icons.handyman_rounded, "Resource Matrix", AppRoutes.stateDashboard),
+                  _buildNavItem(context, Icons.payments_rounded, "Grant Audit", AppRoutes.stateDashboard),
+                ],
+                if (role == UserRole.cityAdmin) ...[
+                  const Divider(),
+                  _buildSectionHeader(context, "CITY OPERATIONS"),
+                  _buildNavItem(context, Icons.map_rounded, "Asset Live Map", AppRoutes.cityDashboard),
+                  _buildNavItem(context, Icons.engineering_rounded, "Work Orders", AppRoutes.cityDashboard),
+                ],
+                if (role == UserRole.fieldInspector) ...[
+                  const Divider(),
+                  _buildSectionHeader(context, "FIELD OPERATIONS"),
+                  _buildNavItem(context, Icons.camera_alt_rounded, "New Inspection", AppRoutes.inspectorHome),
+                  _buildNavItem(context, Icons.history_rounded, "Inspection Logs", AppRoutes.inspectorTasks),
+                ],
+                const Divider(),
                 _buildNavItem(
                   context,
                   Icons.person_outline_rounded,
                   AppLocalizations.of(context).menuProfile,
-                  role == UserRole.admin
+                  role == UserRole.superAdmin ||
+                          role == UserRole.stateAdmin ||
+                          role == UserRole.cityAdmin
                       ? AppRoutes.adminProfile
-                      : role == UserRole.fieldWorker
-                          ? AppRoutes.fieldWorkerProfile
-                          : AppRoutes.citizenProfile,
+                      : role == UserRole.fieldInspector
+                          ? AppRoutes.inspectorProfile
+                          : AppRoutes.viewerProfile,
                 ),
-                if (role == UserRole.admin)
-                  _buildNavItem(
-                    context,
-                    Icons.auto_awesome_rounded,
-                    AppLocalizations.of(context).menuMagic,
-                    AppRoutes.immersiveDashboard,
-                  ),
-                if (role == UserRole.fieldWorker)
-                  _buildNavItem(
-                    context,
-                    Icons.emoji_events_rounded,
-                    AppLocalizations.of(context).menuImpact,
-                    AppRoutes.fieldWorkerAchievements,
-                  ),
                 _buildNavItem(
                   context,
                   Icons.sensors_rounded,

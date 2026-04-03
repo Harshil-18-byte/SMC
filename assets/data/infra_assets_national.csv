@@ -1,0 +1,27 @@
+asset_id,name,type,region,capacity,health,status
+NH-44,Kanyakumari-Srinagar Hwy,Highway,National,4-Lane,85,Stable
+BWSL-01,Bandra-Worli Sea Link,Bridge,Maharashtra,8-Lane,92,Healthy
+DMRC-PH3,Delhi Metro Ph 3 Grid,Metro,Delhi,240MW,88,Maintenance
+WR-GRID-05,Western Power Grid Hub,Energy,Gujarat,500KV,75,Warning
+SR-CAN-12,Krishna Water Canal,Water,AP,12000Cfs,94,Stable
+EH-02,Mumbai-Nagpur Samruddhi,Highway,Maharashtra,6-Lane,98,Excellent
+TS-PH-01,Hyderabad Tech Corridor,Energy,Telangana,150MW,90,Healthy
+GJ-DA-03,Sardar Sarovar Dam,Water,Gujarat,1450MW,91,Stable
+WB-HOW-04,Howrah Bridge (Pillar S),Bridge,West Bengal,Heavy,65,Critical
+UP-YAM-01,Yamuna Expressway Sec 1,Highway,UP,6-Lane,82,Stable
+PB-SOL-02,Ludhiana Solar Park,Energy,Punjab,40MW,100,Healthy
+RJ-STR-01,Jaipur Pink City Smart,IoT,Rajasthan,10k Nodes,95,Stable
+TN-CH-05,Chennai Central Port P6,Logistics,Tamil Nadu,Heavy,84,Maintenance
+AS-BR-09,Brahmaputra Bridge S1,Bridge,Assam,Rail/Road,78,Warning
+KL-KO-02,Kochi LNG Terminal,Energy,Kerala,5 MMTPA,96,Healthy
+MP-IN-03,Indore Circular Road,Highway,MP,4-Lane,88,Stable
+HR-GU-01,Gurugram Green Corridor,Highway,Haryana,6-Lane,94,Excellent
+GA-P-02,Zuari Bridge New Span,Bridge,Goa,8-Lane,99,Excellent
+UT-DE-04,Dehradun Smart Gravity,Water,Uttarakhand,Medium,92,Healthy
+JH-RA-01,Ranchi Mining Logistics,Logistics,Jharkhand,Heavy,74,Warning
+BI-PA-05,Patna Digha Bridge,Bridge,Bihar,6-Lane,89,Stable
+CH-SEC-17,Chandigarh Smart Grid,Energy,Chandigarh,15MW,100,Excellent
+AP-VI-02,Visakhapatnam Naval Dock,Logistics,AP,Heavy,95,Healthy
+GU-SU-01,Surat Diamond Corridor,Highway,Gujarat,6-Lane,92,Healthy
+UP-LA-01,Lucknow IT City Grid,Energy,UP,80MW,90,Healthy
+GU-VA-03,Vadodara Solar Highway,Highway,Gujarat,4-Lane,97,Excellent

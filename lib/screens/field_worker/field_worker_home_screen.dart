@@ -14,7 +14,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'package:smc/core/i18n/localized_text.dart';
 import 'package:smc/core/i18n/cultural_context.dart';
-import 'package:smc/core/utils/solapur_location_utils.dart';
+import 'package:smc/core/utils/india_location_utils.dart';
 import 'package:smc/core/ui/hand_drawn_illustration.dart';
 import 'package:smc/core/ui/friendly_error_handler.dart';
 import 'package:smc/core/ui/imperfect_shapes.dart';
@@ -28,7 +28,6 @@ import 'package:smc/core/theme/universal_theme.dart';
 import 'package:smc/core/widgets/universal_drawer.dart';
 import 'package:smc/core/visuals/medical_textures.dart';
 import 'package:smc/core/visuals/medical_buttons.dart';
-import 'package:smc/core/visuals/medical_loaders.dart';
 import 'package:smc/core/visuals/medical_modals.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -125,7 +124,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
           id: workerId,
           name: 'Field Worker',
           avatarUrl: '',
-          currentLocation: 'Solapur, Maharashtra',
+          currentLocation: 'Bharat, Maharashtra',
           lastSync: DateTime.now(),
           sector: 'Sector 4',
         );
@@ -168,7 +167,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
           id: workerId,
           name: 'Field Worker',
           avatarUrl: '',
-          currentLocation: 'Solapur, Maharashtra',
+          currentLocation: 'Bharat, Maharashtra',
           lastSync: DateTime.now(),
           sector: 'Sector 4',
         );
@@ -203,7 +202,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
           id: workerId,
           name: 'Field Worker',
           avatarUrl: '',
-          currentLocation: 'Solapur, Maharashtra',
+          currentLocation: 'Bharat, Maharashtra',
           lastSync: DateTime.now(),
           sector: 'Sector 4',
         );
@@ -308,7 +307,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
   Future<void> _handleOptimizeRoute() async {
     setState(() => _isLoading = true); // Show loading briefly
 
-    double currentLat = 17.6599; // Default Solapur Center
+    double currentLat = 17.6599; // Default Bharat Center
     double currentLng = 75.9064;
 
     try {
@@ -379,13 +378,14 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
       body: PaperTextureBackground(
         isDark: isDark,
         child: DashboardBackHandler(
-          dashboardName: 'Field Worker Dashboard',
+          dashboardName: 'Inspector Dashboard',
           child: SafeArea(
             bottom: false,
             child: _isLoading
                 ? Center(
-                    child: ECGLoader(
-                      message: AppLocalizations.of(context).connectingMsg,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.primary),
                     ),
                   )
                 : Column(
@@ -442,7 +442,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
           if (_worker != null) {
             Navigator.pushNamed(
               context,
-              AppRoutes.fieldWorkerNewVisit,
+              AppRoutes.newInspection,
               arguments: {'fieldWorkerId': _worker!.id},
             );
           }
@@ -454,7 +454,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
             const Icon(Icons.add_task_rounded, color: Colors.white, size: 20),
             const SizedBox(width: 8),
             Text(
-              AppLocalizations.of(context).newVisit.toUpperCase(),
+              "NEW INSPECTION",
               style: GoogleFonts.outfit(
                 fontWeight: FontWeight.w800,
                 color: Colors.white,
@@ -538,7 +538,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
               if (_worker != null) {
                 Navigator.pushNamed(
                   context,
-                  AppRoutes.fieldWorkerProfile,
+                  AppRoutes.inspectorProfile,
                   arguments: {'workerId': _worker!.id},
                 );
               }
@@ -617,7 +617,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    _worker?.name ?? 'Field Worker',
+                    _worker?.name ?? 'Field Inspector',
                     style: TextStyle(
                       fontSize: 16, // Reduced from 18
                       fontWeight: FontWeight.bold,
@@ -698,7 +698,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
                       children: [
                         Text(
                           _worker?.currentLocation ??
-                              AppLocalizations.of(context).unknownLocation,
+                              "Assigned Jurisdiction",
                           style: GoogleFonts.outfit(
                             fontSize: 22,
                             fontWeight: FontWeight.w700,
@@ -741,7 +741,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context).tasks,
+                "Assigned Inspections",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -761,7 +761,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
               children: [
                 TextButton.icon(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.fieldWorkerSchedule);
+                    Navigator.pushNamed(context, AppRoutes.inspectorSchedule);
                   },
                   icon: const Icon(Icons.calendar_today, size: 16),
                   label: Text(
@@ -781,7 +781,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
-                      AppRoutes.fieldWorkerVisits,
+                      AppRoutes.inspectorTasks,
                       arguments: {'fieldWorkerId': _worker?.id ?? ''},
                     );
                   },
@@ -803,7 +803,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
-                      AppRoutes.fieldWorkerAchievements,
+                      AppRoutes.inspectorAchievements,
                     );
                   },
                   icon: const Icon(Icons.emoji_events_rounded, size: 16),
@@ -933,7 +933,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 4.0),
                         child: Text(
-                          SolapurLocationUtils.getHumanReadableLocation(
+                          IndiaLocationUtils.getHumanReadableLocation(
                                   task.latitude, task.longitude)
                               .replaceAll('\n', ', '),
                           style: GoogleFonts.caveat(
@@ -1022,7 +1022,7 @@ class _FieldWorkerHomeScreenState extends State<FieldWorkerHomeScreen> {
       onPrimaryAction: () {
         Navigator.pushNamed(
           context,
-          AppRoutes.fieldWorkerNewVisit,
+          AppRoutes.newInspection,
           arguments: {
             'fieldWorkerId': _worker?.id,
             'householdId': task.householdId

@@ -17,7 +17,7 @@ class HospitalDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DashboardBackHandler(
-      dashboardName: 'Hospital Dashboard',
+      dashboardName: 'State Dashboard',
       child: AdaptiveLayout(
         compactBody: _buildDashboardBody(context),
         mediumBody: _buildDashboardBody(context),
@@ -97,7 +97,7 @@ class HospitalDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Text(
-            AppLocalizations.of(context).hospitalStaff.toUpperCase(),
+            "STATE GOVERNANCE BOARD",
             style: GoogleFonts.outfit(
               fontSize: 16,
               fontWeight: FontWeight.w800,
@@ -128,7 +128,7 @@ class HospitalDashboardScreen extends StatelessWidget {
           fit: BoxFit.scaleDown,
           alignment: Alignment.centerLeft,
           child: Text(
-            AppLocalizations.of(context).liveHospitalStatus,
+            "Regional Project Status",
             style: GoogleFonts.outfit(
               fontSize: 28,
               fontWeight: FontWeight.w800,
@@ -142,7 +142,6 @@ class HospitalDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildQuickActions(BuildContext context, bool isDark) {
-    final l10n = AppLocalizations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +160,7 @@ class HospitalDashboardScreen extends StatelessWidget {
           width: double.infinity,
           height: 60,
           color: Theme.of(context).colorScheme.primary,
-          onTap: () => Navigator.pushNamed(context, AppRoutes.hospitalSchedule),
+          onTap: () => Navigator.pushNamed(context, AppRoutes.stateDashboard),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -169,7 +168,7 @@ class HospitalDashboardScreen extends StatelessWidget {
                   size: 20, color: Colors.white),
               const SizedBox(width: 12),
               Text(
-                l10n.viewStaffSchedule.toUpperCase(),
+                "VIEW REGIONAL ANALYTICS",
                 style: GoogleFonts.outfit(
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
@@ -187,11 +186,11 @@ class HospitalDashboardScreen extends StatelessWidget {
               child: _buildActionCard(
                 context,
                 icon: Icons.domain_rounded,
-                title: l10n.translate('hospital_infra'),
-                subtitle: l10n.translate('hospital_infra_desc'),
+                title: "Infra Status",
+                subtitle: "Real-time health of city assets",
                 color: const Color(0xFF8B5CF6),
                 onTap: () =>
-                    Navigator.pushNamed(context, AppRoutes.hospitalInfra),
+                    Navigator.pushNamed(context, AppRoutes.adminInfrastructureStatus),
               ),
             ),
             const SizedBox(width: 12),
@@ -199,11 +198,11 @@ class HospitalDashboardScreen extends StatelessWidget {
               child: _buildActionCard(
                 context,
                 icon: Icons.assessment_rounded,
-                title: l10n.translate('infra_report'),
-                subtitle: l10n.translate('infra_report_desc'),
+                title: "Compliance",
+                subtitle: "Audit reports and certificates",
                 color: const Color(0xFF10B981),
                 onTap: () =>
-                    Navigator.pushNamed(context, AppRoutes.infraReport),
+                    Navigator.pushNamed(context, AppRoutes.complianceReports),
               ),
             ),
           ],
@@ -290,8 +289,8 @@ class HospitalDashboardScreen extends StatelessWidget {
             Flexible(
               child: TextButton(
                 onPressed: () =>
-                    Navigator.pushNamed(context, AppRoutes.hospitalBeds),
-                child: Text(AppLocalizations.of(context).viewAll.toUpperCase(),
+                    Navigator.pushNamed(context, AppRoutes.adminAssetInventory),
+                child: Text("VIEW ALL",
                     style: GoogleFonts.outfit(
                       fontWeight: FontWeight.w800,
                       letterSpacing: 1.0,
@@ -328,9 +327,9 @@ class HospitalDashboardScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () =>
-                  Navigator.pushNamed(context, AppRoutes.hospitalPatients),
+                  Navigator.pushNamed(context, AppRoutes.adminAssetInventory),
               child: Text(
-                AppLocalizations.of(context).manage.toUpperCase(),
+                "MANAGE",
                 style: GoogleFonts.outfit(
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.0,
@@ -410,7 +409,7 @@ class HospitalDashboardScreen extends StatelessWidget {
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () =>
-                    Navigator.pushNamed(context, AppRoutes.hospitalPatients),
+                    Navigator.pushNamed(context, AppRoutes.adminAssetInventory),
               ),
             );
           },

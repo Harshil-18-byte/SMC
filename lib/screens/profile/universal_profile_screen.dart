@@ -38,15 +38,13 @@ class UniversalProfileScreen extends StatelessWidget {
 
         // Return ROLE-SPECIFIC profile
         switch (user.role) {
-          case UserRole.admin:
+          case UserRole.superAdmin:
+          case UserRole.stateAdmin:
+          case UserRole.cityAdmin:
             return _AdminProfileView(user: user);
-          case UserRole.fieldWorker:
+          case UserRole.fieldInspector:
             return _FieldWorkerProfileView(user: user);
-          case UserRole.citizen:
-            return _CitizenProfileView(user: user);
-          case UserRole.doctor:
-            return _DoctorProfileView(user: user);
-          default:
+          case UserRole.viewer:
             return _CitizenProfileView(user: user);
         }
       },
@@ -74,13 +72,13 @@ class _AdminProfileView extends StatelessWidget {
               title: 'System Overview',
               stats: [
                 _StatItemData(
-                    icon: Icons.people, label: 'Total Users', value: '1,234'),
+                    icon: Icons.location_city, label: 'Cities', value: '42'),
                 _StatItemData(
-                    icon: Icons.assignment,
-                    label: 'Active Visits',
-                    value: '89'),
+                    icon: Icons.assignment_turned_in,
+                    label: 'Compliant Assets',
+                    value: '8.4k'),
                 _StatItemData(
-                    icon: Icons.warning, label: 'Alerts', value: '12'),
+                    icon: Icons.report_problem, label: 'Critical Defects', value: '156'),
               ],
             ),
             const SizedBox(height: 16),
@@ -90,16 +88,16 @@ class _AdminProfileView extends StatelessWidget {
               items: [
                 _InfoItemData(
                     icon: Icons.badge,
-                    label: 'Employee ID',
+                    label: 'Officer ID',
                     value: user.employeeId ?? 'N/A'),
                 _InfoItemData(
-                    icon: Icons.business,
-                    label: 'Department',
-                    value: user.department ?? 'N/A'),
+                    icon: Icons.location_on,
+                    label: 'Primary Jurisdiction',
+                    value: user.cityId ?? user.stateId ?? 'India'),
                 _InfoItemData(
-                    icon: Icons.supervisor_account,
-                    label: 'Access Level',
-                    value: 'Full Access'),
+                    icon: Icons.verified_user,
+                    label: 'Clearance Level',
+                    value: user.role == UserRole.superAdmin ? 'National' : 'Regional'),
               ],
             ),
             const SizedBox(height: 32),
@@ -132,16 +130,16 @@ class _FieldWorkerProfileView extends StatelessWidget {
               title: 'My Performance',
               stats: [
                 _StatItemData(
-                    icon: Icons.home,
-                    label: 'Visits Today',
-                    value: '${user.todayVisits ?? 0}'),
+                    icon: Icons.check_circle_outline,
+                    label: 'Inspections',
+                    value: '${user.todayInspections ?? 0}'),
                 _StatItemData(
-                    icon: Icons.calendar_month,
-                    label: 'This Month',
-                    value: '${user.monthlyVisits ?? 0}'),
+                    icon: Icons.add_task,
+                    label: 'Defects Resolved',
+                    value: '${user.resolvedDefects ?? 0}'),
                 _StatItemData(
                     icon: Icons.local_fire_department,
-                    label: 'Streak',
+                    label: 'Task Streak',
                     value: '${user.streak ?? 0} days'),
               ],
             ),
@@ -152,16 +150,16 @@ class _FieldWorkerProfileView extends StatelessWidget {
               items: [
                 _InfoItemData(
                     icon: Icons.badge,
-                    label: 'Employee ID',
+                    label: 'Inspector ID',
                     value: user.employeeId ?? 'N/A'),
                 _InfoItemData(
                     icon: Icons.location_on,
-                    label: 'Assigned Zone',
-                    value: user.assignedZone ?? 'N/A'),
+                    label: 'Assigned Beat',
+                    value: user.wardId ?? user.cityId ?? 'N/A'),
                 _InfoItemData(
-                    icon: Icons.supervisor_account,
-                    label: 'Supervisor',
-                    value: user.supervisorName ?? 'N/A'),
+                    icon: Icons.calendar_today,
+                    label: 'Last Sync',
+                    value: user.lastInspection ?? 'N/A'),
               ],
             ),
             const SizedBox(height: 32),
@@ -194,17 +192,17 @@ class _CitizenProfileView extends StatelessWidget {
               title: 'Health Summary',
               stats: [
                 _StatItemData(
-                    icon: Icons.favorite,
-                    label: 'Health Score',
-                    value: '${user.healthScore ?? 0}%'),
+                    icon: Icons.security,
+                    label: 'Compliance',
+                    value: '${user.complianceScore ?? 0}%'),
                 _StatItemData(
-                    icon: Icons.vaccines,
-                    label: 'Vaccinations',
-                    value: '${user.vaccinationCount ?? 0}'),
+                    icon: Icons.verified,
+                    label: 'Reports Filed',
+                    value: '12'),
                 _StatItemData(
                     icon: Icons.calendar_today,
-                    label: 'Last Checkup',
-                    value: user.lastCheckup ?? 'N/A'),
+                    label: 'Last Activity',
+                    value: user.lastInspection ?? 'N/A'),
               ],
             ),
             const SizedBox(height: 16),
@@ -219,9 +217,9 @@ class _CitizenProfileView extends StatelessWidget {
                 _InfoItemData(
                     icon: Icons.email, label: 'Email', value: user.email),
                 _InfoItemData(
-                    icon: Icons.home,
-                    label: 'Address',
-                    value: user.address ?? 'N/A'),
+                    icon: Icons.location_city,
+                    label: 'Current City',
+                    value: user.cityId ?? 'National'),
               ],
             ),
             const SizedBox(height: 32),
@@ -234,48 +232,6 @@ class _CitizenProfileView extends StatelessWidget {
   }
 }
 
-// Doctor Profile
-class _DoctorProfileView extends StatelessWidget {
-  final User user;
-  const _DoctorProfileView({required this.user});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Doctor Profile')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _ProfileHeader(user: user, roleColor: Colors.teal),
-            const SizedBox(height: 24),
-            _buildInfoCard(
-              context,
-              title: 'Professional Info',
-              items: [
-                _InfoItemData(
-                    icon: Icons.badge,
-                    label: 'Employee ID',
-                    value: user.employeeId ?? 'N/A'),
-                _InfoItemData(
-                    icon: Icons.medical_services,
-                    label: 'Specialization',
-                    value: user.department ?? 'General Medicine'),
-                _InfoItemData(
-                    icon: Icons.business,
-                    label: 'Hospital',
-                    value: 'SMC Central Hospital'),
-              ],
-            ),
-            const SizedBox(height: 32),
-            _buildLogoutButton(context),
-            const SizedBox(height: 32),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 // Shared Components
 class _ProfileHeader extends StatelessWidget {

@@ -2,15 +2,15 @@ class CulturalContext {
   static bool isPublicHoliday() {
     final today = DateTime.now();
 
-    final solapurHolidays = [
+    final BharatHolidays = [
       DateTime(today.year, 11, 1), // Diwali (approx)
       DateTime(today.year, 8, 15), // Independence Day
       DateTime(today.year, 10, 2), // Gandhi Jayanti
       DateTime(today.year, 3, 8), // Holi (approx)
-      // Add Solapur-specific festivals
+      // Add Bharat-specific festivals
     ];
 
-    return solapurHolidays.any((holiday) =>
+    return BharatHolidays.any((holiday) =>
         holiday.year == today.year &&
         holiday.month == today.month &&
         holiday.day == today.day);
@@ -37,7 +37,7 @@ class CulturalContext {
   static String? getContextualBanner() {
     final today = DateTime.now();
 
-    // 1. Specific Solapur Festivals (Highest Priority)
+    // 1. Specific Bharat Festivals (Highest Priority)
     if (isSiddheshwarYatra()) {
       return "🎡 Gadda Yatra Special: Expect heavier traffic near Siddheshwar Temple area today.";
     }
@@ -55,9 +55,9 @@ class CulturalContext {
       return "🎉 Holiday Mode: Emergency services are available 24/7. Enjoy your day!";
     }
 
-    // 3. Seasonal & Weather Context (Solapur Specific Climate)
+    // 3. Seasonal & Weather Context (Bharat Specific Climate)
     if (today.month >= 3 && today.month <= 5) {
-      // Solapur Summer is intense (40°C+)
+      // Bharat Summer is intense (40°C+)
       final hour = today.hour;
       if (hour > 11 && hour < 16) {
         return "☀️ High Heat Alert: It's peak sun hours. Stay hydrated and take breaks in shade.";

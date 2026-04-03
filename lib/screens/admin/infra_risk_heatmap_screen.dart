@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:smc/data/services/firestore_service.dart';
+import 'package:smc/core/utils/india_location_utils.dart';
 
-class SolapurHeatmapScreen extends StatefulWidget {
-  const SolapurHeatmapScreen({super.key});
+class InfraRiskHeatmapScreen extends StatefulWidget {
+  const InfraRiskHeatmapScreen({super.key});
 
   @override
-  State<SolapurHeatmapScreen> createState() => _SolapurHeatmapScreenState();
+  State<InfraRiskHeatmapScreen> createState() => _InfraRiskHeatmapScreenState();
 }
 
 class _HeatPoint {
@@ -16,7 +17,7 @@ class _HeatPoint {
   _HeatPoint(this.location, this.intensity);
 }
 
-class _SolapurHeatmapScreenState extends State<SolapurHeatmapScreen> {
+class _InfraRiskHeatmapScreenState extends State<InfraRiskHeatmapScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   List<_HeatPoint> _heatPoints = [];
   bool _isLoading = true;
@@ -86,7 +87,7 @@ class _SolapurHeatmapScreenState extends State<SolapurHeatmapScreen> {
       appBar: AppBar(
         title: Text(_showPredictive
             ? "Predictive Analysis (Next 7 Days)"
-            : "Solapur Real-Time Heatmap"),
+            : "Bharat Real-Time Heatmap"),
         actions: [
           IconButton(
             icon: Icon(
@@ -113,9 +114,9 @@ class _SolapurHeatmapScreenState extends State<SolapurHeatmapScreen> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : FlutterMap(
-              options: const MapOptions(
-                initialCenter: LatLng(17.6599, 75.9064), // Solapur center
-                initialZoom: 13.5,
+              options: MapOptions(
+                initialCenter: IndiaLocationUtils.indiaCenter, // Bharat center
+                initialZoom: 5.0,
               ),
               children: [
                 TileLayer(

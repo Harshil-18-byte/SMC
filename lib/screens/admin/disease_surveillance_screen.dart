@@ -7,8 +7,8 @@ import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/widgets/smc_map.dart';
 import 'package:latlong2/latlong.dart';
 
-/// Disease Surveillance Analysis Screen
-/// Charts, maps, and raw case data for verification
+/// Infrastructure Risk & Compliance Analysis Screen
+/// Charts, maps, and raw defect data for verification
 class DiseaseSurveillanceScreen extends StatefulWidget {
   const DiseaseSurveillanceScreen({super.key});
 
@@ -29,10 +29,10 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
   String _selectedDisease = 'All';
   final List<String> _diseases = [
     'All',
-    'Dengue',
-    'Malaria',
-    'Covid-19',
-    'Typhoid'
+    'Road Pothole',
+    'Streetlight Issue',
+    'Water Leakage',
+    'Encroachment'
   ];
 
   @override
@@ -101,7 +101,7 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          AppLocalizations.of(context).surveillance,
+          "RISK ANALYSIS",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -236,11 +236,11 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildLegendItem(
-                  AppLocalizations.of(context).translate('active_patients'),
+                  "NEW DEFECTS",
                   const Color(0xFFFF4D4D)),
               const SizedBox(width: 24),
               _buildLegendItem(
-                  AppLocalizations.of(context).translate('recovered'),
+                  "RESOLVED",
                   const Color(0xFF10B981)),
             ],
           ),
@@ -340,9 +340,9 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
         const SizedBox(width: 12),
         Expanded(
           child: _buildSummaryCard(
-            'Active',
+            'Critical',
             totalActive.toString(),
-            Icons.coronavirus,
+            Icons.warning_amber_rounded,
             const Color(0xFFFFAB00),
           ),
         ),
@@ -404,7 +404,7 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
-                  'DISEASE SPREAD BY ZONE',
+                  'ASSET RISK BY ZONE',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -414,7 +414,7 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
                 ),
                 TextButton.icon(
                   onPressed: () =>
-                      Navigator.pushNamed(context, AppRoutes.adminHeatmap),
+                      Navigator.pushNamed(context, AppRoutes.riskHeatmap),
                   icon: const Icon(Icons.map_rounded, size: 16),
                   label: const Text('Advanced Analysis'),
                   style: TextButton.styleFrom(
@@ -546,7 +546,7 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
       child: _rawCases.isEmpty
           ? Center(
               child: Text(
-                'No case data available',
+                'No defect data available',
                 style: TextStyle(color: Colors.grey[500]),
               ),
             )
@@ -594,7 +594,7 @@ class _DiseaseSurveillanceScreenState extends State<DiseaseSurveillanceScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Patient ID: ${caseEntry.patientId}',
+                      'Defect ID: ${caseEntry.patientId}',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,

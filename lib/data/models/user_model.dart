@@ -10,26 +10,31 @@ class User {
   final String? employeeId;
   final String? department;
 
-  // Field Worker specific
-  final int? todayVisits;
-  final int? monthlyVisits;
-  final int? totalVisits;
+  // Multi-tenant Scoping
+  final String? stateId;
+  final String? cityId;
+  final String? wardId;
+
+  // Inspector / Field Officer specific
+  final int? todayInspections;
+  final int? monthlyInspections;
+  final int? totalInspections;
+  final int? resolvedDefects;
   final int? streak;
   final String? assignedZone;
   final String? supervisorName;
+  final String? lastInspection;
 
   // Admin specific
-  final int? activeUsers;
-  final int? activeCases;
-  final int? alerts;
+  final int? activeInspectors;
+  final int? pendingTasks;
+  final int? criticalAlerts;
 
-  // Citizen specific
-  final String? healthId;
-  final String? bloodGroup;
-  final int? healthScore;
-  final int? vaccinationCount;
-  final String? lastCheckup;
-  final String? address;
+  // Compliance Viewer specific
+  final String? region;
+  final String? organization;
+  final int? trustScore;
+  final int? complianceScore;
 
   User({
     required this.id,
@@ -40,81 +45,93 @@ class User {
     this.photoUrl,
     this.employeeId,
     this.department,
-    this.todayVisits,
-    this.monthlyVisits,
-    this.totalVisits,
+    this.stateId,
+    this.cityId,
+    this.wardId,
+    this.todayInspections,
+    this.monthlyInspections,
+    this.totalInspections,
+    this.resolvedDefects,
     this.streak,
     this.assignedZone,
     this.supervisorName,
-    this.activeUsers,
-    this.activeCases,
-    this.alerts,
-    this.healthId,
-    this.bloodGroup,
-    this.healthScore,
-    this.vaccinationCount,
-    this.lastCheckup,
-    this.address,
+    this.lastInspection,
+    this.activeInspectors,
+    this.pendingTasks,
+    this.criticalAlerts,
+    this.region,
+    this.organization,
+    this.trustScore,
+    this.complianceScore,
   });
 
-  factory User.mockAdmin() {
+  factory User.mockNationalAdmin() {
     return User(
-      id: 'admin_1',
-      name: 'Dr. Anjali Deshpande',
-      email: 'anjali.d@solapur.gov.in',
-      phone: '+91 98765 43210',
-      role: UserRole.admin,
+      id: 'nat_admin_1',
+      name: 'Dr. Amitabh Kant',
+      email: 'amitabh.kant@nic.in',
+      phone: '+91 11 2309 6576',
+      role: UserRole.superAdmin,
+      employeeId: 'GOI-HQ-001',
+      department: 'NITI Aayog / Infrastructure',
+      activeInspectors: 4520,
+      pendingTasks: 120,
+      criticalAlerts: 8,
+    );
+  }
+
+  factory User.mockCityAdmin() {
+    return User(
+      id: 'city_admin_1',
+      name: 'Suhas Diwase',
+      email: 'commissioner@smc.gov.in',
+      phone: '+91 217 2740300',
+      role: UserRole.cityAdmin,
       employeeId: 'SMC-ADM-001',
-      department: 'Health Administration',
-      activeUsers: 1240,
-      activeCases: 86,
-      alerts: 12,
+      department: 'Municipal Administration',
+      stateId: 'maharashtra',
+      cityId: 'Bharat',
+      activeInspectors: 142,
+      pendingTasks: 45,
+      criticalAlerts: 12,
     );
   }
 
-  factory User.mockFieldWorker() {
+  factory User.mockFieldInspector() {
     return User(
-      id: 'worker_1',
+      id: 'inspector_1',
       name: 'Rahul More',
-      email: 'rahul.more@smc.in',
+      email: 'rahul.more@infra.smc.in',
       phone: '+91 98234 56789',
-      role: UserRole.fieldWorker,
-      employeeId: 'SMC-FW-402',
-      department: 'Epidemiology Unit',
-      todayVisits: 8,
-      monthlyVisits: 142,
-      totalVisits: 1240,
+      role: UserRole.fieldInspector,
+      employeeId: 'SMC-FI-402',
+      department: 'Roads & Bridges Unit',
+      stateId: 'maharashtra',
+      cityId: 'Bharat',
+      wardId: 'ward_12',
+      todayInspections: 5,
+      monthlyInspections: 84,
+      totalInspections: 1240,
+      resolvedDefects: 42,
       streak: 12,
-      assignedZone: 'Solapur North',
-      supervisorName: 'Dr. Kulkarni',
+      assignedZone: 'Bharat North',
+      supervisorName: 'Er. Kulkarni',
+      lastInspection: '2026-04-02 14:30',
     );
   }
 
-  factory User.mockCitizen() {
+  factory User.mockViewer() {
     return User(
-      id: 'citizen_123',
+      id: 'viewer_123',
       name: 'Suresh Patil',
-      email: 'suresh.patil@gmail.com',
+      email: 'suresh.patil@citizen.in',
       phone: '+91 91234 56789',
-      role: UserRole.citizen,
-      healthId: 'SOL-4522-8901',
-      bloodGroup: 'O+',
-      healthScore: 85,
-      vaccinationCount: 3,
-      lastCheckup: '2025-12-10',
-      address: '123, Navi Peth, Solapur',
-    );
-  }
-
-  factory User.mockDoctor() {
-    return User(
-      id: 'doc_456',
-      name: 'Dr. Sameer Joshi',
-      email: 'sameer.joshi@smc.in',
-      phone: '+91 99887 76655',
-      role: UserRole.doctor,
-      employeeId: 'SMC-DOC-082',
-      department: 'General Medicine',
+      role: UserRole.viewer,
+      organization: 'Public Safety Watch',
+      region: 'Maharashtra',
+      trustScore: 92,
+      complianceScore: 88,
+      lastInspection: '2026-04-01',
     );
   }
 
@@ -128,6 +145,9 @@ class User {
       'photoUrl': photoUrl,
       'employeeId': employeeId,
       'department': department,
+      'stateId': stateId,
+      'cityId': cityId,
+      'wardId': wardId,
     };
   }
 
@@ -139,11 +159,14 @@ class User {
       phone: json['phone'] ?? '',
       role: UserRole.values.firstWhere(
         (e) => e.name == json['role'],
-        orElse: () => UserRole.citizen,
+        orElse: () => UserRole.viewer,
       ),
       photoUrl: json['photoUrl'],
       employeeId: json['employeeId'],
       department: json['department'],
+      stateId: json['stateId'],
+      cityId: json['cityId'],
+      wardId: json['wardId'],
     );
   }
 }

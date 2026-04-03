@@ -14,7 +14,7 @@ class AdminProfileScreen extends StatelessWidget {
       'department': 'Disease Surveillance',
       'email': 'anjali.deshpande@smc.gov.in',
       'phone': '+91 98765 43210',
-      'location': 'SMC Command Center, Solapur',
+      'location': 'SMC Command Center, Bharat',
       'lastLogin': 'Today, 09:41 AM',
     };
 

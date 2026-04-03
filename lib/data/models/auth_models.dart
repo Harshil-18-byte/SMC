@@ -2,39 +2,54 @@ import 'package:flutter/material.dart';
 
 /// User Role Enum
 enum UserRole {
-  admin,
-  fieldWorker,
-  citizen,
-  doctor,
-  guest;
+  superAdmin, // National Level
+  stateAdmin, // State Level
+  cityAdmin, // City/Municipal Level
+  fieldInspector, // Field Officers
+  viewer; // Guest/Citizen view
 
   String get displayName {
     switch (this) {
-      case UserRole.admin:
-        return 'Admin';
-      case UserRole.fieldWorker:
-        return 'Field Worker';
-      case UserRole.citizen:
-        return 'Citizen';
-      case UserRole.doctor:
-        return 'Doctor';
-      case UserRole.guest:
-        return 'Guest';
+      case UserRole.superAdmin:
+        return 'National Admin';
+      case UserRole.stateAdmin:
+        return 'State Admin';
+      case UserRole.cityAdmin:
+        return 'City Admin';
+      case UserRole.fieldInspector:
+        return 'Field Inspector';
+      case UserRole.viewer:
+        return 'Compliance Viewer';
     }
   }
 
   String get description {
     switch (this) {
-      case UserRole.admin:
-        return 'Command Center Access';
-      case UserRole.fieldWorker:
-        return 'Data Collection & Visits';
-      case UserRole.citizen:
-        return 'Health Records & Services';
-      case UserRole.doctor:
-        return 'Medical Consultation & Care';
-      case UserRole.guest:
-        return 'Trial Access';
+      case UserRole.superAdmin:
+        return 'National Infrastructure Monitoring';
+      case UserRole.stateAdmin:
+        return 'Regional Compliance Control';
+      case UserRole.cityAdmin:
+        return 'City-wide Asset Management';
+      case UserRole.fieldInspector:
+        return 'Asset Inspection & Reporting';
+      case UserRole.viewer:
+        return 'Public Transparency Access';
+    }
+  }
+
+  String get homeRoute {
+    switch (this) {
+      case UserRole.superAdmin:
+        return '/national-dashboard';
+      case UserRole.stateAdmin:
+        return '/state-dashboard';
+      case UserRole.cityAdmin:
+        return '/city-dashboard';
+      case UserRole.fieldInspector:
+        return '/inspector-home';
+      case UserRole.viewer:
+        return '/viewer-home';
     }
   }
 }

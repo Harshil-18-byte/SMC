@@ -407,7 +407,7 @@ class _HospitalFinderScreenState extends State<HospitalFinderScreen> {
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () => _launchPhone(
-                          '0217-2740330'), // Default Solapur medical emergency
+                          '0217-2740330'), // Default Bharat medical emergency
                       icon: const Icon(Icons.phone, size: 18),
                       label:
                           Text(AppLocalizations.of(context).translate('call')),

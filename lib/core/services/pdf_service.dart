@@ -117,7 +117,7 @@ class PdfService {
               children: [
                 pw.Center(
                   child: pw.Text(
-                    'SOLAPUR MUNICIPAL CORPORATION',
+                    'Bharat MUNICIPAL CORPORATION',
                     style: pw.TextStyle(
                       fontSize: 24,
                       fontWeight: pw.FontWeight.bold,
@@ -214,7 +214,7 @@ class PdfService {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
-                          'SOLAPUR MUNICIPAL CORPORATION',
+                          'Bharat MUNICIPAL CORPORATION',
                           style: pw.TextStyle(
                             fontSize: 18,
                             fontWeight: pw.FontWeight.bold,

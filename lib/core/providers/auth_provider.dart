@@ -51,7 +51,7 @@ class AuthProvider extends ChangeNotifier {
   UserRole _parseRole(String roleString) {
     return UserRole.values.firstWhere(
       (e) => e.name == roleString,
-      orElse: () => UserRole.citizen,
+      orElse: () => UserRole.viewer,
     );
   }
 
@@ -74,14 +74,14 @@ class AuthProvider extends ChangeNotifier {
 
       if (firebaseUser != null) {
         // Create our app User model based on role
-        if (role == UserRole.admin) {
-          _currentUser = User.mockAdmin();
-        } else if (role == UserRole.fieldWorker) {
-          _currentUser = User.mockFieldWorker();
-        } else if (role == UserRole.doctor) {
-          _currentUser = User.mockDoctor();
+        if (role == UserRole.superAdmin) {
+          _currentUser = User.mockNationalAdmin();
+        } else if (role == UserRole.cityAdmin) {
+          _currentUser = User.mockCityAdmin();
+        } else if (role == UserRole.fieldInspector) {
+          _currentUser = User.mockFieldInspector();
         } else {
-          _currentUser = User.mockCitizen();
+          _currentUser = User.mockViewer();
         }
 
         _currentRole = role;
@@ -128,16 +128,16 @@ class AuthProvider extends ChangeNotifier {
 extension UserRoleExtension on UserRole {
   String get homeRoute {
     switch (this) {
-      case UserRole.admin:
-        return AppRoutes.adminDashboard;
-      case UserRole.fieldWorker:
-        return AppRoutes.fieldWorkerHome;
-      case UserRole.citizen:
-        return AppRoutes.citizenHome;
-      case UserRole.doctor:
-        return AppRoutes.hospitalDashboard;
-      default:
-        return AppRoutes.citizenHome;
+      case UserRole.superAdmin:
+        return AppRoutes.nationalDashboard;
+      case UserRole.stateAdmin:
+        return AppRoutes.stateDashboard;
+      case UserRole.cityAdmin:
+        return AppRoutes.cityDashboard;
+      case UserRole.fieldInspector:
+        return AppRoutes.inspectorHome;
+      case UserRole.viewer:
+        return AppRoutes.viewerHome;
     }
   }
 }

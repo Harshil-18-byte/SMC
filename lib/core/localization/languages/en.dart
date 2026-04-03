@@ -1,7 +1,7 @@
 /// English translations
 const Map<String, String> en = {
   // App
-  'app_name': 'SMC - Smart Management Center',
+  'app_name': 'Bharat - Infra Inspect',
   'welcome': 'Welcome',
   'login': 'Login',
   'logout': 'Logout',
@@ -69,7 +69,7 @@ const Map<String, String> en = {
   'symptom_checker': 'Symptom Checker',
 
   // Admin
-  'surveillance': 'Disease Surveillance',
+  'surveillance': 'Infrastructure Surveillance',
   'hospital_status': 'Hospital Status',
   'medicine_inventory': 'Medicine Inventory',
   'emergency_alerts': 'Emergency Alerts',
@@ -90,7 +90,7 @@ const Map<String, String> en = {
 
   // Admin Features
   'command_center': 'Command Center',
-  'disease_monitoring': 'Disease Monitoring',
+  'disease_monitoring': 'Defect Monitoring',
   'live_heatmap': 'Live Heatmap',
   'infrastructure': 'Infrastructure',
   'system_logs': 'System Logs',
@@ -188,7 +188,7 @@ const Map<String, String> en = {
 
   // Login Screen
   'login_title': 'Welcome Back',
-  'login_subtitle': 'Sign in to SMC Health Portal',
+  'login_subtitle': 'Sign in to Infrastructure Portal',
   'login_as': 'Login As',
   'login_username_label': 'Username / Employee ID',
   'login_username_hint': 'Enter your username',
@@ -201,7 +201,7 @@ const Map<String, String> en = {
   'login_forgot_password': 'Forgot Password?',
   'login_forgot_demo': 'Contact your administrator to reset password',
   'login_dev_hint': 'Dev mode: Any credentials are accepted for demo access',
-  'login_footer_text': 'SMC SMART CITY • HEALTH PORTAL',
+  'login_footer_text': 'BHARAT INFRA • NATIONAL PORTAL',
 
   // Domain Selection (legacy compatibility)
   'select_domain': 'Select Domain',
@@ -213,7 +213,7 @@ const Map<String, String> en = {
   'hospital_domain_subtitle': 'Patient Medical Records & Bed Management',
   'citizen_portal': 'Citizen Portal',
   'citizen_domain_subtitle': 'My Health, Records & Emergency SOS',
-  'dev_mode_label': 'SMC Smart City • Developer Mode',
+  'dev_mode_label': 'Bharat Infra • Developer Mode',
 
   // Citizen Home Highlights
   'family_ward': 'Family Ward',
@@ -224,7 +224,7 @@ const Map<String, String> en = {
   'offline_mode_msg': 'You are offline. Showing cached data.',
   'sync_success_msg': 'Synced offline records successfully!',
   'syncing_msg': 'Syncing offline data...',
-  'connecting_msg': 'Connecting to SMC Server...',
+  'connecting_msg': 'Connecting to National Server...',
   'fetching_tasks_msg': 'Fetching your tasks...',
   'syncing_records_msg': 'Syncing health records...',
   'getting_ready_msg': 'Getting ready...',
@@ -244,7 +244,7 @@ const Map<String, String> en = {
 
   // Immersive Dashboard
   'magic_deck': 'YOUR MAGIC DECK',
-  'city_health_index': 'SMART CITY HEALTH INDEX',
+  'city_health_index': 'NATIONAL INFRA INDEX',
   'ai_insights': 'AI INSIGHTS',
   'city_vitals_heatmap': 'CITY VITALS HEATMAP',
   'launch_3d_analytics': 'Launch 3D Analytics',
@@ -261,11 +261,11 @@ const Map<String, String> en = {
 
   // Chatbot
   'chat_hello':
-      'Hello! I am your SMC Health Assistant. How can I help you today?',
+      'Hello! I am your Bharat Infra Assistant. How can I help you today?',
   'chat_thank_you': 'You\'re very welcome! Stay safe and healthy.',
   'chat_bye': 'Goodbye! Take care of yourself.',
   'chat_who_are_you':
-      'I am the SMC Health Assistant, an AI designed to help you with basic health queries and guidance.',
+      'I am the Bharat Infra Assistant, an AI designed to help you with infrastructure queries and guidance.',
 
   // New Features - AI & Diagnostics
   'vision_check': 'AI Vision Symptom Checker',
@@ -292,11 +292,11 @@ const Map<String, String> en = {
   'report_hygiene': 'Report Public Hygiene Issue',
   'hazard_photo': 'Take a photo of the hazard',
   'hazard_location': 'Pinpoint Location',
-  'report_submitted': 'Report submitted to SMC Health Dept.',
+  'report_submitted': 'Report submitted to Infrastructure Dept.',
 
   // Admin Advanced
   'predictive_heatmap': 'Predictive Outbreak Analysis',
-  'resource_tracker': 'SMC Resource Live-Tracker',
+  'resource_tracker': 'Resource Live-Tracker',
   'oxygen_status': 'Oxygen Levels',
   'ventilator_avail': 'Ventilators Available',
 
@@ -310,7 +310,7 @@ const Map<String, String> en = {
   'sugar_trend': 'Blood Sugar Trend',
 
   // Volunteer
-  'volunteer_network': 'SMC Volunteer Network',
+  'volunteer_network': 'Volunteer Network',
   'health_camps': 'Upcoming Health Camps',
   'join_as_volunteer': 'Join as Volunteer',
   'elderly_care': 'Elderly Wellness Check',
@@ -423,7 +423,7 @@ const Map<String, String> en = {
   'iot_heart_rate': 'Heart Rate',
   'iot_room_temp': 'Room Temp',
   'iot_air_quality': 'Air Quality',
-  'iot_city_infrastructure': 'City IoT Infrastructure',
+  'iot_city_infrastructure': 'National Infrastructure',
   'iot_water_sensors': 'Water Quality Sensors',
   'iot_traffic_sensors': 'Traffic Monitoring',
   'iot_smart_lights': 'Smart Street Lights',
@@ -448,7 +448,7 @@ const Map<String, String> en = {
   'bot_smart_city_ai': 'Smart City AI',
   'bot_type_symptoms': 'Type symptoms...',
   'bot_thinking': 'Analyzing symptoms...',
-  'env_city_health_index': 'City Health Index',
+  'env_city_health_index': 'Infra Health Index',
   'env_aqi': 'AQI',
   'env_temp': 'Temp',
   'env_uv': 'UV',
@@ -456,7 +456,7 @@ const Map<String, String> en = {
   'env_warm': 'Warm',
   'env_safe': 'Safe',
   'env_health_advice': 'Health Advice',
-  'env_ward_aqi': 'Ward-wise Air Quality',
+  'env_ward_aqi': 'Region-wise Air Quality',
   'err_generic': 'Something went wrong. Please try again later.',
 
   // New Feature Screens

@@ -11,8 +11,13 @@ import 'package:smc/screens/profile/universal_profile_screen.dart';
 import 'package:smc/screens/common/notifications_screen.dart';
 import 'package:smc/screens/dashboard/immersive_dashboard.dart';
 
-// Admin Screens
-import 'package:smc/screens/admin/admin_dashboard_screen.dart';
+// Admin/National/State/City Screens
+// import 'package:smc/screens/admin/admin_dashboard_screen.dart';
+import 'package:smc/screens/admin/national_dashboard_screen.dart';
+import 'package:smc/screens/admin/state_dashboard_screen.dart';
+import 'package:smc/screens/admin/city_dashboard_screen.dart';
+import 'package:smc/screens/inspector/inspector_dashboard_screen.dart';
+import 'package:smc/screens/citizen/citizen_dashboard_screen.dart';
 import 'package:smc/screens/admin/admin_command_center_screen.dart';
 import 'package:smc/screens/admin/disease_surveillance_screen.dart';
 import 'package:smc/screens/admin/hospital_status_screen.dart';
@@ -21,22 +26,21 @@ import 'package:smc/screens/admin/emergency_alert_control_screen.dart';
 import 'package:smc/screens/admin/user_management_screen.dart';
 import 'package:smc/screens/admin/system_audit_logs_screen.dart';
 import 'package:smc/screens/admin/system_health_screen.dart';
-import 'package:smc/screens/admin/solapur_heatmap_screen.dart';
-import 'package:smc/screens/admin/hospital_resource_tracker_screen.dart';
+import 'package:smc/screens/admin/infra_risk_heatmap_screen.dart';
+// import 'package:smc/screens/admin/hospital_resource_tracker_screen.dart'; // Removed unused
 import 'package:smc/features/heatmap/immersive_heatmap_screen.dart';
 
 // Hospital Screens
-import 'package:smc/screens/hospital/hospital_dashboard_screen.dart';
+// import 'package:smc/screens/hospital/hospital_dashboard_screen.dart';
 import 'package:smc/screens/hospital/hospital_patients_screen.dart';
-import 'package:smc/screens/hospital/hospital_beds_screen.dart';
 import 'package:smc/screens/hospital/hospital_schedule_screen.dart';
 import 'package:smc/screens/hospital/hospital_infra_screen.dart';
 import 'package:smc/screens/hospital/infra_report_screen.dart';
 
 // Field Worker Screens
-import 'package:smc/screens/field_worker/field_worker_home_screen.dart';
+// import 'package:smc/screens/field_worker/field_worker_home_screen.dart';
 import 'package:smc/screens/field_worker/field_worker_visits_screen.dart';
-import 'package:smc/screens/field_worker/new_visit_form_screen.dart';
+// import 'package:smc/screens/field_worker/new_visit_form_screen.dart'; // Removed unused
 import 'package:smc/screens/field_worker/symptom_checker_screen.dart';
 import 'package:smc/screens/field_worker/field_worker_schedule_screen.dart';
 import 'package:smc/screens/field_worker/household_visit_form_screen.dart';
@@ -47,25 +51,15 @@ import 'package:smc/screens/field_worker/visit_summary_screen.dart';
 import 'package:smc/screens/common/patient_summary_screen.dart';
 
 // Citizen Screens
-import 'package:smc/screens/citizen/citizen_home_screen.dart';
-import 'package:smc/screens/citizen/hospital_finder_screen.dart';
 import 'package:smc/screens/citizen/health_id_screen.dart';
-import 'package:smc/screens/citizen/appointments_screen.dart';
-import 'package:smc/screens/citizen/health_records_screen.dart';
-import 'package:smc/screens/citizen/vaccination_portal_screen.dart';
 import 'package:smc/screens/citizen/emergency_sos_screen.dart';
-import 'package:smc/screens/citizen/vaccination_card_screen.dart';
-import 'package:smc/screens/citizen/family_ward_screen.dart';
-import 'package:smc/screens/citizen/doctor_bot_screen.dart';
-import 'package:smc/screens/citizen/medication_reminders_screen.dart'; // Added Meds
-import 'package:smc/screens/citizen/blood_donation_screen.dart';
-import 'package:smc/screens/citizen/hygiene_report_screen.dart';
-import 'package:smc/screens/citizen/vitals_analytics_screen.dart';
-import 'package:smc/screens/citizen/volunteer_network_screen.dart';
-import 'package:smc/screens/citizen/medicine_inventory_screen.dart';
+// import 'package:smc/screens/citizen/hygiene_report_screen.dart'; // Removed unused
+// import 'package:smc/screens/citizen/vitals_analytics_screen.dart'; // Removed unused
 import 'package:smc/data/models/auth_models.dart';
 import 'package:smc/screens/iot/iot_dashboard_screen.dart';
 import 'package:smc/screens/iot/iot_device_detail_screen.dart';
+// import 'package:smc/core/layout/adaptive_layout.dart';
+// import 'package:smc/core/widgets/universal_drawer.dart';
 
 /// App Routes Configuration
 class AppRoutes {
@@ -76,65 +70,44 @@ class AppRoutes {
   static const String immersiveDashboard = '/immersive';
   static const String notifications = '/notifications';
 
-  // Admin Routes
-  static const String adminDashboard = '/admin-dashboard';
+  // Admin/Governance Routes
+  static const String nationalDashboard = '/national-dashboard';
+  static const String stateDashboard = '/state-dashboard';
+  static const String cityDashboard = '/city-dashboard';
   static const String adminSurveillance = '/admin-surveillance';
-  static const String adminHospitalStatus = '/admin-hospital-status';
-  static const String adminMedicineInventory = '/admin-medicine-inventory';
+  static const String adminInfrastructureStatus = '/admin-infra-status';
+  static const String adminAssetInventory = '/admin-asset-inventory';
   static const String adminEmergencyAlert = '/admin-emergency-alert';
   static const String adminUserManagement = '/admin-user-management';
   static const String adminAuditLogs = '/admin-audit-logs';
   static const String adminCommandCenter = '/admin-command-center';
   static const String systemHealth = '/system-health';
-  static const String adminHeatmap = '/admin-heatmap';
+  static const String riskHeatmap = '/infra-risk-heatmap';
   static const String immersiveHeatmap = '/immersive-heatmap';
 
   static const String adminProfile = '/admin-profile';
 
-  // Hospital Routes
-  static const String hospitalDashboard = '/hospital-dashboard';
-  static const String hospitalPatients = '/hospital-patients';
-  static const String hospitalBeds = '/hospital-beds';
-  static const String hospitalSchedule = '/hospital-schedule';
-  static const String hospitalProfile = '/hospital-profile';
-  static const String hospitalInfra = '/hospital-infra';
-  static const String infraReport = '/infra-report';
+  // Field Inspector Routes
+  static const String inspectorHome = '/inspector-home';
+  static const String inspectorTasks = '/inspector-tasks';
+  static const String newInspection = '/new-inspection';
+  static const String inspectionCamera = '/inspection-camera';
+  static const String inspectorAchievements = '/inspector-achievements';
+  static const String inspectorProfile = '/inspector-profile';
+  static const String inspectorSchedule = '/inspector-schedule';
+  static const String inspectionSummary = '/inspection-summary';
 
-  // Field Worker Routes
-  static const String fieldWorkerHome = '/field-worker-home';
-  static const String fieldWorkerVisits = '/field-worker-visits';
-  static const String fieldWorkerNewVisit = '/field-worker-new-visit';
-  static const String fieldWorkerHouseholdVisit =
-      '/field-worker-household-visit';
-  static const String fieldWorkerAchievements = '/field-worker-achievements';
-  static const String fieldWorkerAssessment = '/field-worker-assessment';
-  static const String fieldWorkerProfile = '/field-worker-profile';
-  static const String fieldWorkerSchedule = '/field-worker-schedule';
-  static const String householdVisitForm = '/household-visit-form';
-
-  // Citizen Routes
-  static const String citizenHome = '/citizen-home';
-  static const String citizenSOS = '/citizen-sos';
-  static const String citizenFacilitySearch = '/citizen-facility-search';
-  static const String citizenHealthID = '/citizen-health-id';
-  static const String citizenHealthRecords = '/citizen-health-records';
-  static const String citizenAppointments = '/citizen-appointments';
-  static const String citizenVaccination = '/citizen-vaccination';
-  static const String citizenVaccinationCard = '/citizen-vaccination-card';
-  static const String citizenProfile = '/citizen-profile';
-  static const String familyWard = '/family-ward'; // Added Family Ward Route
-  static const String doctorBot = '/doctor-bot'; // Added DoctorBot Route
-  static const String medications = '/medications'; // Added Meds Route
+  // Compliance Viewer / Public Routes
+  static const String viewerHome = '/viewer-home';
+  static const String assetSearch = '/asset-search';
+  static const String assetDetail = '/asset-detail';
+  static const String complianceReports = '/compliance-reports';
+  static const String regionalAnalytics = '/regional-analytics';
+  static const String transparencyPortal = '/transparency-portal';
+  static const String publicSOS = '/public-sos';
+  static const String viewerProfile = '/viewer-profile';
   static const String settings = '/settings';
   static const String profile = '/profile';
-
-  // Enhanced Features
-  static const String bloodDonation = '/blood-donation';
-  static const String hygieneReport = '/hygiene-report';
-  static const String resourceTracker = '/resource-tracker';
-  static const String vitalsAnalytics = '/vitals-analytics';
-  static const String volunteerNetwork = '/volunteer-network';
-  static const String citizenMedicineInventory = '/citizen-medicine-inventory';
 
   // IoT Routes
   static const String iotDashboard = '/iot-dashboard';
@@ -165,7 +138,7 @@ class RouteGenerator {
       case AppRoutes.profile:
         return _buildRoute(const UniversalProfileScreen(), settings);
 
-      case AppRoutes.fieldWorkerHouseholdVisit:
+      case AppRoutes.newInspection:
         if (settings.arguments is Map<String, dynamic>) {
           final args = settings.arguments as Map<String, dynamic>;
           return MaterialPageRoute(
@@ -176,8 +149,8 @@ class RouteGenerator {
             ),
           );
         }
-        return _errorRoute('Missing arguments for Household Visit Form');
-      case AppRoutes.fieldWorkerAchievements:
+        return _buildRoute(const HouseholdVisitFormScreen(workerId: '', householdId: '', householdName: ''), settings);
+      case AppRoutes.inspectorAchievements:
         return MaterialPageRoute(
             builder: (_) => const FieldWorkerAchievementsScreen());
       case AppRoutes.roleSelection:
@@ -197,17 +170,17 @@ class RouteGenerator {
         }
         return _errorRoute('Missing arguments for OTP Verification');
 
-      // --- Admin Routes ---
-      case AppRoutes.adminDashboard:
-        return _buildRoute(const AdminDashboardScreen(), settings);
+      // --- Infrastructure/Government Routes ---
+      case AppRoutes.nationalDashboard:
+        return _buildRoute(const NationalDashboardScreen(), settings);
 
       case AppRoutes.adminSurveillance:
         return _buildRoute(const DiseaseSurveillanceScreen(), settings);
 
-      case AppRoutes.adminHospitalStatus:
+      case AppRoutes.adminInfrastructureStatus:
         return _buildRoute(const HospitalStatusScreen(), settings);
 
-      case AppRoutes.adminMedicineInventory:
+      case AppRoutes.adminAssetInventory:
         return _buildRoute(const MedicineInventoryScreen(), settings);
 
       case AppRoutes.adminEmergencyAlert:
@@ -225,8 +198,8 @@ class RouteGenerator {
       case AppRoutes.systemHealth:
         return _buildRoute(const SystemHealthScreen(), settings);
 
-      case AppRoutes.adminHeatmap:
-        return _buildRoute(const SolapurHeatmapScreen(), settings);
+      case AppRoutes.riskHeatmap:
+        return _buildRoute(const InfraRiskHeatmapScreen(), settings);
 
       case AppRoutes.immersiveHeatmap:
         return _buildRoute(const ImmersiveHeatmapScreen(), settings);
@@ -237,33 +210,30 @@ class RouteGenerator {
           settings,
         );
 
-      // --- Hospital Routes ---
-      case AppRoutes.hospitalDashboard:
-        return _buildRoute(const HospitalDashboardScreen(), settings);
+      // --- State/City Authority Routes ---
+      case AppRoutes.stateDashboard:
+        return _buildRoute(const StateDashboardScreen(), settings);
 
-      case AppRoutes.hospitalPatients:
+      case AppRoutes.cityDashboard:
+        return _buildRoute(const CityDashboardScreen(), settings);
+
+      case AppRoutes.assetSearch:
         return _buildRoute(const HospitalPatientsScreen(), settings);
 
-      case AppRoutes.hospitalBeds:
-        return _buildRoute(const HospitalBedsScreen(), settings);
-
-      case AppRoutes.hospitalSchedule:
-        return _buildRoute(const HospitalScheduleScreen(), settings);
-
-      case AppRoutes.hospitalProfile:
-        return _buildRoute(const UniversalProfileScreen(), settings);
-
-      case AppRoutes.hospitalInfra:
-        return _buildRoute(const HospitalInfraScreen(), settings);
-
-      case AppRoutes.infraReport:
+      case AppRoutes.complianceReports:
         return _buildRoute(const InfraReportScreen(), settings);
 
-      // --- Field Worker Routes ---
-      case AppRoutes.fieldWorkerHome:
-        return _buildRoute(const FieldWorkerHomeScreen(), settings);
+      case AppRoutes.regionalAnalytics:
+        return _buildRoute(const HospitalScheduleScreen(), settings);
 
-      case AppRoutes.fieldWorkerVisits:
+      case AppRoutes.transparencyPortal:
+        return _buildRoute(const HospitalInfraScreen(), settings);
+
+      // --- Field Inspector Routes ---
+      case AppRoutes.inspectorHome:
+        return _buildRoute(const InspectorDashboardScreen(), settings);
+
+      case AppRoutes.inspectorTasks:
         if (settings.arguments is Map<String, dynamic>) {
           final args = settings.arguments as Map<String, dynamic>;
           return _buildRoute(
@@ -273,22 +243,10 @@ class RouteGenerator {
             settings,
           );
         }
-        return _errorRoute('Missing fieldWorkerId for Visits');
+        return _buildRoute(const FieldWorkerVisitsScreen(fieldWorkerId: ''), settings);
 
-      case AppRoutes.fieldWorkerNewVisit:
-        if (settings.arguments is Map<String, dynamic>) {
-          final args = settings.arguments as Map<String, dynamic>;
-          return _buildRoute(
-            NewVisitFormScreen(
-              fieldWorkerId: (args['fieldWorkerId'] as String?) ?? '',
-              householdId: args['householdId'] as String?,
-            ),
-            settings,
-          );
-        }
-        return _errorRoute('Missing fieldWorkerId for New Visit');
 
-      case AppRoutes.fieldWorkerAssessment:
+      case AppRoutes.inspectionCamera:
         if (settings.arguments is Map<String, dynamic>) {
           final args = settings.arguments as Map<String, dynamic>;
           return _buildRoute(
@@ -299,89 +257,34 @@ class RouteGenerator {
             settings,
           );
         }
-        return _errorRoute('Missing arguments for Assessment');
+        return _buildRoute(const SymptomCheckerScreen(householdMemberId: '', memberName: ''), settings);
 
-      case AppRoutes.householdVisitForm:
-        if (settings.arguments is Map<String, dynamic>) {
-          final args = settings.arguments as Map<String, dynamic>;
-          return _buildRoute(
-            HouseholdVisitFormScreen(
-              workerId: args['workerId'] as String,
-              householdId: args['householdId'] as String,
-              householdName:
-                  args['householdName'] as String? ?? 'Unknown Household',
-            ),
-            settings,
-          );
-        }
-        return _errorRoute('Missing arguments for Household Visit Form');
 
-      case AppRoutes.fieldWorkerProfile:
+      case AppRoutes.inspectorProfile:
         return _buildRoute(const UniversalProfileScreen(), settings);
 
-      case AppRoutes.fieldWorkerSchedule:
+      case AppRoutes.inspectorSchedule:
         return _buildRoute(const FieldWorkerScheduleScreen(), settings);
 
-      // --- Citizen Routes ---
-      case AppRoutes.citizenHome:
-        return _buildRoute(const CitizenHomeScreen(), settings);
+      // --- Viewer / Public Routes ---
+      case AppRoutes.viewerHome:
+        return _buildRoute(const CitizenDashboardScreen(), settings);
 
-      case AppRoutes.citizenSOS:
+      case AppRoutes.publicSOS:
         return _buildRoute(
           const CitizenSOSScreen(),
           settings,
         );
 
-      case AppRoutes.citizenFacilitySearch:
-        return _buildRoute(const HospitalFinderScreen(), settings);
-
-      case AppRoutes.citizenHealthID:
+      case AppRoutes.assetDetail:
         return _buildRoute(const HealthIDScreen(), settings);
 
-      case AppRoutes.citizenHealthRecords:
-        return _buildRoute(const HealthRecordsScreen(), settings);
-
-      case AppRoutes.citizenAppointments:
-        return _buildRoute(const AppointmentsScreen(), settings);
-
-      case AppRoutes.citizenVaccination:
-        return _buildRoute(const VaccinationPortalScreen(), settings);
-
-      case AppRoutes.citizenVaccinationCard:
-        return _buildRoute(const VaccinationCardScreen(), settings);
-
-      case AppRoutes.citizenProfile:
+      case AppRoutes.viewerProfile:
         return _buildRoute(
           const UniversalProfileScreen(),
           settings,
         );
 
-      case AppRoutes.familyWard:
-        return _buildRoute(const FamilyWardScreen(), settings);
-
-      case AppRoutes.doctorBot: // Added DoctorBot Handler
-        return _buildRoute(const DoctorBotScreen(), settings);
-
-      case AppRoutes.medications: // Added Meds Handler
-        return _buildRoute(const MedicationRemindersScreen(), settings);
-
-      case AppRoutes.bloodDonation:
-        return _buildRoute(const BloodDonationScreen(), settings);
-
-      case AppRoutes.hygieneReport:
-        return _buildRoute(const HygieneReportScreen(), settings);
-
-      case AppRoutes.resourceTracker:
-        return _buildRoute(const HospitalResourceTrackerScreen(), settings);
-
-      case AppRoutes.vitalsAnalytics:
-        return _buildRoute(const VitalsAnalyticsScreen(), settings);
-
-      case AppRoutes.volunteerNetwork:
-        return _buildRoute(const VolunteerNetworkScreen(), settings);
-
-      case AppRoutes.citizenMedicineInventory:
-        return _buildRoute(const CitizenMedicineInventoryScreen(), settings);
 
       // --- Common Feature Routes ---
       case AppRoutes.patientSummary:

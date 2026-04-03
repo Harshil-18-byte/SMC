@@ -50,7 +50,7 @@ class _CitizenProfileScreenState extends State<CitizenProfileScreen> {
           bloodGroup: 'O+',
           phone: user?.phoneNumber ?? '+91 91234 56789',
           email: user?.email ?? 'suresh.patil@gmail.com',
-          address: 'Shivaji Colony, Solapur',
+          address: 'Shivaji Colony, Bharat',
         );
       }
     } catch (e) {

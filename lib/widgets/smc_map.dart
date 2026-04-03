@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/screens/hospital/hospital_details_screen.dart';
+import 'package:smc/core/utils/india_location_utils.dart';
 
 extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -17,6 +18,8 @@ class SMCMap extends StatefulWidget {
   final bool showMarkers;
   final List<LatLng>? heatPoints;
   final Function(LatLng)? onTap;
+  final LatLng? initialCenter;
+  final double? initialZoom;
 
   const SMCMap({
     super.key,
@@ -24,6 +27,8 @@ class SMCMap extends StatefulWidget {
     this.showMarkers = true,
     this.heatPoints,
     this.onTap,
+    this.initialCenter,
+    this.initialZoom,
   });
 
   @override
@@ -35,8 +40,8 @@ class _SMCMapState extends State<SMCMap> {
   bool _isLoading = true;
   String? _error;
 
-  // Solapur default location
-  static const LatLng _solapurCenter = LatLng(17.6599, 75.9064);
+  // India default location for National Overview
+  static const LatLng _indiaCenter = IndiaLocationUtils.indiaCenter;
 
   List<Marker> _markers = [];
 
@@ -132,7 +137,7 @@ class _SMCMapState extends State<SMCMap> {
             children: [
               CircularProgressIndicator(),
               SizedBox(height: 16),
-              Text('Loading map...'),
+              Text('Synthesizing Dashboard Map...'),
             ],
           ),
         ),
@@ -178,9 +183,9 @@ class _SMCMapState extends State<SMCMap> {
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
-        initialCenter: _solapurCenter,
-        initialZoom: 13.0,
-        minZoom: 10.0,
+        initialCenter: widget.initialCenter ?? _indiaCenter,
+        initialZoom: widget.initialZoom ?? (widget.initialCenter == null ? IndiaLocationUtils.nationalZoom : 12.0),
+        minZoom: 3.0,
         maxZoom: 18.0,
         onTap: widget.onTap != null
             ? (tapPosition, point) => widget.onTap!(point)
@@ -189,49 +194,23 @@ class _SMCMapState extends State<SMCMap> {
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'in.gov.smc.smcapp',
+          userAgentPackageName: 'in.gov.bharat.infra',
         ),
         MarkerLayer(
           markers: _markers,
         ),
         if (widget.showHeatmap)
-          CircleLayer(
+          CircleLayer<Object>(
             circles: widget.heatPoints != null
                 ? widget.heatPoints!
                     .map((p) => CircleMarker(
                           point: p,
                           color: Colors.red.withValues(alpha: 0.3),
                           useRadiusInMeter: true,
-                          radius: 800,
+                          radius: 1200,
                         ))
                     .toList()
-                : [
-                    // Simulated Heatmap Points for Solapur
-                    CircleMarker(
-                      point: const LatLng(17.6599, 75.9064), // Civil Lines
-                      color: Colors.red.withValues(alpha: 0.3),
-                      useRadiusInMeter: true,
-                      radius: 1500, // 1.5km radius
-                    ),
-                    CircleMarker(
-                      point: const LatLng(17.67, 75.92), // Hotgi Road Area
-                      color: Colors.orange.withValues(alpha: 0.3),
-                      useRadiusInMeter: true,
-                      radius: 1200,
-                    ),
-                    CircleMarker(
-                      point: const LatLng(17.63, 75.89), // Navi Peth
-                      color: Colors.yellow.withValues(alpha: 0.3),
-                      useRadiusInMeter: true,
-                      radius: 1000,
-                    ),
-                    CircleMarker(
-                      point: const LatLng(17.65, 75.94), // MIDC Area
-                      color: Colors.green.withValues(alpha: 0.3),
-                      useRadiusInMeter: true,
-                      radius: 2000,
-                    ),
-                  ],
+                : [],
           ),
       ],
     );
@@ -243,5 +222,3 @@ class _SMCMapState extends State<SMCMap> {
     super.dispose();
   }
 }
-
-

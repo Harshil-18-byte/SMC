@@ -125,7 +125,7 @@ class BadgeLibrary {
         realImpactDescription:
             'Provided consistent health monitoring for a full week',
         impactMetrics: {'families_monitored': 50},
-        congratsMessage: 'Your dedication is making Solapur healthier!',
+        congratsMessage: 'Your dedication is making Bharat healthier!',
         shareMessage: 'One week of making a difference in my community! 💪',
         certificateTemplate: 'weekly_dedication',
       ),
@@ -149,7 +149,7 @@ class BadgeLibrary {
         realImpactDescription: 'Monitored 200+ families over a month',
         impactMetrics: {'families_monitored': 200},
         congratsMessage: 'You are now a pillar of community health!',
-        shareMessage: 'Celebrating 30 days of keeping Solapur healthy! 🏅',
+        shareMessage: 'Celebrating 30 days of keeping Bharat healthy! 🏅',
         certificateTemplate: 'monthly_excellence',
       ),
 

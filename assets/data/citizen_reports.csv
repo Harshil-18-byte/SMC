@@ -1,0 +1,11 @@
+rep_id,citizen_name,category,issue_desc,city,state,lat,lng,timestamp,status
+CIT-REP-01,Anil Deshmukh,Roads,Huge pothole near railway station,Solapur,Maharashtra,17.6599,75.9064,2026-04-03T10:11:00,Pending
+CIT-REP-02,Priya Sharma,Water,Leaking main pipe at sector 5,Mumbai,Maharashtra,18.9220,72.8347,2026-04-03T11:45:00,In Review
+CIT-REP-03,Karthik Iyer,Lights,Dark spot at park entry,Bengaluru,Karnataka,12.9716,77.5946,2026-04-03T12:00:00,Work Order Issued
+CIT-REP-04,Mohit Gupta,Building,Wall cracks at public school,Delhi,Delhi,28.7041,77.1025,2026-04-03T09:30:00,Critical
+CIT-REP-05,Deepa Nair,Sanitation,Garbage pile-up at Metro entry,Chennai,Tamil Nadu,13.0827,80.2707,2026-04-02T18:00:00,Resolved
+CIT-REP-06,Suresh V,Roads,Road marking invisible,Ahmedabad,Gujarat,23.0225,72.5714,2026-04-03T08:15:00,Pending
+CIT-REP-07,Amitab B,Bridge,Slight vibration felt on flyover,Kolkata,West Bengal,22.5726,88.3639,2026-04-03T14:20:00,Urgent
+CIT-REP-08,Vikram J,Parks,Broken bench at central park,Lucknow,UP,26.8467,80.9462,2026-04-02T13:45:00,Pending
+CIT-REP-09,Sairam K,Utility,Exposed electrical wires,Hyderabad,Telangana,17.3850,78.4867,2026-04-03T10:00:00,Critical
+CIT-REP-10,Ramesh P,Drainage,Overflowing drain at market,Pune,Maharashtra,18.5204,73.8567,2026-04-03T11:15:00,Active

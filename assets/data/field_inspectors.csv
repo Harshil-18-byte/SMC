@@ -1,0 +1,26 @@
+ins_id,name,city,state,specialty,status
+INS-001,Rajesh Kumar,Mumbai,Maharashtra,Structural,Active
+INS-002,Anita Sharma,Pune,Maharashtra,Electrical,Idle
+INS-003,Vikram Singh,Bengaluru,Karnataka,Civil,Active
+INS-004,Priya Das,Kolkata,West Bengal,Water,On-Leave
+INS-005,Mohit Verma,Delhi,Delhi,Roads,Active
+INS-006,Suresh Iyer,Chennai,Tamil Nadu,Bridges,Active
+INS-007,Deepka Patel,Ahmedabad,Gujarat,IoT/Smart,Idle
+INS-008,Rahul Gupta,Lucknow,UP,Sanitation,Active
+INS-009,Sunita Reddy,Hyderabad,Telangana,Power,Active
+INS-010,Karan Khanna,Ludhiana,Punjab,Industrial,Active
+INS-011,Sanjay Meena,Jaipur,Rajasthan,Heritage,Idle
+INS-012,Amit Naik,Nagpur,Maharashtra,Logistics,Active
+INS-013,Kavita Nair,Kochi,Kerala,Marine,Active
+INS-014,Rohan Misra,Indore,MP,Sanitation,Active
+INS-015,Megha Joshi,Bhopal,MP,Parks,Idle
+INS-016,Arjun Tyagi,Gurugram,Haryana,Telecom,Active
+INS-017,Preeti Negi,Dehradun,Uttarakhand,Safety,Active
+INS-018,Savio Dias,Panaji,Goa,Pier/Marine,Active
+INS-019,Hiten Shah,Surat,Gujarat,Fire/Safety,Active
+INS-020,Nitesh Sahoo,Guwahati,Assam,Civil,Active
+INS-021,Binay Tiwari,Patna,Bihar,Water,Active
+INS-022,Gopi Kishan,Visakhapatnam,AP,Port Infra,Active
+INS-023,Simran Kaur,Chandigarh,Chandigarh,SOP Audit,Active
+INS-024,Alok Varma,Kanpur,UP,Material Lab,Active
+INS-025,Jatin Rathore,Vadodara,Gujarat,Architecture,Active

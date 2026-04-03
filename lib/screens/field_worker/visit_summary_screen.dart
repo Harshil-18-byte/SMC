@@ -169,7 +169,7 @@ class VisitSummaryScreen extends StatelessWidget {
               Icon(Icons.location_on_rounded, color: Colors.blue, size: 20),
               const SizedBox(width: 10),
               const Expanded(
-                  child: Text('Ward 24, Mangalwar Peth, Solapur',
+                  child: Text('Ward 24, Mangalwar Peth, Bharat',
                       style: TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 13))),
             ],

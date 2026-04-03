@@ -1,0 +1,26 @@
+inc_id,city,state,issue,priority,lat,lng,reported_at,status
+INC-MUM-02,Mumbai,Maharashtra,Pipe Leak Sector 4,High,18.9220,72.8347,2026-04-03T09:00:00,Active
+INC-BEN-03,Bengaluru,Karnataka,Traffic Signal Failure,Medium,12.9716,77.5946,2026-04-03T08:30:00,Queued
+INC-DEL-04,Delhi,Delhi,Streetlight Outage,Low,28.7041,77.1025,2026-04-02T22:00:00,Resolved
+INC-HYD-05,Hyderabad,Telangana,Bridge Vibration Alert,Critical,17.3850,78.4867,2026-04-03T11:00:00,Urgent
+INC-PUN-06,Pune,Maharashtra,Drainage Overflow,High,18.5204,73.8567,2026-04-03T10:15:00,Active
+INC-KOL-07,Kolkata,West Bengal,Wall Crack Inspection,Medium,22.5726,88.3639,2026-04-02T14:00:00,Queued
+INC-CH-08,Chennai,Tamil Nadu,Road Marking Faded,Low,13.0827,80.2707,2026-04-01T16:00:00,Resolved
+INC-AH-09,Ahmedabad,Gujarat,Water Stagnation,High,23.0225,72.5714,2026-04-03T07:45:00,Active
+INC-LU-10,Lucknow,UP,Flyover Paint Peeling,Low,26.8467,80.9462,2026-04-02T12:00:00,Pending
+INC-SUR-11,Surat,Gujarat,Textile Zone Logjam,High,21.1702,72.8311,2026-04-03T06:30:00,Active
+INC-IND-12,Indore,MP,Garbage Sensor Failure,Medium,22.7196,75.8577,2026-04-03T09:12:00,Queued
+INC-BHO-13,Bhopal,MP,Lake Wall Erosion,High,23.2599,77.4126,2026-04-03T10:45:00,Pending
+INC-NAG-14,Nagpur,Maharashtra,Metro Pillar Spall,Critical,21.1458,79.0882,2026-04-03T12:20:00,Urgent
+INC-KOC-15,Kochi,Kerala,Jetty Fender Damage,Medium,9.9312,76.2673,2026-04-03T08:15:00,Active
+INC-PAT-16,Patna,Bihar,Riverfront Overcrowding,High,25.5941,85.1376,2026-04-03T11:30:00,Active
+INC-GUR-17,Gurugram,Haryana,Cyber Hub Grid Trip,Critical,28.4595,77.0266,2026-04-03T13:00:00,Urgent
+INC-DEH-18,Dehradun,Uttarakhand,Slope Stability Warn,High,30.3165,78.0322,2026-04-03T09:40:00,Active
+INC-PAN-19,Panaji,Goa,Pier Corrosion Level,Medium,15.4909,73.8278,2026-04-03T07:10:00,Queued
+INC-GUW-20,Guwahati,Assam,Brahmaputra siltation,Low,26.1445,91.7362,2026-04-02T16:20:00,Pending
+INC-RAN-21,Ranchi,Jharkhand,Mining Route Crack,High,23.3441,85.3096,2026-04-03T10:05:00,Active
+INC-CHA-22,Chandigarh,Chandigarh,Sector 17 Signage,Low,30.7333,76.7794,2026-04-02T11:45:00,Resolved
+INC-VIS-23,Visakhapatnam,AP,Port Crane Alignment,High,17.6868,83.2185,2026-04-03T08:55:00,Active
+INC-JAI-24,Jaipur,Rajasthan,Fort Wall Guardrail,Low,26.9124,75.7873,2026-03-30T10:00:00,Resolved
+INC-KAN-25,Kanpur,UP,Ghat Pavement Crack,Medium,26.4499,80.3319,2026-04-03T11:15:00,Pending
+INC-VAD-26,Vadodara,Gujarat,Historical Arch Spall,High,22.3072,73.1812,2026-04-03T12:05:00,Active

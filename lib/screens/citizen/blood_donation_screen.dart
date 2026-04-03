@@ -85,7 +85,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
           FadeInLeft(
             delay: const Duration(milliseconds: 200),
             child: Text(
-              "Your single donation can save up to three lives in Solapur.",
+              "Your single donation can save up to three lives in Bharat.",
               style: GoogleFonts.outfit(
                 color: Colors.white.withValues(alpha: 0.9),
                 fontSize: 16,

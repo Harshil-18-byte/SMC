@@ -70,7 +70,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
       body: PaperTextureBackground(
         isDark: Theme.of(context).brightness == Brightness.dark,
         child: DashboardBackHandler(
-          dashboardName: 'Citizen Dashboard',
+          dashboardName: 'Viewer Dashboard',
           child: StreamBuilder<Map<String, dynamic>?>(
             stream: _firestoreService.streamDocument(
                 collection: 'citizens', docId: uid),
@@ -97,7 +97,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
                       bloodGroup: 'O+',
                       phone: '+91 91234 56789',
                       email: 'suresh.patil@gmail.com',
-                      address: 'Shivaji Colony, Solapur',
+                      address: 'Shivaji Colony, Bharat',
                     );
 
               return StreamBuilder<List<Map<String, dynamic>>>(
@@ -173,7 +173,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, AppRoutes.citizenSOS),
+        onPressed: () => Navigator.pushNamed(context, AppRoutes.publicSOS),
         backgroundColor: Colors.red,
         icon: const Icon(Icons.sos, color: Colors.white),
         label: Text(AppLocalizations.of(context).sos,
@@ -272,80 +272,42 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
           crossAxisSpacing: 16,
           children: [
             _buildActionCard(
-              AppLocalizations.of(context).hospitalFinder,
-              Icons.local_hospital_rounded,
+              "Asset Map",
+              Icons.map_rounded,
               Colors.blue,
               () =>
-                  Navigator.pushNamed(context, AppRoutes.citizenFacilitySearch),
+                  Navigator.pushNamed(context, AppRoutes.assetSearch),
             ),
             _buildActionCard(
-              AppLocalizations.of(context).appointments,
-              Icons.calendar_month_rounded,
+              "Regional Analytics",
+              Icons.analytics_rounded,
               Colors.orange,
-              () => Navigator.pushNamed(context, AppRoutes.citizenAppointments),
+              () => Navigator.pushNamed(context, AppRoutes.regionalAnalytics),
             ),
             _buildActionCard(
-              AppLocalizations.of(context).healthRecords,
+              "Compliance Reports",
               Icons.assignment_rounded,
               Colors.green,
               () =>
-                  Navigator.pushNamed(context, AppRoutes.citizenHealthRecords),
+                  Navigator.pushNamed(context, AppRoutes.complianceReports),
             ),
             _buildActionCard(
-              AppLocalizations.of(context).vaccination,
-              Icons.vaccines_rounded,
+              "Transparency Portal",
+              Icons.account_balance_rounded,
               Colors.purple,
-              () => Navigator.pushNamed(context, AppRoutes.citizenVaccination),
+              () => Navigator.pushNamed(context, AppRoutes.transparencyPortal),
             ),
             _buildActionCard(
-              AppLocalizations.of(context).familyWard,
-              Icons.family_restroom,
-              Colors.pinkAccent,
-              () => Navigator.pushNamed(context, AppRoutes.familyWard),
-            ),
-            _buildActionCard(
-              AppLocalizations.of(context).aiDoctor,
-              Icons.smart_toy_rounded,
-              Colors.teal,
-              () => Navigator.pushNamed(context, AppRoutes.doctorBot),
-            ),
-            _buildActionCard(
-              AppLocalizations.of(context).medsReminders,
-              Icons.medication_rounded,
+              "Report Defect",
+              Icons.report_problem_rounded,
               Colors.redAccent,
-              () => Navigator.pushNamed(context, AppRoutes.medications),
+              () => Navigator.pushNamed(context, AppRoutes.publicSOS),
             ),
             _buildActionCard(
-              AppLocalizations.of(context).translate('blood_donation'),
-              Icons.favorite_rounded,
-              Colors.red,
-              () => Navigator.pushNamed(context, AppRoutes.bloodDonation),
-            ),
-            _buildActionCard(
-              AppLocalizations.of(context).translate('report_hygiene'),
-              Icons.clean_hands_rounded,
-              Colors.brown,
-              () => Navigator.pushNamed(context, AppRoutes.hygieneReport),
-            ),
-            _buildActionCard(
-              AppLocalizations.of(context).translate('vitals_trends'),
-              Icons.query_stats_rounded,
-              Colors.indigo,
-              () => Navigator.pushNamed(context, AppRoutes.vitalsAnalytics),
-            ),
-            _buildActionCard(
-              AppLocalizations.of(context).translate('volunteer_network'),
-              Icons.groups_rounded,
-              Colors.orange,
-              () => Navigator.pushNamed(context, AppRoutes.volunteerNetwork),
-            ),
-            _buildActionCard(
-              AppLocalizations.of(context)
-                  .translate('medicine_inventory_short'),
-              Icons.inventory_2_rounded,
-              Colors.cyan,
-              () => Navigator.pushNamed(
-                  context, AppRoutes.citizenMedicineInventory),
+              "Project Status",
+              Icons.construction_rounded,
+              Colors.teal,
+              () => Navigator.pushNamed(context, AppRoutes.assetSearch),
             ),
           ],
         ),

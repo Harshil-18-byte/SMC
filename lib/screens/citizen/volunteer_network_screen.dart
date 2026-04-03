@@ -76,7 +76,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
           FadeInLeft(
             delay: const Duration(milliseconds: 200),
             child: Text(
-              "Help us make Solapur a healthier city. Volunteer for upcoming medical camps and health drives.",
+              "Help us make Bharat a healthier city. Volunteer for upcoming medical camps and health drives.",
               style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8), fontSize: 16),
             ),

@@ -1,39 +1,60 @@
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smc/data/services/csv_seeder_service.dart';
 
-/// Comprehensive Data Seeder for Solapur Municipal Corporation (SMC)
-/// Localized data for Admins, Doctors, Field Workers, and Citizens
+/// Comprehensive Data Seeder for Bharat Infra (Pan-India)
+/// Fetches macro data from CSV assets
 class ComprehensiveDataSeeder {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final CsvSeederService _csvService = CsvSeederService();
 
-  /// Seed all data
   Future<void> seedAllData() async {
-    debugPrint('🌱 Starting comprehensive data seeding for Solapur...');
+    debugPrint('🌱 Starting comprehensive Pan-India CSV seeding...');
 
+    await clearAllData();
+
+    // 1. National Assets
+    await _csvService.seedCollectionFromCsv(
+      assetPath: 'assets/data/infra_assets_national.csv',
+      collectionName: 'infra_assets_national',
+      idColumn: 'id',
+    );
+
+    // 2. State Projects
+    await _csvService.seedCollectionFromCsv(
+      assetPath: 'assets/data/infra_projects_state.csv',
+      collectionName: 'infra_projects_state',
+      idColumn: 'prj_id',
+    );
+
+    // 3. City Incidents
+    await _csvService.seedCollectionFromCsv(
+      assetPath: 'assets/data/city_incidents.csv',
+      collectionName: 'city_incidents',
+      idColumn: 'inc_id',
+    );
+
+    // 4. Field Inspectors
+    await _csvService.seedCollectionFromCsv(
+      assetPath: 'assets/data/field_inspectors.csv',
+      collectionName: 'field_workers',
+      idColumn: 'ins_id',
+    );
+
+    // 5. Citizen Reports
+    await _csvService.seedCollectionFromCsv(
+      assetPath: 'assets/data/citizen_reports.csv',
+      collectionName: 'citizen_reports',
+      idColumn: 'rep_id',
+    );
+
+    // Legacy Seeds (to be migrated later or kept for specific logic)
     await seedSystemUsers();
     await seedHospitalIntakeStatus();
     await seedAuditLogs();
     await seedSystemHealthMetrics();
-    await seedMaintenanceTasks();
-    await seedVisitRecords();
-    await seedSymptomAssessments();
-    await seedCitizens();
-    await seedHealthAlerts();
-    await seedHealthRecords();
-    await seedSurveillancePoints();
-    await seedFieldReports();
-    await seedDashboardMetrics();
-    await seedMedicineInventory();
-    await seedSurveillanceAnalytics();
-    await seedFieldWorkers();
-    await seedTasks();
-    await seedBloodRequests();
-    await seedVolunteerOpportunities();
-    await seedPublicHygieneReports();
-    await seedCitizenVitals();
-    await seedCitizenMedicines();
-
-    debugPrint('✅ All Solapur data seeded successfully!');
+    
+    debugPrint('✅ Macro Infrastructure data seeded successfully!');
   }
 
   /// Seed Field Workers
@@ -45,10 +66,10 @@ class ComprehensiveDataSeeder {
         'id': 'worker_1',
         'name': 'Suresh Jadhav',
         'avatarUrl': 'https://api.dicebear.com/7.x/avataaars/png?seed=Suresh',
-        'currentLocation': 'Jule Solapur',
+        'currentLocation': 'Jule Bharat',
         'lastSync': DateTime.now().toIso8601String(),
         'isOnline': true,
-        'sector': 'West Solapur',
+        'sector': 'West Bharat',
       },
       {
         'id': 'worker_2',
@@ -57,7 +78,7 @@ class ComprehensiveDataSeeder {
         'currentLocation': 'Bhavani Peth',
         'lastSync': DateTime.now().toIso8601String(),
         'isOnline': true,
-        'sector': 'East Solapur',
+        'sector': 'East Bharat',
       }
     ];
 
@@ -114,23 +135,10 @@ class ComprehensiveDataSeeder {
       'hospital_intake_status',
       'audit_logs',
       'system_health_metrics',
-      'maintenance_tasks',
-      'visit_records',
-      'symptom_assessments',
-      'citizens',
-      'health_alerts',
-      'health_records',
-      'surveillance_points',
-      'field_reports',
-      'health_metrics',
-      'critical_alerts',
-      'weekly_trends',
-      'medicine_inventory',
-      'disease_case_data',
-      'zone_heatmap_data',
-      'raw_case_entries',
-      'command_center_kpi',
-      'system_alerts',
+      'infra_assets_national',
+      'infra_projects_state',
+      'city_incidents',
+      'citizen_reports',
       'field_workers',
       'tasks',
     ];
@@ -154,11 +162,13 @@ class ComprehensiveDataSeeder {
       {
         'id': 'ADM001',
         'name': 'Rahul Chavan',
-        'designation': 'Health Officer',
+        'designation': 'Executive Engineer',
         'role': 'Admin',
         'status': 'active',
-        'email': 'health.officer@smc.gov.in',
-        'department': 'Solapur Municipal Corporation',
+        'email': 'rahul.c@infra.gov.in',
+        'department': 'National Infrastructure Authority',
+        'state': 'Maharashtra',
+        'city': 'National HQ',
         'lastLogin': DateTime.now().toIso8601String(),
       },
       {
@@ -167,8 +177,10 @@ class ComprehensiveDataSeeder {
         'designation': 'Data Analyst',
         'role': 'Admin',
         'status': 'active',
-        'email': 'data.health@smc.gov.in',
-        'department': 'Public Health Department',
+        'email': 'priya.n@infra.gov.in',
+        'department': 'Regional Analytics Division',
+        'state': 'Karnataka',
+        'city': 'Bengaluru',
         'lastLogin': DateTime.now().toIso8601String(),
       },
       {
@@ -222,63 +234,55 @@ class ComprehensiveDataSeeder {
 
   /// Seed Hospital Intake Status
   Future<void> seedHospitalIntakeStatus() async {
-    debugPrint('  Seeding Solapur hospitals...');
+    debugPrint('  Seeding regional infrastructure...');
 
     final hospitals = [
       {
         'id': 'HOSP001',
-        'name': 'SMC Civil Hospital, Solapur',
-        'type': 'Government',
-        'address': 'Civil Lines, Solapur, Maharashtra',
-        'ward': 'Ward No. 5',
+        'name': 'Central Command Center - West',
+        'type': 'Regional',
+        'address': 'Civil Lines, Bharat, Maharashtra',
+        'state': 'Maharashtra',
+        'city': 'Bharat',
+        'ward': 'Zone 5',
         'contact': '0217-2745001',
         'emergencyAvailable': true,
-        'specialties': [
-          "General Medicine",
-          "Emergency",
-          "Pediatrics",
-          "Gynecology"
-        ],
+        'specialties': ["Bridge Safety", "Road Quality", "Drainage"],
         'latitude': 17.6599,
         'longitude': 75.9064,
-        'bedAvailable': 45,
-        'bedTotal': 200,
-        'oxygenLevel': 92,
-        'triageWaitMinutes': 15,
+        'status': 'stable',
         'intakeLocked': false,
       },
       {
         'id': 'HOSP002',
-        'name': 'Dr. Babasaheb Ambedkar Hospital',
-        'type': 'Government',
-        'address': 'Saat Rasta, Solapur',
-        'ward': 'Ward No. 9',
-        'contact': '0217-2312345',
+        'name': 'Delhi North Inspection Hub',
+        'type': 'Regional',
+        'address': 'Rohini, Delhi',
+        'state': 'Delhi',
+        'city': 'New Delhi',
+        'ward': 'Zone 9',
+        'contact': '011-2312345',
         'emergencyAvailable': true,
-        'specialties': ["Orthopedics", "Surgery", "Trauma Care"],
-        'latitude': 17.6648,
-        'longitude': 75.9202,
-        'bedAvailable': 12,
-        'bedTotal': 150,
-        'oxygenLevel': 85,
-        'triageWaitMinutes': 45,
+        'specialties': ["Structural", "Railway", "Public Build"],
+        'latitude': 28.7041,
+        'longitude': 77.1025,
+        'status': 'warning',
         'intakeLocked': false,
       },
       {
         'id': 'HOSP003',
-        'name': 'SMC Maternity Hospital, Hotgi Road',
-        'type': 'Government',
-        'address': 'Hotgi Road, Solapur',
-        'ward': 'Ward No. 14',
-        'contact': '0217-2456789',
-        'emergencyAvailable': false,
-        'specialties': ["Gynecology", "Maternity", "Newborn Care"],
-        'latitude': 17.6352,
-        'longitude': 75.9131,
-        'bedAvailable': 28,
-        'bedTotal': 50,
-        'oxygenLevel': 98,
-        'triageWaitMinutes': 5,
+        'name': 'Mumbai Coast Infrastructure Bureau',
+        'type': 'Regional',
+        'address': 'Marine Drive, Mumbai',
+        'state': 'Maharashtra',
+        'city': 'Mumbai',
+        'ward': 'South Bombay',
+        'contact': '022-2456789',
+        'emergencyAvailable': true,
+        'specialties': ["Bridge Safety", "Marine Structure", "Coastal Roads"],
+        'latitude': 18.9220,
+        'longitude': 72.8347,
+        'status': 'stable',
         'intakeLocked': false,
       },
     ];
@@ -304,9 +308,9 @@ class ComprehensiveDataSeeder {
             DateTime.now().subtract(const Duration(hours: 1)).toIso8601String(),
         'metadata': {
           'severity': 'Critical',
-          'scope': 'Ward No. 5',
-          'heading': 'Dengue Precaution',
-          'reason': 'Rise in cases in Civil Lines area',
+          'scope': 'National Highway 4',
+          'heading': 'Bridge Integrity Warning',
+          'reason': 'Structural weakness detected by AI in pillar 42',
         },
       },
       {
@@ -386,7 +390,7 @@ class ComprehensiveDataSeeder {
         'fieldWorkerId': 'FW001',
         'workerName': 'Suresh Jadhav',
         'householdId': 'SMC-HH-501',
-        'address': 'Vijapur Road, Ward 5, Solapur',
+        'address': 'Vijapur Road, Ward 5, Bharat',
         'latitude': 17.6599,
         'longitude': 75.9064,
         'visitDate':
@@ -401,7 +405,7 @@ class ComprehensiveDataSeeder {
         'fieldWorkerId': 'FW002',
         'workerName': 'Savita Pawar',
         'householdId': 'SMC-HH-1402',
-        'address': 'Hotgi Road, Ward 14, Solapur',
+        'address': 'Hotgi Road, Ward 14, Bharat',
         'latitude': 17.6352,
         'longitude': 75.9131,
         'visitDate':
@@ -450,7 +454,7 @@ class ComprehensiveDataSeeder {
         'name': 'Mahesh Shinde',
         'age': 45,
         'gender': 'Male',
-        'address': 'Vijapur Road, Solapur',
+        'address': 'Vijapur Road, Bharat',
         'ward': 'Ward No. 5',
         'aadhaarLast4': '4321',
         'contact': '9XXXXXXXX6',
@@ -463,7 +467,7 @@ class ComprehensiveDataSeeder {
         'name': 'Lata Kendre',
         'age': 32,
         'gender': 'Female',
-        'address': 'Hotgi Road, Solapur',
+        'address': 'Hotgi Road, Bharat',
         'ward': 'Ward No. 14',
         'aadhaarLast4': '7854',
         'contact': '9XXXXXXXX7',
@@ -476,7 +480,7 @@ class ComprehensiveDataSeeder {
         'name': 'Rohit Patil',
         'age': 22,
         'gender': 'Male',
-        'address': 'Saat Rasta, Solapur',
+        'address': 'Saat Rasta, Bharat',
         'ward': 'Ward No. 9',
         'aadhaarLast4': '1198',
         'contact': '9XXXXXXXX8',
@@ -535,7 +539,7 @@ class ComprehensiveDataSeeder {
         'description': 'Regular sugar checkup',
         'date':
             DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
-        'provider': 'SMC Civil Hospital, Solapur',
+        'provider': 'SMC Civil Hospital, Bharat',
         'details': {
           'Fasting Sugar': '110 mg/dL',
           'PP Sugar': '160 mg/dL',
@@ -742,13 +746,13 @@ class ComprehensiveDataSeeder {
         'isRead': false,
       },
       {
-        'title': 'Dengue Spike in Jule Solapur',
+        'title': 'Dengue Spike in Jule Bharat',
         'description': '15 new cases reported in 24 hours.',
         'iconName': 'error',
         'severity': 'warning',
         'timestamp':
             DateTime.now().subtract(const Duration(hours: 3)).toIso8601String(),
-        'zone': 'Jule Solapur',
+        'zone': 'Jule Bharat',
         'isRead': false,
       },
     ];
@@ -801,7 +805,7 @@ class ComprehensiveDataSeeder {
       },
       {
         'message':
-            'Power backup successfully tested for Solapur Diagnostic Center.',
+            'Power backup successfully tested for Bharat Diagnostic Center.',
         'severity': 'info',
         'timestamp':
             DateTime.now().subtract(const Duration(hours: 5)).toIso8601String(),
@@ -882,7 +886,7 @@ class ComprehensiveDataSeeder {
         'sev': 'critical'
       },
       {
-        'name': 'Jule Solapur',
+        'name': 'Jule Bharat',
         'cases': 98,
         'lat': 17.6750,
         'lng': 75.9250,
@@ -998,7 +1002,7 @@ class ComprehensiveDataSeeder {
     final reports = [
       {
         'description': 'Open garbage dump near railway station.',
-        'location': 'Solapur Railway Station Area',
+        'location': 'Bharat Railway Station Area',
         'status': 'pending',
         'reportedBy': 'CIT001',
         'timestamp':
@@ -1006,7 +1010,7 @@ class ComprehensiveDataSeeder {
       },
       {
         'description': 'Water leakage in Shivaji Colony main road.',
-        'location': 'Shivaji Colony, Solapur',
+        'location': 'Shivaji Colony, Bharat',
         'status': 'resolved',
         'reportedBy': 'CIT002',
         'timestamp':

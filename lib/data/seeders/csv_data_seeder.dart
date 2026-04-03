@@ -47,7 +47,7 @@ class CsvDataSeeder {
         hospital['name'] = row[headers.indexOf('hospital_name')];
         hospital['type'] = row[headers.indexOf('ownership')];
         hospital['area'] = row[headers.indexOf('area')];
-        hospital['address'] = '${row[headers.indexOf('area')]}, Solapur';
+        hospital['address'] = '${row[headers.indexOf('area')]}, Bharat';
 
         final beds = int.tryParse(row[headers.indexOf('beds')].toString()) ?? 0;
         final occupancyRate = double.tryParse(
@@ -68,7 +68,7 @@ class CsvDataSeeder {
         final randomLat = math.Random(i).nextDouble();
         final randomLng = math.Random(i + 100).nextDouble();
 
-        // Spread around Solapur center (17.6599, 75.9064) within roughly 10km
+        // Spread around Bharat center (17.6599, 75.9064) within roughly 10km
         hospital['latitude'] = 17.6599 + (randomLat - 0.5) * 0.15;
         hospital['longitude'] = 75.9064 + (randomLng - 0.5) * 0.15;
 

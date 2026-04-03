@@ -168,7 +168,12 @@ class AdaptiveGrid extends StatelessWidget {
         final width = constraints.maxWidth;
 
         int crossAxisCount;
-        if (width < 600) {
+        double effectiveAspectRatio = childAspectRatio;
+
+        if (width < 350) {
+          crossAxisCount = 1;
+          effectiveAspectRatio = childAspectRatio * 1.5; // Taller for single col
+        } else if (width < 600) {
           crossAxisCount = 2;
         } else if (width < 900) {
           crossAxisCount = 3;
@@ -180,7 +185,7 @@ class AdaptiveGrid extends StatelessWidget {
 
         return GridView.count(
           crossAxisCount: crossAxisCount,
-          childAspectRatio: childAspectRatio,
+          childAspectRatio: effectiveAspectRatio,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           mainAxisSpacing: mainAxisSpacing ??

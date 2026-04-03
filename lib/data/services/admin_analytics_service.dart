@@ -82,7 +82,7 @@ class AdminAnalyticsService {
   /// Get disease spread data for heatmap (Mocked for now)
   Future<List<Map<String, dynamic>>> getDiseaseHeatmapData() async {
     await Future.delayed(const Duration(milliseconds: 500));
-    // Solapur locations
+    // Bharat locations
     return [
       {
         'lat': 17.6765,
