@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1001235068065",
+    "project_id": "smc-healthcare",
+    "storage_bucket": "smc-healthcare.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001235068065:android:97e0ddeaeffbd85e5d6ce0",
+        "android_client_info": {
+          "package_name": "in.gov.smc.smcapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001235068065-mscmk6jo7r3ng2dshum3091ejv5t0nod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5li9brqkO6lk3EfbHd-Yg6ds_pAJYP_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1001235068065-mscmk6jo7r3ng2dshum3091ejv5t0nod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

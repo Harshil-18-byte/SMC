@@ -1,0 +1,101 @@
+hospital_id,hospital_name,ownership,area,beds,icu_beds,ventilators,bed_occupancy_rate,contact_phone,patient_load_label
+501,Niramay Hospital 501,Private,Mandrup,41,6,5,0.65,+91-941-180-3226,MEDIUM
+502,Sahyadri Hospital 502,Public,Shivaji Nagar,148,13,14,0.62,+91-974-550-5460,MEDIUM
+503,Niramay Hospital 503,Private,Akluj,296,18,35,0.84,+91-934-347-5348,HIGH
+504,Shree Hospital 504,Public,Karkhana,194,19,7,0.69,+91-955-784-4296,MEDIUM
+505,Arogya Hospital 505,Public,Mangalwedha Road,148,5,6,0.58,+91-937-322-6070,LOW
+506,City Hospital 506,Private,Mangalwedha Road,74,13,8,0.45,+91-992-401-8535,LOW
+507,Shree Hospital 507,Private,Siddheshwar Peth,116,9,4,0.44,+91-947-212-9238,LOW
+508,Sahyadri Hospital 508,Private,Karkhana,371,8,43,0.67,+91-918-450-6625,MEDIUM
+509,Shree Hospital 509,Public,Siddheshwar Peth,370,44,9,0.7,+91-932-786-9960,MEDIUM
+510,Sahyadri Hospital 510,Private,Sangola Road,475,25,6,0.69,+91-980-254-7531,MEDIUM
+511,Niramay Hospital 511,Public,Mohol,83,12,9,0.47,+91-960-325-8753,LOW
+512,Arogya Hospital 512,Private,Station Road,289,46,25,0.57,+91-978-680-5188,LOW
+513,Arogya Hospital 513,Private,Shivaji Nagar,301,26,35,0.81,+91-924-583-8074,HIGH
+514,City Hospital 514,Private,Mangalwedha Road,144,6,20,0.48,+91-929-395-3751,LOW
+515,Arogya Hospital 515,Private,Kumbhari,383,48,14,0.56,+91-915-271-7367,LOW
+516,Arogya Hospital 516,Private,Karkhana,226,42,14,0.48,+91-930-259-8552,LOW
+517,Sahyadri Hospital 517,Public,Mandrup,106,12,14,0.87,+91-998-640-7896,HIGH
+518,Shree Hospital 518,Private,Jule Solapur,489,59,29,0.46,+91-928-542-5148,LOW
+519,Shree Hospital 519,Public,Karkhana,60,7,6,0.57,+91-948-670-6013,LOW
+520,Shree Hospital 520,Private,Shahu Peth,229,43,6,0.68,+91-912-159-4921,MEDIUM
+521,City Hospital 521,Private,Shahu Peth,190,37,26,0.55,+91-965-741-2243,LOW
+522,Niramay Hospital 522,Private,Mangalwedha Road,352,32,11,0.85,+91-967-422-4496,HIGH
+523,City Hospital 523,Private,Shahu Peth,437,8,6,0.51,+91-969-713-5286,LOW
+524,Shree Hospital 524,Public,Station Road,117,11,3,0.94,+91-951-800-2915,HIGH
+525,City Hospital 525,Private,Akluj,309,32,5,0.75,+91-965-341-9689,MEDIUM
+526,Shree Hospital 526,Public,Panchavati,77,11,7,0.77,+91-961-735-7909,MEDIUM
+527,Niramay Hospital 527,Public,Siddheshwar Peth,395,22,58,0.68,+91-932-274-6257,MEDIUM
+528,Shree Hospital 528,Private,Barshi Road,374,46,26,0.41,+91-960-739-5119,LOW
+529,Arogya Hospital 529,Public,Sangola Road,450,25,2,0.86,+91-977-456-5273,HIGH
+530,Shree Hospital 530,Public,Jule Solapur,286,8,27,0.81,+91-953-224-7656,HIGH
+531,Shree Hospital 531,Public,Karkhana,121,20,3,0.85,+91-996-170-2996,HIGH
+532,Sahyadri Hospital 532,Public,Mandrup,347,58,14,0.52,+91-934-773-6029,LOW
+533,City Hospital 533,Private,Akluj,228,7,10,0.77,+91-980-978-1392,MEDIUM
+534,Niramay Hospital 534,Public,Akluj,80,14,10,0.67,+91-948-442-4876,MEDIUM
+535,Shree Hospital 535,Public,Mohol,323,5,15,0.68,+91-951-247-1718,MEDIUM
+536,Arogya Hospital 536,Private,Siddheshwar Peth,468,80,46,0.42,+91-970-684-5143,LOW
+537,City Hospital 537,Private,Mohol,118,8,6,0.42,+91-985-141-6188,LOW
+538,Niramay Hospital 538,Public,Shahu Peth,103,8,14,0.81,+91-954-658-5805,HIGH
+539,City Hospital 539,Private,Akluj,240,42,32,0.77,+91-966-360-9008,MEDIUM
+540,Sahyadri Hospital 540,Public,Shahu Peth,451,34,54,0.53,+91-956-208-5603,LOW
+541,Niramay Hospital 541,Private,Barshi Road,309,25,6,0.52,+91-979-469-4138,LOW
+542,City Hospital 542,Private,Barshi Road,80,5,7,0.9,+91-920-940-7524,HIGH
+543,Sahyadri Hospital 543,Public,Siddheshwar Peth,361,67,14,0.81,+91-944-964-9642,HIGH
+544,Niramay Hospital 544,Public,Karkhana,199,13,8,0.41,+91-918-889-6814,LOW
+545,Shree Hospital 545,Private,Shahu Peth,302,32,16,0.74,+91-994-912-9113,MEDIUM
+546,Sahyadri Hospital 546,Private,Station Road,62,12,2,0.74,+91-961-569-6940,MEDIUM
+547,Shree Hospital 547,Public,Sangola Road,211,11,6,0.64,+91-913-911-4272,MEDIUM
+548,City Hospital 548,Public,Kumbhari,143,5,7,0.83,+91-940-323-1883,HIGH
+549,Arogya Hospital 549,Public,Akluj,177,11,10,0.7,+91-929-103-7714,MEDIUM
+550,City Hospital 550,Private,Shivaji Nagar,330,62,40,0.78,+91-920-362-6449,MEDIUM
+551,Sahyadri Hospital 551,Private,Karkhana,362,31,50,0.86,+91-958-990-4188,HIGH
+552,City Hospital 552,Public,Mandrup,352,54,23,0.54,+91-977-560-1168,LOW
+553,Arogya Hospital 553,Public,Akkalkot Road,372,57,18,0.49,+91-973-974-6876,LOW
+554,Sahyadri Hospital 554,Private,Panchavati,163,8,6,0.44,+91-987-740-8212,LOW
+555,Shree Hospital 555,Public,Panchavati,467,52,15,0.44,+91-956-921-5676,LOW
+556,City Hospital 556,Public,Akluj,293,10,31,0.47,+91-963-494-4496,LOW
+557,Sahyadri Hospital 557,Public,Mohol,444,59,41,0.95,+91-956-764-7798,HIGH
+558,Shree Hospital 558,Public,Akkalkot Road,81,12,4,0.67,+91-952-621-9326,MEDIUM
+559,Shree Hospital 559,Public,Jule Solapur,441,70,22,0.86,+91-964-300-8327,HIGH
+560,City Hospital 560,Public,Kumbhari,408,27,31,0.66,+91-967-309-2880,MEDIUM
+561,Niramay Hospital 561,Private,Sangola Road,265,29,20,0.55,+91-966-366-6834,LOW
+562,Shree Hospital 562,Private,Kumbhari,479,94,9,0.56,+91-937-492-1726,LOW
+563,Niramay Hospital 563,Private,Shivaji Nagar,151,28,17,0.48,+91-952-157-8808,LOW
+564,Arogya Hospital 564,Public,Kumbhari,83,10,11,0.72,+91-992-231-6108,MEDIUM
+565,Shree Hospital 565,Private,Shahu Peth,342,8,40,0.76,+91-960-661-6600,MEDIUM
+566,Arogya Hospital 566,Public,Mangalwedha Road,355,59,14,0.48,+91-943-690-7829,LOW
+567,City Hospital 567,Public,Sangola Road,203,26,3,0.74,+91-971-908-6489,MEDIUM
+568,Shree Hospital 568,Private,Mohol,257,21,24,0.7,+91-941-901-7755,MEDIUM
+569,City Hospital 569,Public,Mohol,283,7,41,0.78,+91-917-479-6706,MEDIUM
+570,Niramay Hospital 570,Private,Shahu Peth,358,33,53,0.42,+91-943-491-4604,LOW
+571,City Hospital 571,Public,Sangola Road,80,5,12,0.53,+91-959-450-2563,LOW
+572,Shree Hospital 572,Public,Kumbhari,23,5,3,0.64,+91-955-993-4296,MEDIUM
+573,Niramay Hospital 573,Public,Mangalwedha Road,155,22,16,0.88,+91-931-427-5159,HIGH
+574,Shree Hospital 574,Private,Shahu Peth,34,5,2,0.94,+91-918-272-7375,HIGH
+575,Sahyadri Hospital 575,Private,Karkhana,280,23,8,0.46,+91-959-575-8710,LOW
+576,Niramay Hospital 576,Private,Station Road,23,5,3,0.82,+91-959-166-6977,HIGH
+577,Shree Hospital 577,Private,Mandrup,486,41,50,0.79,+91-931-408-2341,MEDIUM
+578,Niramay Hospital 578,Private,Sangola Road,141,28,14,0.93,+91-933-568-2984,HIGH
+579,Sahyadri Hospital 579,Private,Sangola Road,253,36,35,0.63,+91-994-101-4357,MEDIUM
+580,Sahyadri Hospital 580,Private,Shivaji Nagar,85,11,2,0.59,+91-947-108-8449,LOW
+581,Arogya Hospital 581,Private,Mandrup,271,46,17,0.64,+91-979-873-7906,MEDIUM
+582,Arogya Hospital 582,Public,Jule Solapur,53,10,5,0.91,+91-961-517-1399,HIGH
+583,Niramay Hospital 583,Public,Barshi Road,427,41,13,0.82,+91-939-355-4755,HIGH
+584,Niramay Hospital 584,Private,Kumbhari,287,19,16,0.61,+91-967-973-3300,MEDIUM
+585,Sahyadri Hospital 585,Public,Mandrup,106,12,7,0.69,+91-951-711-2551,MEDIUM
+586,Arogya Hospital 586,Public,Jule Solapur,23,5,3,0.66,+91-946-597-8288,MEDIUM
+587,City Hospital 587,Private,Barshi Road,440,29,55,0.79,+91-942-823-3743,MEDIUM
+588,Shree Hospital 588,Public,Akluj,380,48,10,0.87,+91-954-383-5478,HIGH
+589,Niramay Hospital 589,Private,Shivaji Nagar,169,15,12,0.82,+91-987-258-4057,HIGH
+590,Niramay Hospital 590,Public,Barshi Road,448,78,11,0.86,+91-912-302-8382,HIGH
+591,City Hospital 591,Private,Karkhana,43,7,2,0.46,+91-920-484-7632,LOW
+592,Sahyadri Hospital 592,Public,Mohol,276,51,11,0.48,+91-961-382-8194,LOW
+593,Niramay Hospital 593,Private,Shahu Peth,153,15,21,0.82,+91-947-459-9194,HIGH
+594,Arogya Hospital 594,Private,Mohol,284,18,4,0.43,+91-979-123-3858,LOW
+595,Shree Hospital 595,Private,Panchavati,229,31,33,0.7,+91-966-873-6215,MEDIUM
+596,Sahyadri Hospital 596,Private,Shivaji Nagar,147,22,16,0.77,+91-973-119-3479,MEDIUM
+597,Shree Hospital 597,Public,Shahu Peth,470,24,53,0.78,+91-919-181-7802,MEDIUM
+598,Niramay Hospital 598,Public,Station Road,63,6,9,0.49,+91-992-672-9970,LOW
+599,Sahyadri Hospital 599,Public,Siddheshwar Peth,159,23,22,0.5,+91-999-129-9137,LOW
+600,Niramay Hospital 600,Public,Akkalkot Road,430,79,60,0.94,+91-966-645-4765,HIGH
