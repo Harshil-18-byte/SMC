@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
-import 'package:smc/core/localization/app_localizations.dart';
-import 'package:smc/data/chatbot_data.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:animate_do/animate_do.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:smc/core/widgets/smc_back_button.dart';
+import 'package:smc/core/theme/theme_switcher.dart';
 
-class DoctorBotScreen extends StatefulWidget {
-  const DoctorBotScreen({super.key});
+class DiagnosticBotScreen extends StatefulWidget {
+  const DiagnosticBotScreen({super.key});
 
   @override
-  State<DoctorBotScreen> createState() => _DoctorBotScreenState();
+  State<DiagnosticBotScreen> createState() => _DiagnosticBotScreenState();
 }
 
-class _DoctorBotScreenState extends State<DoctorBotScreen> {
+class _DiagnosticBotScreenState extends State<DiagnosticBotScreen> {
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _messages = [];
   bool _isTyping = false;
   bool _isRecording = false;
-  final Set<String> _mentionedSymptoms = {};
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -27,7 +26,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_messages.isEmpty) {
-        _addBotMessage(AppLocalizations.of(context).chatHello);
+        _addBotMessage("SMC TACTICAL DIAGNOSTIC UNIT ONLINE. Please provide Asset ID or describe the structural anomaly for automated integrity analysis.");
       }
     });
   }
@@ -60,7 +59,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       final userMessage = ChatMessage(
-        text: AppLocalizations.of(context).translate('analyze_image'),
+        text: "Analyzing uploaded image metadata...",
         isUser: true,
         timestamp: DateTime.now(),
         imagePath: image.path,
@@ -76,7 +75,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
           setState(() {
             _isTyping = false;
             _addBotMessage(
-                "I've analyzed the image. It looks like a common skin irritation. I recommend keeping it clean and monitored. If it spreads or becomes painful, please see a dermatologist.");
+                "Image analysis complete. Structural integrity appears within registered safety margins. No immediate anomalies detected in spectral signature.");
           });
         }
       });
@@ -91,7 +90,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
         setState(() {
           _isRecording = false;
           final userMessage = ChatMessage(
-            text: AppLocalizations.of(context).translate('cough_analysis'),
+            text: "Acoustic telemetry sample recorded.",
             isUser: true,
             timestamp: DateTime.now(),
             audioPath: "mock_audio_path.m4a",
@@ -105,7 +104,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
             setState(() {
               _isTyping = false;
               _addBotMessage(
-                  "Analysis of your cough pattern suggests a dry cough, likely due to mild throat irritation or allergens. Stay hydrated and try warm salt water gargles.");
+                  "Acoustic analysis complete. Frequency patterns indicate stable operational oscillation.");
             });
           }
         });
@@ -150,14 +149,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
   }
 
   String _generateMockResponse(String userInput) {
-    final responseKey = ChatbotKnowledgeBase.getResponseKey(userInput);
-    final response = AppLocalizations.of(context).translate(responseKey);
-
-    if (ChatbotKnowledgeBase.medicalResponses.containsValue(responseKey)) {
-      _mentionedSymptoms.add(responseKey);
-    }
-
-    return response;
+    return "Telemetry received. Correlating structural parameters for identifier: $userInput. All systems optimal.";
   }
 
   @override
@@ -165,26 +157,22 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-          isDark ? const Color(0xFF0F172A) : const Color(0xFFFDFCFB),
+      backgroundColor: const Color(0xFF0F172A),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1E293B),
+        leading: const SMCBackButton(),
+        title: Text('TACTICAL DIAGNOSTIC BOT', 
+          style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
+        actions: const [ThemeSwitcher(), SizedBox(width: 8)],
+      ),
       body: Container(
-        decoration: isDark
-            ? null
-            : const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xFFFFF7ED), Color(0xFFFDFCFB)],
-                ),
-              ),
         child: SafeArea(
           child: Column(
             children: [
-              _buildHeader(isDark, context),
+              _buildStatusBar(isDark),
               Expanded(
                 child: ListView.builder(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   reverse: true,
                   itemCount: _messages.length + (_isTyping ? 1 : 0),
                   itemBuilder: (context, index) {
@@ -198,7 +186,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
                   },
                 ),
               ),
-              if (_messages.length < 3) _buildQuickChips(isDark),
+              if (_messages.length < 5) _buildQuickChips(isDark),
               _buildInputArea(isDark),
             ],
           ),
@@ -207,67 +195,29 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
     );
   }
 
-  Widget _buildHeader(bool isDark, BuildContext context) {
+  Widget _buildStatusBar(bool isDark) {
     return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: isDark
-            ? const Color(0xFF1E293B)
-            : Colors.white.withValues(alpha: 0.6),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      color: const Color(0xFF1E293B),
       child: Row(
         children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-            onPressed: () => Navigator.pop(context),
+          Container(
+            width: 8,
+            height: 8,
+            decoration: const BoxDecoration(
+              color: Color(0xFF3B82F6),
+              shape: BoxShape.circle,
+            ),
           ),
-          const SizedBox(width: 8),
-          CircleAvatar(
-            radius: 24,
-            backgroundColor: Colors.blue.withValues(alpha: 0.1),
-            child:
-                const Icon(Icons.healing_rounded, color: Colors.blue, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context).translate('bot_inspection_assistant'),
-                style: GoogleFonts.outfit(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: isDark ? Colors.white : const Color(0xFF1E293B),
-                ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF10B981),
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    "${AppLocalizations.of(context).translate('bot_online')} • ${AppLocalizations.of(context).translate('bot_smart_city_ai')}",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: isDark ? Colors.grey[400] : Colors.grey[600],
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          const SizedBox(width: 12),
+          Text(
+            "CORE DIAGNOSTIC LINK • ACTIVE",
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w900,
+              color: Colors.grey[400],
+              letterSpacing: 1.5,
+            ),
           ),
         ],
       ),
@@ -275,12 +225,11 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
   }
 
   Widget _buildQuickChips(bool isDark) {
-    final l10n = AppLocalizations.of(context);
     final chips = [
-      l10n.translate('fever'),
-      l10n.translate('headache'),
-      l10n.translate('diet'),
-      l10n.translate('vaccine')
+      'Structural Integrity',
+      'Power Grid',
+      'Sensor Calibration',
+      'Network Status'
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -289,23 +238,22 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: chips
-              .map((symptom) => FadeInRight(
+              .map((label) => FadeInRight(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: ActionChip(
-                        label: Text(symptom),
-                        onPressed: () => _handleSubmitted(symptom),
-                        backgroundColor:
-                            isDark ? const Color(0xFF334155) : Colors.white,
+                        label: Text(label),
+                        onPressed: () => _handleSubmitted(label),
+                        backgroundColor: const Color(0xFF1E293B),
                         labelStyle: TextStyle(
-                          color: isDark ? Colors.blue[300] : Colors.blue[700],
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 11,
                         ),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
+                            borderRadius: BorderRadius.circular(12)),
                         side: BorderSide(
-                            color: Colors.blue.withValues(alpha: 0.2)),
+                            color: Theme.of(context).primaryColor.withValues(alpha: 0.2)),
                       ),
                     ),
                   ))
@@ -324,25 +272,11 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 6),
           padding: const EdgeInsets.all(16),
-          constraints:
-              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
+          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
           decoration: BoxDecoration(
-            color: isUser
-                ? const Color(0xFF3B82F6)
-                : (isDark ? const Color(0xFF1E293B) : Colors.white),
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(20),
-              topRight: const Radius.circular(20),
-              bottomLeft: isUser ? const Radius.circular(20) : Radius.zero,
-              bottomRight: isUser ? Radius.zero : const Radius.circular(20),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            color: isUser ? const Color(0xFF3B82F6) : const Color(0xFF1E293B),
+            borderRadius: BorderRadius.circular(16),
+            border: isUser ? null : Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,17 +286,14 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
                   padding: const EdgeInsets.only(bottom: 8),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child:
-                        Image.file(File(message.imagePath!), fit: BoxFit.cover),
+                    child: Image.file(File(message.imagePath!), fit: BoxFit.cover),
                   ),
                 ),
               Text(
                 message.text,
                 style: GoogleFonts.inter(
-                  color: isUser
-                      ? Colors.white
-                      : (isDark ? Colors.white : const Color(0xFF334155)),
-                  fontSize: 15,
+                  color: Colors.white,
+                  fontSize: 14,
                   height: 1.5,
                 ),
               ),
@@ -370,10 +301,9 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
               Text(
                 _formatTime(message.timestamp),
                 style: TextStyle(
-                  fontSize: 10,
-                  color: isUser
-                      ? Colors.white.withValues(alpha: 0.7)
-                      : Colors.grey[500],
+                  fontSize: 9,
+                  color: Colors.white.withValues(alpha: 0.5),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -386,16 +316,9 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
   Widget _buildInputArea(bool isDark) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E293B) : Colors.white,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, -4),
-          ),
-        ],
+      decoration: const BoxDecoration(
+        color: Color(0xFF1E293B),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Row(
         children: [
@@ -410,19 +333,17 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
             child: TextField(
               controller: _textController,
               onSubmitted: _handleSubmitted,
+              style: const TextStyle(color: Colors.white, fontSize: 14),
               decoration: InputDecoration(
-                hintText:
-                    AppLocalizations.of(context).translate('bot_type_symptoms'),
-                hintStyle: TextStyle(color: Colors.grey[400]),
+                hintText: "Enter telemetry query...",
+                hintStyle: TextStyle(color: Colors.grey[500], fontSize: 13),
                 filled: true,
-                fillColor:
-                    isDark ? const Color(0xFF0F172A) : const Color(0xFFF1F5F9),
+                fillColor: const Color(0xFF0F172A),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
           ),
@@ -430,9 +351,8 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
           GestureDetector(
             onTap: () => _handleSubmitted(_textController.text),
             child: CircleAvatar(
-              backgroundColor: const Color(0xFF3B82F6),
-              child:
-                  const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+              backgroundColor: Theme.of(context).primaryColor,
+              child: const Icon(Icons.send_rounded, color: Colors.white, size: 18),
             ),
           ),
         ],
@@ -440,22 +360,19 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
     );
   }
 
-  Widget _buildIconButton(IconData icon, VoidCallback onTap, bool isDark,
-      {Color? color}) {
+  Widget _buildIconButton(IconData icon, VoidCallback onTap, bool isDark, {Color? color}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: isDark ? const Color(0xFF334155) : const Color(0xFFF1F5F9),
-            borderRadius: BorderRadius.circular(12),
+            color: const Color(0xFF0F172A),
+            borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon,
-              color: color ?? (isDark ? Colors.blue[300] : Colors.blue[600]),
-              size: 20),
+          child: Icon(icon, color: color ?? Theme.of(context).primaryColor, size: 18),
         ),
       ),
     );
@@ -495,10 +412,8 @@ class _TypingIndicator extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.dark
-              ? const Color(0xFF1E293B)
-              : Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xFF1E293B),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -506,13 +421,12 @@ class _TypingIndicator extends StatelessWidget {
             const SizedBox(
               width: 12,
               height: 12,
-              child:
-                  CircularProgressIndicator(strokeWidth: 2, color: Colors.blue),
+              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
             ),
             const SizedBox(width: 12),
             Text(
-              AppLocalizations.of(context).translate('bot_thinking'),
-              style: TextStyle(color: Colors.grey[500], fontSize: 13),
+              "ANALYZING...",
+              style: TextStyle(color: Colors.grey[500], fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1.5),
             ),
           ],
         ),
@@ -520,5 +434,3 @@ class _TypingIndicator extends StatelessWidget {
     );
   }
 }
-
-

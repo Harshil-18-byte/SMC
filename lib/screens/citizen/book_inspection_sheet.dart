@@ -52,7 +52,7 @@ class _BookInspectionSheetState extends State<BookInspectionSheet> {
           DropdownButtonFormField<String>(
             dropdownColor: const Color(0xFF1E293B),
             style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(labelText: 'Select Target Asset', labelStyle: TextStyle(color: Colors.blue)),
+            decoration: InputDecoration(labelText: 'Select Target Asset', labelStyle: TextStyle(color: Theme.of(context).primaryColor)),
             items: ['City Bridge-04', 'Sewage Plant A', 'Sector 4 Grid'].map((a) => DropdownMenuItem(value: a, child: Text(a))).toList(),
             onChanged: (val) => setState(() => _selectedAsset = val),
           ),
@@ -61,7 +61,7 @@ class _BookInspectionSheetState extends State<BookInspectionSheet> {
           DropdownButtonFormField<InspectorModel>(
             dropdownColor: const Color(0xFF1E293B),
             style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(labelText: 'Assign Inspector', labelStyle: TextStyle(color: Colors.blue)),
+            decoration: InputDecoration(labelText: 'Assign Inspector', labelStyle: TextStyle(color: Theme.of(context).primaryColor)),
             items: _getMockInspectors().map((i) => DropdownMenuItem(value: i, child: Text('${i.fullName} (${i.specialization})'))).toList(),
             onChanged: (val) => setState(() => _selectedInspector = val),
           ),
@@ -72,7 +72,7 @@ class _BookInspectionSheetState extends State<BookInspectionSheet> {
           const SizedBox(height: 32),
           ElevatedButton(
             onPressed: (_selectedInspector != null && _selectedAsset != null) ? _confirmBooking : null,
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue, padding: const EdgeInsets.symmetric(vertical: 16)),
+            style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).primaryColor, padding: EdgeInsets.symmetric(vertical: 16)),
             child: Text('INITIATE INSPECTION CYCLE', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, color: Colors.white)),
           ),
         ],

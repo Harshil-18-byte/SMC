@@ -71,7 +71,7 @@ class _AdminCommandCenterScreenState extends State<AdminCommandCenterScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('INFRA COMMAND CENTER', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 18, color: Colors.white)),
-              Text('GLOBAL STRATEGIC TERMINAL', style: GoogleFonts.outfit(fontSize: 10, color: Colors.blue, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+              Text('GLOBAL STRATEGIC TERMINAL', style: GoogleFonts.outfit(fontSize: 10, color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
             ],
           ),
           actions: [
@@ -82,7 +82,7 @@ class _AdminCommandCenterScreenState extends State<AdminCommandCenterScreen> {
         body: IndustrialVisuals.blueprintBackground(
           isDark: true,
           child: _isLoading 
-            ? const Center(child: CircularProgressIndicator(color: Colors.blue))
+            ? Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor))
             : RefreshIndicator(
                 onRefresh: _loadDashboardData,
                 child: SingleChildScrollView(
@@ -258,6 +258,6 @@ class _AdminCommandCenterScreenState extends State<AdminCommandCenterScreen> {
   }
 
   Widget _sectionHeader(String title) {
-    return Text(title.toUpperCase(), style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5));
+    return Text(title.toUpperCase(), style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5));
   }
 }

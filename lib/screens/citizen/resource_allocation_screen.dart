@@ -6,14 +6,14 @@ import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/core/widgets/smc_back_button.dart';
 
-class BloodDonationScreen extends StatefulWidget {
-  const BloodDonationScreen({super.key});
+class ResourceAllocationScreen extends StatefulWidget {
+  const ResourceAllocationScreen({super.key});
 
   @override
-  State<BloodDonationScreen> createState() => _BloodDonationScreenState();
+  State<ResourceAllocationScreen> createState() => _ResourceAllocationScreenState();
 }
 
-class _BloodDonationScreenState extends State<BloodDonationScreen> {
+class _ResourceAllocationScreenState extends State<ResourceAllocationScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -107,7 +107,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
             child: _buildActionButton(
               l10n.translate('donor_registration'),
               Icons.app_registration_rounded,
-              Colors.blue,
+              Theme.of(context).primaryColor,
               () async {
                 await firestore.createDocument(collection: 'donors', data: {
                   'registeredAt': DateTime.now().toIso8601String(),

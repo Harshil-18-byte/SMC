@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smc/core/widgets/smc_back_button.dart';
 import 'package:smc/core/theme/theme_switcher.dart';
-import 'package:smc/core/localization/app_localizations.dart';
 
-/// Asset Summary Screen
-/// Compact asset inspection summary visible from both Citizen and Field Worker sides
+/// Infrastructure Integrity Summary Screen
+/// Operational status and telemetry overview for regional infrastructure assets.
 class AssetSummaryScreen extends StatelessWidget {
   final String? assetId;
   final String? assetName;
@@ -14,11 +14,14 @@ class AssetSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final name = assetName ?? 'Suresh Patil';
+    final name = assetName ?? 'Western Bridge Link - 04';
 
     return Scaffold(
-      appBar: SMCAppBar(
-        title: AppLocalizations.of(context).translate('asset_summary'),
+      backgroundColor: const Color(0xFF0F172A),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1E293B),
+        leading: const SMCBackButton(),
+        title: Text('INTEGRITY SUMMARY', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
         actions: const [ThemeSwitcher(), SizedBox(width: 8)],
       ),
       body: SingleChildScrollView(
@@ -28,36 +31,30 @@ class AssetSummaryScreen extends StatelessWidget {
           children: [
             // Asset Identity Card
             _buildAssetCard(context, isDark, name),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
 
-            // Vitals Snapshot
-            _buildSectionTitle(context, 'LATEST VITALS'),
+            // Telemetry Snapshot
+            _buildSectionTitle(context, 'LIVE TELEMETRY'),
             const SizedBox(height: 12),
-            _buildVitalsGrid(context, isDark),
-            const SizedBox(height: 20),
+            _buildTelemetryGrid(context, isDark),
+            const SizedBox(height: 24),
 
-            // Active Conditions
-            _buildSectionTitle(context, 'ACTIVE CONDITIONS'),
+            // Critical Defects
+            _buildSectionTitle(context, 'STRUCTURAL DEFECT HISTORY'),
             const SizedBox(height: 12),
-            _buildConditionsList(context, isDark),
-            const SizedBox(height: 20),
+            _buildDefectsList(context, isDark),
+            const SizedBox(height: 24),
 
-            // Recent Visits
-            _buildSectionTitle(context, 'RECENT VISITS'),
+            // Maintenance Schedule
+            _buildSectionTitle(context, 'PLANNED MAINTENANCE'),
             const SizedBox(height: 12),
-            _buildRecentVisits(context, isDark),
-            const SizedBox(height: 20),
+            _buildMaintenanceSchedule(context, isDark),
+            const SizedBox(height: 24),
 
-            // Medications
-            _buildSectionTitle(context, 'CURRENT MEDICATIONS'),
+            // Material Analysis
+            _buildSectionTitle(context, 'MATERIAL COMPOSITION'),
             const SizedBox(height: 12),
-            _buildMedications(context, isDark),
-            const SizedBox(height: 20),
-
-            // Allergies
-            _buildSectionTitle(context, 'ALLERGIES'),
-            const SizedBox(height: 12),
-            _buildAllergies(context, isDark),
+            _buildMaterialAnalysis(context, isDark),
 
             const SizedBox(height: 100),
           ],
@@ -115,10 +112,10 @@ class AssetSummaryScreen extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
-                const Text('Inspection ID: SOL-4522-8901',
-                    style: TextStyle(color: Colors.white70, fontSize: 12)),
+                const Text('ASSET ID: BR-LINK-04-SEC4',
+                    style: TextStyle(color: Colors.white70, fontSize: 12, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 2),
-                const Text('Age: 40  •  Blood Group: O+  •  Male',
+                const Text('Built: 2018  •  Material: Concrete/Steel  •  Load Class: A',
                     style: TextStyle(color: Colors.white70, fontSize: 12)),
               ],
             ),
@@ -128,48 +125,48 @@ class AssetSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildVitalsGrid(BuildContext context, bool isDark) {
-    final vitals = [
+  Widget _buildTelemetryGrid(BuildContext context, bool isDark) {
+    final metrics = [
       {
-        'label': 'Blood Pressure',
-        'value': '128/82',
-        'unit': 'mmHg',
-        'icon': Icons.favorite_rounded,
+        'label': 'Stress Load',
+        'value': '42.5',
+        'unit': 'kN/m²',
+        'icon': Icons.fitness_center_rounded,
         'color': Colors.red
       },
       {
-        'label': 'Heart Rate',
-        'value': '76',
-        'unit': 'bpm',
-        'icon': Icons.monitor_heart_rounded,
+        'label': 'Vibration',
+        'value': '0.14',
+        'unit': 'Hz',
+        'icon': Icons.vibration_rounded,
         'color': Colors.pink
       },
       {
-        'label': 'SpO2',
-        'value': '97',
+        'label': 'Integrity',
+        'value': '99.2',
         'unit': '%',
-        'icon': Icons.air_rounded,
-        'color': Colors.blue
+        'icon': Icons.shield_rounded,
+        'color': Theme.of(context).primaryColor
       },
       {
-        'label': 'Temperature',
-        'value': '98.4',
-        'unit': '°F',
+        'label': 'Ambient Temp',
+        'value': '32.4',
+        'unit': '°C',
         'icon': Icons.thermostat_rounded,
         'color': Colors.orange
       },
       {
-        'label': 'Blood Sugar',
-        'value': '112',
-        'unit': 'mg/dL',
-        'icon': Icons.water_drop_rounded,
+        'label': 'Deformation',
+        'value': '0.02',
+        'unit': 'mm',
+        'icon': Icons.straighten_rounded,
         'color': Colors.purple
       },
       {
-        'label': 'Weight',
-        'value': '72',
-        'unit': 'kg',
-        'icon': Icons.monitor_weight_rounded,
+        'label': 'Node Status',
+        'value': '124',
+        'unit': 'ACTIVE',
+        'icon': Icons.hub_rounded,
         'color': Colors.teal
       },
     ];
@@ -181,14 +178,13 @@ class AssetSummaryScreen extends StatelessWidget {
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
       childAspectRatio: 0.9,
-      children: vitals.map((v) {
+      children: metrics.map((v) {
         return Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
+            color: const Color(0xFF1E293B),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-                color: isDark ? Colors.white10 : const Color(0xFFE2E8F0)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -198,11 +194,10 @@ class AssetSummaryScreen extends StatelessWidget {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text('${v['value']}',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
-                        color:
-                            isDark ? Colors.white : const Color(0xFF111418))),
+                        color: Colors.white)),
               ),
               Text('${v['unit']}',
                   style: TextStyle(fontSize: 10, color: Colors.grey[500])),
@@ -219,26 +214,21 @@ class AssetSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildConditionsList(BuildContext context, bool isDark) {
-    final conditions = [
-      {'name': 'Type 2 Diabetes', 'since': 'Since 2019', 'status': 'Managed'},
-      {
-        'name': 'Hypertension (Stage 1)',
-        'since': 'Since 2021',
-        'status': 'Monitoring'
-      },
+  Widget _buildDefectsList(BuildContext context, bool isDark) {
+    final defects = [
+      {'name': 'Structural Hairline Crack', 'since': 'Detected May 2024', 'status': 'Stable'},
+      {'name': 'Joint Corrosion - Pylon 4', 'since': 'Detected Feb 2026', 'status': 'Monitoring'},
     ];
 
     return Column(
-      children: conditions.map((c) {
+      children: defects.map((c) {
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
+            color: const Color(0xFF1E293B),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-                color: isDark ? Colors.white10 : const Color(0xFFE2E8F0)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
           child: Row(
             children: [
@@ -248,7 +238,7 @@ class AssetSummaryScreen extends StatelessWidget {
                   color: Colors.orange.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.medical_information_rounded,
+                child: const Icon(Icons.report_problem_rounded,
                     color: Colors.orange, size: 18),
               ),
               const SizedBox(width: 12),
@@ -258,7 +248,7 @@ class AssetSummaryScreen extends StatelessWidget {
                   children: [
                     Text(c['name']!,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 13)),
+                            fontWeight: FontWeight.bold, fontSize: 13, color: Colors.white)),
                     Text(c['since']!,
                         style:
                             TextStyle(fontSize: 11, color: Colors.grey[500])),
@@ -284,38 +274,31 @@ class AssetSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecentVisits(BuildContext context, bool isDark) {
-    final visits = [
+  Widget _buildMaintenanceSchedule(BuildContext context, bool isDark) {
+    final events = [
       {
         'date': 'Feb 14, 2026',
-        'type': 'Field Visit',
-        'by': 'ANM Priya Sharma',
-        'notes': 'BP check, medication review'
+        'type': 'Sensor Calibration',
+        'by': 'Engr. Arnav Desai',
+        'notes': 'Vibration node resynchronization'
       },
       {
         'date': 'Jan 28, 2026',
-        'type': 'Site Visit',
-        'by': 'Dr. James Chen',
-        'notes': 'Quarterly diabetes checkup'
-      },
-      {
-        'date': 'Jan 10, 2026',
-        'type': 'Lab',
-        'by': 'SMC Diagnostics',
-        'notes': 'HbA1c test, lipid profile'
+        'type': 'Structural Wash',
+        'by': 'Fleet Unit 09',
+        'notes': 'Chemical cleaning of support pylons'
       },
     ];
 
     return Column(
-      children: visits.map((v) {
+      children: events.map((v) {
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
+            color: const Color(0xFF1E293B),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-                color: isDark ? Colors.white10 : const Color(0xFFE2E8F0)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -323,11 +306,11 @@ class AssetSummaryScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withValues(alpha: 0.1),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.event_rounded,
-                    color: Colors.blue, size: 18),
+                child: Icon(Icons.event_rounded,
+                    color: Theme.of(context).primaryColor, size: 18),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -338,7 +321,7 @@ class AssetSummaryScreen extends StatelessWidget {
                       children: [
                         Text(v['type']!,
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 13)),
+                                fontWeight: FontWeight.bold, fontSize: 13, color: Colors.white)),
                         const SizedBox(width: 6),
                         Text(v['date']!,
                             style: TextStyle(
@@ -362,86 +345,33 @@ class AssetSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMedications(BuildContext context, bool isDark) {
-    final meds = [
-      {
-        'name': 'Metformin 500mg',
-        'dosage': '1 tab twice daily',
-        'color': Colors.blue
-      },
-      {
-        'name': 'Amlodipine 5mg',
-        'dosage': '1 tab once daily (morning)',
-        'color': Colors.red
-      },
-      {
-        'name': 'Vitamin D3 2000IU',
-        'dosage': '1 tab daily',
-        'color': Colors.orange
-      },
+  Widget _buildMaterialAnalysis(BuildContext context, bool isDark) {
+    final components = [
+      {'name': 'Structural Steel Grade 4', 'level': 0.94, 'color': Colors.blue},
+      {'name': 'RCC Concrete - Mixed', 'level': 0.88, 'color': Colors.teal},
     ];
 
     return Column(
-      children: meds.map((m) {
+      children: components.map((m) {
         return Container(
-          margin: const EdgeInsets.only(bottom: 6),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-                color: isDark ? Colors.white10 : const Color(0xFFE2E8F0)),
+            color: const Color(0xFF1E293B),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
-          child: Row(
+          child: Column(
             children: [
-              Icon(Icons.medication_rounded,
-                  size: 18, color: m['color'] as Color),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(m['name'] as String,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 13)),
-                    Text(m['dosage'] as String,
-                        style:
-                            TextStyle(fontSize: 11, color: Colors.grey[500])),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(m['name'] as String, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                  Text('${((m['level'] as double)*100).toInt()}% INTEGRITY', style: TextStyle(color: m['color'] as Color, fontSize: 10, fontWeight: FontWeight.bold)),
+                ],
               ),
-            ],
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildAllergies(BuildContext context, bool isDark) {
-    final allergies = ['Penicillin', 'Sulfa Drugs'];
-
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: allergies.map((a) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: Colors.red.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.warning_amber_rounded,
-                  color: Colors.red, size: 14),
-              const SizedBox(width: 4),
-              Text(a,
-                  style: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12)),
+              const SizedBox(height: 8),
+              LinearProgressIndicator(value: m['level'] as double, color: m['color'] as Color, backgroundColor: Colors.white10, minHeight: 4),
             ],
           ),
         );

@@ -611,17 +611,17 @@ class _NewVisitFormScreenState extends State<NewVisitFormScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.1),
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.info_outline, size: 20, color: Colors.blue),
+                  Icon(Icons.info_outline, size: 20, color: Theme.of(context).primaryColor),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       '${_photos.length} photo(s) will be compressed and uploaded',
-                      style: const TextStyle(fontSize: 12, color: Colors.blue),
+                      style: TextStyle(fontSize: 12, color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ],

@@ -5,16 +5,16 @@ import 'package:provider/provider.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/data/services/firestore_service.dart';
 
-class CitizenMedicineInventoryScreen extends StatefulWidget {
-  const CitizenMedicineInventoryScreen({super.key});
+class CitizenMaintenanceInventoryScreen extends StatefulWidget {
+  const CitizenMaintenanceInventoryScreen({super.key});
 
   @override
-  State<CitizenMedicineInventoryScreen> createState() =>
-      _CitizenMedicineInventoryScreenState();
+  State<CitizenMaintenanceInventoryScreen> createState() =>
+      _CitizenMaintenanceInventoryScreenState();
 }
 
-class _CitizenMedicineInventoryScreenState
-    extends State<CitizenMedicineInventoryScreen> {
+class _CitizenMaintenanceInventoryScreenState
+    extends State<CitizenMaintenanceInventoryScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -158,7 +158,7 @@ class _CitizenMedicineInventoryScreenState
                                   decoration: BoxDecoration(
                                     color: (m['isLow'] == true
                                             ? Colors.orange
-                                            : Colors.blue)
+                                            : Theme.of(context).primaryColor)
                                         .withValues(alpha: 0.1),
                                     shape: BoxShape.circle,
                                   ),
@@ -166,7 +166,7 @@ class _CitizenMedicineInventoryScreenState
                                     Icons.medication_rounded,
                                     color: m['isLow'] == true
                                         ? Colors.orange
-                                        : Colors.blue,
+                                        : Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 const SizedBox(width: 16),

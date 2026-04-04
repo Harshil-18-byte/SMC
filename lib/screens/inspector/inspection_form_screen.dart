@@ -286,7 +286,7 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _sectionHeader('AI Defect Analysis'),
+          _sectionHeader('Automated Structural Diagnostic'),
           const SizedBox(height: 32),
           if (_aiResult == null)
             Column(
@@ -331,16 +331,16 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('ANALYSIS RESULT', style: GoogleFonts.outfit(fontWeight: FontWeight.w800, color: Colors.grey)),
-              IndustrialVisuals.statusBadge(_aiResult!['severity']),
+              Text('ANALYSIS RESULT', style: GoogleFonts.outfit(fontWeight: FontWeight.w800, color: Colors.grey, fontSize: 10, letterSpacing: 1.5)),
+              Text(_aiResult!['patternId'] ?? 'PAT-0000', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, color: IndustrialVisuals.primaryTech, fontSize: 12)),
             ],
           ),
           const SizedBox(height: 20),
-          Text(_aiResult!['description'], style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+          Text(_aiResult!['finding']?.toUpperCase() ?? 'STRUCTURAL ANOMALY', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
           const SizedBox(height: 12),
-          _resultRow(Icons.check_circle, 'Finding', _aiResult!['finding']),
-          _resultRow(Icons.build, 'Remedy', _aiResult!['recommendation']),
-          _resultRow(Icons.speed, 'Confidence', '${((_aiResult!['confidence'] ?? 0)*100).toInt()}%'),
+          _resultRow(Icons.description_rounded, 'Library Match', _aiResult!['description']),
+          _resultRow(Icons.build_circle_rounded, 'Remedy Plan', _aiResult!['recommendation']),
+          _resultRow(Icons.verified_rounded, 'Confidence Index', '${((_aiResult!['confidence'] ?? 0)*100).toInt()}% NOMINAL'),
           const SizedBox(height: 24),
           IndustrialVisuals.largeActionButton(
             label: 'Re-Scan',

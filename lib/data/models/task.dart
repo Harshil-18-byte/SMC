@@ -69,22 +69,22 @@ class Task {
         return TaskPriorityStyle(
           bgColor: const Color(0xFFFEF3C7),
           textColor: const Color(0xFFB45309),
-          darkBgColor: const Color(0xFF78350F).withValues(alpha: 0.3),
+          darkBgColor: const Color(0xFFB45309).withValues(alpha: 0.2),
           darkTextColor: const Color(0xFFFBBF24),
         );
       case 'SURVEY':
         return TaskPriorityStyle(
-          bgColor: const Color(0xFFDCFCE7),
-          textColor: const Color(0xFF15803D),
-          darkBgColor: const Color(0xFF14532D).withValues(alpha: 0.3),
-          darkTextColor: const Color(0xFF4ADE80),
+          bgColor: const Color(0xFFECFDF5),
+          textColor: const Color(0xFF059669),
+          darkBgColor: const Color(0xFF059669).withValues(alpha: 0.2),
+          darkTextColor: const Color(0xFF34D399),
         );
       default: // ROUTINE
         return TaskPriorityStyle(
-          bgColor: const Color(0xFFDBEAFE),
-          textColor: const Color(0xFF1E40AF),
-          darkBgColor: const Color(0xFF1E3A8A).withValues(alpha: 0.3),
-          darkTextColor: const Color(0xFF60A5FA),
+          bgColor: const Color(0xFFF1F5F9), // Slate
+          textColor: const Color(0xFF475569), // Steel
+          darkBgColor: const Color(0xFF334155).withValues(alpha: 0.3),
+          darkTextColor: const Color(0xFF94A3B8),
         );
     }
   }

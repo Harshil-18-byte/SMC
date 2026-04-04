@@ -59,9 +59,9 @@ class TacticalIDScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.blue.withValues(alpha: 0.3), width: 1.5),
+        border: Border.all(color: Theme.of(context).primaryColor.withValues(alpha: 0.3), width: 1.5),
         boxShadow: [
-          BoxShadow(color: Colors.blue.withValues(alpha: 0.1), blurRadius: 30, offset: const Offset(0, 10)),
+          BoxShadow(color: Theme.of(context).primaryColor.withValues(alpha: 0.1), blurRadius: 30, offset: Offset(0, 10)),
         ],
       ),
       child: Column(
@@ -74,12 +74,12 @@ class TacticalIDScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('REGISTRY CLEARANCE', style: TextStyle(color: Colors.blue, fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)),
+                    Text('REGISTRY CLEARANCE', style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)),
                     const SizedBox(height: 8),
                     Text(citizen.name.toUpperCase(), style: GoogleFonts.outfit(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900)),
                   ],
                 ),
-                const Icon(Icons.verified_user_rounded, color: Colors.blue, size: 36),
+                Icon(Icons.verified_user_rounded, color: Theme.of(context).primaryColor, size: 36),
               ],
             ),
           ),
@@ -121,9 +121,9 @@ class TacticalIDScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.file_download_outlined, color: Colors.blue, size: 18),
+                  Icon(Icons.file_download_outlined, color: Theme.of(context).primaryColor, size: 18),
                   const SizedBox(width: 8),
-                  Text('EXPORT DIGITAL CREDENTIALS', style: GoogleFonts.outfit(color: Colors.blue, fontSize: 11, fontWeight: FontWeight.w900)),
+                  Text('EXPORT DIGITAL CREDENTIALS', style: GoogleFonts.outfit(color: Theme.of(context).primaryColor, fontSize: 11, fontWeight: FontWeight.w900)),
                 ],
               ),
             ),
@@ -150,21 +150,21 @@ class TacticalIDScreen extends StatelessWidget {
       children: [
         const Text('CONTACT REGISTRY', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Colors.grey, letterSpacing: 1.5)),
         const SizedBox(height: 16),
-        _detailTile(Icons.phone_android_rounded, 'SECURE LINE', citizen.phone),
-        _detailTile(Icons.alternate_email_rounded, 'WORK EMAIL', citizen.email),
-        _detailTile(Icons.map_rounded, 'ASSIGNED ZONE', citizen.address),
+        _detailTile(context, Icons.phone_android_rounded, 'SECURE LINE', citizen.phone),
+        _detailTile(context, Icons.alternate_email_rounded, 'WORK EMAIL', citizen.email),
+        _detailTile(context, Icons.map_rounded, 'ASSIGNED ZONE', citizen.address),
       ],
     );
   }
 
-  Widget _detailTile(IconData icon, String label, String value) {
+  Widget _detailTile(BuildContext context, IconData icon, String label, String value) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.white10)),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Colors.blue),
+          Icon(icon, size: 20, color: Theme.of(context).primaryColor),
           const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

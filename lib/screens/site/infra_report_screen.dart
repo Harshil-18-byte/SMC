@@ -287,7 +287,7 @@ class InfraReportScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(log['icon'] as IconData, size: 18, color: Colors.blue),
+            Icon(log['icon'] as IconData, size: 18, color: Theme.of(context).primaryColor),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -323,7 +323,7 @@ class InfraReportScreen extends StatelessWidget {
 
     return alerts.map((alert) {
       final isWarning = alert['severity'] == 'warning';
-      final color = isWarning ? Colors.orange : Colors.blue;
+      final color = isWarning ? Colors.orange : Theme.of(context).primaryColor;
       return Container(
         margin: const EdgeInsets.only(bottom: 8),
         padding: const EdgeInsets.all(14),

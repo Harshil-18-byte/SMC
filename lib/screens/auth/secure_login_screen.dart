@@ -7,13 +7,10 @@ import 'package:smc/core/theme/theme_switcher.dart';
 import 'package:smc/core/services/user_service.dart';
 import 'package:smc/data/models/user_model.dart';
 import 'package:smc/data/models/auth_models.dart';
-import 'package:smc/core/localization/app_localizations.dart';
-import 'package:smc/core/visuals/infra_visuals.dart';
 import 'dart:math' as math;
 
 /// Secure Login Screen — Professional Engineering & Infrastructure Design
-/// Features: blueprint scanning animation on login, grid/blueprint background,
-/// and a high-density, technical command center aesthetic.
+/// Restored to absolute original layout/features with professional Slate/Amber palette.
 class SecureLoginScreen extends StatefulWidget {
   const SecureLoginScreen({super.key});
 
@@ -36,47 +33,47 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
   late AnimationController _pulseController;
   late Animation<double> _pulseAnim;
 
-  // ── Dark, solid, matte palette ──
-  static const Color _bgDarkCharcoal = Color(0xFF141618);
-  static const Color _bgLightWarm = Color(0xFFF5F0EB);
-  static const Color _cardDark = Color(0xFF1C1F22);
+  // ── Industrial Matte Palette ──
+  static const Color _bgDarkSlate = Color(0xFF0F172A);
+  static const Color _bgLightWarm = Color(0xFFFAFAFA);
+  static const Color _cardDark = Color(0xFF1E293B);
   static const Color _cardLight = Color(0xFFFFFFFF);
-  static const Color _borderDark = Color(0xFF2A2D31);
-  static const Color _borderLight = Color(0xFFD6CFC7);
-  static const Color _textDark = Color(0xFFE8E4DF);
-  static const Color _textLight = Color(0xFF2C2825);
-  static const Color _subtleDark = Color(0xFF6B6560);
-  static const Color _subtleLight = Color(0xFF9A938C);
+  static const Color _borderDark = Color(0xFF334155);
+  static const Color _borderLight = Color(0xFFE2E8F0);
+  static const Color _textDark = Color(0xFFF8FAFC);
+  static const Color _textLight = Color(0xFF1E293B);
+  static const Color _subtleDark = Color(0xFF94A3B8);
+  static const Color _subtleLight = Color(0xFF64748B);
 
   static const _roleConfig = <UserRole, _RoleUIConfig>{
     UserRole.superAdmin: _RoleUIConfig(
       icon: Icons.account_balance_rounded,
-      color: Color(0xFF1A237E),
-      darkColor: Color(0xFF3F51B5),
+      color: Color(0xFF334155),
+      darkColor: Color(0xFF94A3B8),
       label: 'National',
     ),
     UserRole.stateAdmin: _RoleUIConfig(
       icon: Icons.gavel_rounded,
-      color: Color(0xFF2E7D32),
-      darkColor: Color(0xFF4CAF50),
+      color: Color(0xFF0F766E),
+      darkColor: Color(0xFF2DD4BF),
       label: 'State',
     ),
     UserRole.cityAdmin: _RoleUIConfig(
       icon: Icons.location_city_rounded,
-      color: Color(0xFFC62828),
-      darkColor: Color(0xFFE57373),
+      color: Color(0xFFB45309),
+      darkColor: Color(0xFFFBBF24),
       label: 'City',
     ),
     UserRole.fieldInspector: _RoleUIConfig(
       icon: Icons.engineering_rounded,
-      color: Color(0xFFEF6C00),
-      darkColor: Color(0xFFFFB74D),
+      color: Color(0xFF1D4ED8), 
+      darkColor: Color(0xFFF59E0B), 
       label: 'Inspector',
     ),
     UserRole.viewer: _RoleUIConfig(
       icon: Icons.person_pin_circle_rounded,
-      color: Colors.blueGrey,
-      darkColor: Colors.blueGrey,
+      color: Color(0xFF64748B),
+      darkColor: Color(0xFFCBD5E1),
       label: 'Citizen',
     ),
   };
@@ -165,7 +162,7 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final config = _roleConfig[_selectedRole]!;
     final accentColor = isDark ? config.darkColor : config.color;
-    final bgColor = isDark ? _bgDarkCharcoal : _bgLightWarm;
+    final bgColor = isDark ? _bgDarkSlate : _bgLightWarm;
     final textColor = isDark ? _textDark : _textLight;
 
     return Scaffold(
@@ -178,8 +175,8 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
               builder: (context, _) {
                 return CustomPaint(
                   painter: GridBackgroundPainter(
-                    gridColor: (isDark ? Colors.blue : Colors.blueGrey),
-                    opacity: isDark ? 0.08 : 0.04,
+                    gridColor: isDark ? const Color(0xFF1E293B) : const Color(0xFFCBD5E1),
+                    opacity: isDark ? 0.2 : 0.1,
                   ),
                   foregroundPainter: InfraBlueprintPainter(
                     color: accentColor.withValues(alpha: isDark ? 0.08 : 0.06),
@@ -193,39 +190,33 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
             top: 10,
             right: 10,
             child: SafeArea(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.black.withValues(alpha: 0.04),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const ThemeSwitcher(),
-              ),
+              child: const ThemeSwitcher(),
             ),
           ),
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 500),
+                  constraints: const BoxConstraints(maxWidth: 460),
                   child: Column(
                     children: [
                       FadeInDown(
                         duration: const Duration(milliseconds: 600),
                         child: _buildPulseLogo(isDark, accentColor),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
                       FadeIn(
                         delay: const Duration(milliseconds: 300),
                         child: _InfraPulseLine(color: accentColor),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 24),
                       FadeInDown(
                         delay: const Duration(milliseconds: 200),
                         duration: const Duration(milliseconds: 600),
                         child: _buildTitle(isDark, textColor),
                       ),
-                      const SizedBox(height: 28),
+                      const SizedBox(height: 32),
                       FadeInDown(
                         delay: const Duration(milliseconds: 350),
                         duration: const Duration(milliseconds: 600),
@@ -237,8 +228,10 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
                         duration: const Duration(milliseconds: 600),
                         child: _buildLoginCard(isDark, accentColor, config, textColor),
                       ),
+                      const SizedBox(height: 16),
                       FadeInUp(
                         delay: const Duration(milliseconds: 650),
+                        duration: const Duration(milliseconds: 600),
                         child: _buildDemoCredentials(isDark, accentColor),
                       ),
                       const SizedBox(height: 24),
@@ -246,21 +239,20 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
                         delay: const Duration(milliseconds: 700),
                         child: _buildCitizenRegistration(isDark, accentColor),
                       ),
-                      const SizedBox(height: 36),
+                      const SizedBox(height: 40),
                       FadeInUp(
                         delay: const Duration(milliseconds: 800),
                         child: Text(
-                          AppLocalizations.of(context).translate('login_footer_text'),
+                          "SMART MANAGEMENT CENTER • INDUSTRIAL GRADE TERMINAL",
                           style: GoogleFonts.outfit(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
                             color: isDark ? _subtleDark : _subtleLight,
-                            letterSpacing: 1.5,
+                            letterSpacing: 2,
                           ),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      const SizedBox(height: 16),
                     ],
                   ),
                 ),
@@ -277,98 +269,96 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
       animation: _pulseAnim,
       builder: (context, child) => Transform.scale(scale: _pulseAnim.value, child: child),
       child: Container(
-        width: 78,
-        height: 78,
+        width: 80,
+        height: 80,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: accentColor,
+          color: isDark ? _cardDark : _cardLight,
+          border: Border.all(color: accentColor, width: 2),
           boxShadow: [
             BoxShadow(
-              color: accentColor.withValues(alpha: 0.15),
-              blurRadius: 16,
-              spreadRadius: 1,
+              color: accentColor.withValues(alpha: 0.2),
+              blurRadius: 20,
+              spreadRadius: 5,
             ),
           ],
         ),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: Icon(_roleConfig[_selectedRole]!.icon, key: ValueKey(_selectedRole), size: 34, color: Colors.white),
+        child: Center(
+          child: Icon(_roleConfig[_selectedRole]!.icon, size: 36, color: accentColor),
         ),
       ),
     );
   }
 
   Widget _buildTitle(bool isDark, Color textColor) {
-    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
         Text(
-          l10n.translate('login_title'),
-          style: GoogleFonts.outfit(fontSize: 28, fontWeight: FontWeight.w800, letterSpacing: -0.5, color: textColor),
+          "SECURE DATA TERMINAL",
+          style: GoogleFonts.outfit(
+            fontSize: 12,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 4,
+            color: isDark ? _roleConfig[_selectedRole]!.darkColor : _roleConfig[_selectedRole]!.color,
+          ),
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 10),
         Text(
-          l10n.translate('login_subtitle'),
-          style: GoogleFonts.outfit(fontSize: 14, color: isDark ? _subtleDark : _subtleLight, fontWeight: FontWeight.w500),
-          textAlign: TextAlign.center,
+          "SMC PLATFORM LOGIN",
+          style: GoogleFonts.outfit(fontSize: 26, fontWeight: FontWeight.w800, color: textColor),
         ),
       ],
     );
   }
 
   Widget _buildRoleSelector(bool isDark, Color accentColor, Color textColor) {
-    final l10n = AppLocalizations.of(context);
-    final roles = [
-      (UserRole.superAdmin, 'National', Icons.account_balance_rounded),
-      (UserRole.stateAdmin, 'State', Icons.gavel_rounded),
-      (UserRole.cityAdmin, 'City', Icons.location_city_rounded),
-      (UserRole.fieldInspector, 'Inspector', Icons.engineering_rounded),
-      (UserRole.viewer, 'Citizen', Icons.person_pin_circle_rounded),
-    ];
+    final roles = UserRole.values;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 10),
+          padding: const EdgeInsets.only(left: 4, bottom: 12),
           child: Text(
-            l10n.translate('login_as').toUpperCase(),
-            style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w800, color: isDark ? _subtleDark : _subtleLight, letterSpacing: 1.5),
+            "SELECT OPERATIONAL DOMAIN",
+            style: GoogleFonts.outfit(
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
+              color: isDark ? _subtleDark : _subtleLight,
+              letterSpacing: 1.5,
+            ),
           ),
         ),
         Container(
+          height: 64,
           decoration: BoxDecoration(
             color: isDark ? _cardDark : _cardLight,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: isDark ? _borderDark : _borderLight, width: 1.5),
           ),
-          padding: const EdgeInsets.all(4),
           child: Row(
             children: roles.map((r) {
-              final isSelected = _selectedRole == r.$1;
-              final color = isDark ? _roleConfig[r.$1]!.darkColor : _roleConfig[r.$1]!.color;
+              final isSelected = _selectedRole == r;
+              final color = isDark ? _roleConfig[r]!.darkColor : _roleConfig[r]!.color;
               return Expanded(
-                child: GestureDetector(
-                  onTap: () => setState(() {
-                    _selectedRole = r.$1;
-                    _authController.reset();
-                  }),
+                child: InkWell(
+                  onTap: () => setState(() => _selectedRole = r),
+                  borderRadius: BorderRadius.circular(11),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    margin: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: isSelected ? color.withValues(alpha: 0.1) : Colors.transparent,
+                      color: isSelected ? color : Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Column(
-                      children: [
-                        Icon(r.$3, size: 18, color: isSelected ? color : (isDark ? _subtleDark : _subtleLight)),
-                        const SizedBox(height: 4),
-                        Text(
-                          r.$2,
-                          style: GoogleFonts.outfit(fontSize: 10, fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500, color: isSelected ? color : (isDark ? _subtleDark : _subtleLight)),
-                        ),
-                      ],
+                    child: Center(
+                      child: Icon(
+                        _roleConfig[r]!.icon,
+                        size: 22,
+                        color: isSelected
+                            ? (isDark ? Colors.black : Colors.white)
+                            : (isDark ? _subtleDark : _subtleLight),
+                      ),
                     ),
                   ),
                 ),
@@ -376,18 +366,32 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
             }).toList(),
           ),
         ),
+        const SizedBox(height: 10),
+        Center(
+          child: Text(
+            _roleConfig[_selectedRole]!.label.toUpperCase(),
+            style: GoogleFonts.outfit(
+              fontSize: 12,
+              fontWeight: FontWeight.w900,
+              color: accentColor,
+              letterSpacing: 2,
+            ),
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildLoginCard(bool isDark, Color accentColor, _RoleUIConfig config, Color textColor) {
-    final l10n = AppLocalizations.of(context);
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: isDark ? _cardDark : _cardLight,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: isDark ? _borderDark : _borderLight, width: 1.5),
+        boxShadow: [
+          if (!isDark) BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 30, offset: const Offset(0, 15)),
+        ],
       ),
       child: Form(
         key: _formKey,
@@ -395,47 +399,48 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
           children: [
             _buildTextField(
               controller: _usernameController,
-              label: l10n.translate('login_username_label'),
-              hint: l10n.translate('login_username_hint'),
+              label: "OPERATOR IDENTIFIER",
+              hint: "System ID",
               icon: Icons.badge_outlined,
               isDark: isDark,
               accentColor: accentColor,
-              validator: (v) => (v == null || v.isEmpty) ? l10n.translate('login_username_required') : null,
+              validator: (v) => (v == null || v.isEmpty) ? "ID Required" : null,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             _buildTextField(
               controller: _passwordController,
-              label: l10n.translate('login_password_label'),
-              hint: l10n.translate('login_password_hint'),
+              label: "SECURITY CLEARANCE CODE",
+              hint: "Passcode",
               icon: Icons.lock_outline_rounded,
               isDark: isDark,
               accentColor: accentColor,
               isPassword: true,
-              validator: (v) => (v == null || v.isEmpty) ? l10n.translate('login_password_required') : null,
+              validator: (v) => (v == null || v.isEmpty) ? "Code Required" : null,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
-              height: 55,
+              height: 58,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _handleLogin,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: accentColor,
-                  foregroundColor: Colors.white,
+                  foregroundColor: isDark ? Colors.black : Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  elevation: 0,
                 ),
                 child: Stack(
                   children: [
                     if (_isLoading)
                       Positioned.fill(
                         child: CustomPaint(
-                          painter: AuthProgressPainter(progress: _authController.value, color: Colors.white.withValues(alpha: 0.3)),
+                          painter: AuthProgressPainter(progress: _authController.value, color: Colors.white.withValues(alpha: 0.4)),
                         ),
                       ),
                     Center(
                       child: Text(
-                        _isLoading ? 'AUTHENTICATING...' : l10n.translate('login_sign_in'),
-                        style: GoogleFonts.outfit(fontWeight: FontWeight.w700, letterSpacing: 1),
+                        "AUTHORIZE SESSION",
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w800, letterSpacing: 2, fontSize: 13),
                       ),
                     ),
                   ],
@@ -458,45 +463,63 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
     bool isPassword = false,
     String? Function(String?)? validator,
   }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassword && !_isPasswordVisible,
-      validator: validator,
-      style: GoogleFonts.outfit(fontSize: 15, color: isDark ? _textDark : _textLight),
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        prefixIcon: Icon(icon, size: 20, color: accentColor.withValues(alpha: 0.6)),
-        suffixIcon: isPassword ? IconButton(icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility, size: 20), onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible)) : null,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: GoogleFonts.outfit(fontSize: 9, fontWeight: FontWeight.w900, color: isDark ? _subtleDark : _subtleLight, letterSpacing: 1.5),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: controller,
+          obscureText: isPassword && !_isPasswordVisible,
+          validator: validator,
+          style: GoogleFonts.outfit(fontSize: 16, fontWeight: FontWeight.w600, color: isDark ? _textDark : _textLight),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: GoogleFonts.outfit(color: isDark ? _subtleDark.withValues(alpha: 0.4) : _subtleLight.withValues(alpha: 0.4)),
+            prefixIcon: Icon(icon, size: 20, color: accentColor),
+            suffixIcon: isPassword
+                ? IconButton(
+                    icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility, size: 20),
+                    onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                    color: isDark ? _subtleDark : _subtleLight)
+                : null,
+            filled: true,
+            fillColor: isDark ? _bgDarkSlate.withValues(alpha: 0.5) : _bgLightWarm,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: isDark ? _borderDark : _borderLight)),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: isDark ? _borderDark : _borderLight)),
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildDemoCredentials(bool isDark, Color accentColor) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? Colors.blue.withValues(alpha: 0.1) : Colors.blue.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: accentColor.withValues(alpha: 0.2)),
+        color: isDark ? _cardDark.withValues(alpha: 0.6) : _cardLight,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: accentColor.withValues(alpha: 0.3), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.key_rounded, size: 16, color: accentColor),
-              const SizedBox(width: 8),
-              Text('DEMO LOGIN VAULT', style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w800, color: accentColor)),
+              Icon(Icons.vpn_key_outlined, size: 18, color: accentColor),
+              const SizedBox(width: 10),
+              Text('DEMO ACCESS VAULT', style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.w800, color: accentColor)),
             ],
           ),
-          const SizedBox(height: 12),
-          _buildCredRow('NATIONAL', 'admin_nat', 'pass123', isDark),
-          _buildCredRow('STATE', 'admin_state', 'pass123', isDark),
-          _buildCredRow('CITY', 'admin_city', 'pass123', isDark),
-          _buildCredRow('INSPECTOR', 'ins_001', 'pass123', isDark),
-          _buildCredRow('CITIZEN', 'citizen_77', 'pass123', isDark),
+          const SizedBox(height: 16),
+          _buildCredRow('NATIONAL ADMIN', 'admin_nat', 'pass123', isDark),
+          _buildCredRow('STATE MANAGER', 'admin_state', 'pass123', isDark),
+          _buildCredRow('CITY OPERATOR', 'admin_city', 'pass123', isDark),
+          _buildCredRow('FIELD ENGINEER', 'ins_001', 'pass123', isDark),
+          _buildCredRow('CITIZEN ACCESS', 'citizen_77', 'pass123', isDark),
         ],
       ),
     );
@@ -504,13 +527,19 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
 
   Widget _buildCredRow(String role, String user, String pass, bool isDark) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(role, style: GoogleFonts.outfit(fontSize: 9, fontWeight: FontWeight.w900, color: isDark ? Colors.white54 : Colors.black54)),
-          Text('$user / $pass', style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w600, color: isDark ? Colors.white : Colors.black87)),
-        ],
+      padding: const EdgeInsets.only(bottom: 10),
+      child: InkWell(
+        onTap: () {
+          _usernameController.text = user;
+          _passwordController.text = pass;
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(role, style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: isDark ? _subtleDark : _subtleLight)),
+            Text('$user / $pass', style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w700, color: isDark ? _textDark : _textLight)),
+          ],
+        ),
       ),
     );
   }
@@ -518,22 +547,29 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
   Widget _buildCitizenRegistration(bool isDark, Color accentColor) {
     return Column(
       children: [
-        Text(
-          "OR",
-          style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.grey),
-        ),
-        const SizedBox(height: 12),
-        OutlinedButton(
-          onPressed: () {},
-          style: OutlinedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50),
-            side: BorderSide(color: accentColor, width: 1.5),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-          child: Text(
-            "NEW CITIZEN REGISTRATION",
-            style: GoogleFonts.outfit(fontWeight: FontWeight.w800, color: accentColor, fontSize: 13),
-          ),
+        Text("OR", style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: isDark ? _subtleDark : _subtleLight)),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () => Navigator.pushNamed(context, AppRoutes.viewerHome),
+              child: Text(
+                "GUEST ACCESS",
+                style: GoogleFonts.outfit(fontWeight: FontWeight.w900, color: accentColor, fontSize: 13, decoration: TextDecoration.underline),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text("|", style: TextStyle(color: isDark ? _subtleDark : _subtleLight)),
+            const SizedBox(width: 8),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "NEW REGISTRATION",
+                style: GoogleFonts.outfit(fontWeight: FontWeight.w900, color: accentColor, fontSize: 13),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -560,7 +596,7 @@ class _InfraPulseLineState extends State<_InfraPulseLine> with SingleTickerProvi
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))..repeat();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 3))..repeat();
   }
   @override
   void dispose() { _controller.dispose(); super.dispose(); }
@@ -568,28 +604,63 @@ class _InfraPulseLineState extends State<_InfraPulseLine> with SingleTickerProvi
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller,
-      builder: (context, _) => CustomPaint(size: const Size(200, 30), painter: _InfraPulsePainter(progress: _controller.value, color: widget.color.withValues(alpha: 0.5))),
+      builder: (context, _) => CustomPaint(size: const Size(220, 20), painter: _PulsePainter(_controller.value, widget.color.withValues(alpha: 0.4))),
     );
   }
 }
 
-class _InfraPulsePainter extends CustomPainter {
-  final double progress;
-  final Color color;
-  _InfraPulsePainter({required this.progress, required this.color});
+class _PulsePainter extends CustomPainter {
+  final double progress; final Color color;
+  _PulsePainter(this.progress, this.color);
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = color..strokeWidth = 1.5..style = PaintingStyle.stroke;
-    final w = size.width; final h = size.height; final midY = h / 2;
-    final path = Path(); path.moveTo(0, midY);
-    for (double x = 0; x < w; x += 10) {
-      final yOffset = (x > w * 0.4 && x < w * 0.6) ? (math.sin(x * 0.5) * 10) : (math.sin(x * 0.1) * 2);
-      path.lineTo(x, midY + yOffset);
+    final path = Path(); final midY = size.height / 2;
+    path.moveTo(0, midY);
+    for (double i = 0; i < size.width; i += 1) {
+      double y = midY + math.sin((i / size.width * 4 * math.pi) + (progress * 2 * math.pi)) * 5;
+      path.lineTo(i, y);
     }
-    path.lineTo(w, midY); canvas.drawPath(path, paint);
-    final packetX = w * progress;
-    canvas.drawRect(Rect.fromCenter(center: Offset(packetX, midY), width: 6, height: 6), Paint()..color = color);
+    canvas.drawPath(path, paint);
   }
+  @override bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+class GridBackgroundPainter extends CustomPainter {
+  final Color gridColor; final double opacity;
+  GridBackgroundPainter({required this.gridColor, required this.opacity});
   @override
-  bool shouldRepaint(covariant _InfraPulsePainter old) => old.progress != progress;
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = gridColor.withValues(alpha: opacity)..strokeWidth = 0.5;
+    for (double i = 0; i <= size.width; i += 30) { canvas.drawLine(Offset(i, 0), Offset(i, size.height), paint); }
+    for (double i = 0; i <= size.height; i += 30) { canvas.drawLine(Offset(0, i), Offset(size.width, i), paint); }
+  }
+  @override bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class InfraBlueprintPainter extends CustomPainter {
+  final Color color; final double animationValue;
+  InfraBlueprintPainter({required this.color, required this.animationValue});
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = color..strokeWidth = 1.0..style = PaintingStyle.stroke;
+    final scanY = size.height * (math.sin(animationValue * 2 * math.pi) + 1) / 2;
+    canvas.drawLine(Offset(0, scanY), Offset(size.width, scanY), paint..strokeWidth = 2.0);
+    for (int i = 0; i < 4; i++) {
+      double radius = (size.width * 0.4) * ((animationValue + i * 0.25) % 1.0);
+      canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.5), radius, paint..color = color.withValues(alpha: (1.0 - (radius / (size.width * 0.4))) * 0.1));
+    }
+  }
+  @override bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+class AuthProgressPainter extends CustomPainter {
+  final double progress; final Color color;
+  AuthProgressPainter({required this.progress, required this.color});
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = color..style = PaintingStyle.fill;
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width * progress, size.height), paint);
+  }
+  @override bool shouldRepaint(covariant AuthProgressPainter oldDelegate) => true;
 }

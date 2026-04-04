@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smc/core/visuals/infra_visuals.dart';
 import 'package:smc/core/layout/adaptive_layout.dart';
@@ -74,6 +75,8 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
             children: [
               _buildMacroStats(isDark),
               const SizedBox(height: 24),
+              _buildComplianceHub(isDark),
+              const SizedBox(height: 24),
               _buildNationalMap(isDark),
               const SizedBox(height: 32),
               _buildEmergencyVerificationHub(isDark),
@@ -87,6 +90,50 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
     );
   }
 
+  Widget _buildComplianceHub(bool isDark) {
+    final amber = const Color(0xFFF59E0B);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader("SMART COMPLIANCE MONITORING", Icons.verified_user_rounded),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: amber.withValues(alpha: 0.3), width: 1.5),
+          ),
+          child: Column(
+            children: [
+              _complianceRow("Critical Node Audit", "98.2%", true, amber),
+              const Divider(color: Colors.white10, height: 24),
+              _complianceRow("Industrial OSHA Compliance", "94.5%", true, amber),
+              const Divider(color: Colors.white10, height: 24),
+              _complianceRow("Environmental Risk Factor", "Low", false, Colors.green),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _complianceRow(String label, String value, bool isPositive, Color color) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: GoogleFonts.outfit(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white70)),
+        Row(
+          children: [
+            Text(value, style: GoogleFonts.outfit(fontSize: 14, fontWeight: FontWeight.bold, color: color)),
+            const SizedBox(width: 8),
+            Icon(isPositive ? Icons.arrow_upward_rounded : Icons.check_circle_outline, size: 14, color: color),
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget _buildMacroStats(bool isDark) {
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -94,7 +141,7 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
           children: [
             Row(
               children: [
-                _buildMetricTile("NIRI Index", "88.4", Icons.insights_rounded, Colors.blue),
+                _buildMetricTile("NIRI Index", "88.4", Icons.insights_rounded, Theme.of(context).primaryColor),
                 const SizedBox(width: 12),
                 _buildMetricTile("Governance", "28/28", Icons.account_tree_rounded, Colors.teal),
               ],
@@ -171,7 +218,7 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
   Widget _buildSectionHeader(String title, IconData icon) {
     return Row(
       children: [
-        Icon(icon, size: 16, color: Colors.blue),
+        Icon(icon, size: 16, color: Theme.of(context).primaryColor),
         const SizedBox(width: 8),
         Text(
           title,
@@ -179,7 +226,7 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
             fontWeight: FontWeight.w800,
             fontSize: 10,
             letterSpacing: 1.2,
-            color: Colors.blue,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       ],
@@ -208,10 +255,10 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
           ),
           child: Row(
             children: [
-              CircleAvatar(backgroundColor: Colors.blue.withValues(alpha: 0.1), radius: 16, child: Text(state['name']![0], style: const TextStyle(fontSize: 12))),
+              CircleAvatar(backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1), radius: 16, child: Text(state['name']![0], style: TextStyle(fontSize: 12))),
               const SizedBox(width: 12),
               Expanded(child: Text(state['name']!, style: GoogleFonts.outfit(fontWeight: FontWeight.bold, fontSize: 13))),
-              Text(state['score']!, style: GoogleFonts.outfit(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 13)),
+              Text(state['score']!, style: GoogleFonts.outfit(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor, fontSize: 13)),
               const SizedBox(width: 8),
               Text(state['trend']!, style: GoogleFonts.outfit(fontSize: 11, color: Colors.green)),
             ],
@@ -256,7 +303,10 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("ALERT DISMISSED BY NATIONAL COMMAND"), backgroundColor: Colors.orange));
+                      },
                       style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.red), padding: EdgeInsets.zero),
                       child: Text("DISMISS", style: GoogleFonts.outfit(fontWeight: FontWeight.w800, color: Colors.red, fontSize: 12)),
                     ),
@@ -264,7 +314,10 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        HapticFeedback.heavyImpact();
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("ALERT VERIFIED: FIELD AGENTS DISPATCHED"), backgroundColor: Colors.green));
+                      },
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.red, padding: EdgeInsets.zero),
                       child: Text("VERIFY", style: GoogleFonts.outfit(fontWeight: FontWeight.w800, color: Colors.white, fontSize: 12)),
                     ),

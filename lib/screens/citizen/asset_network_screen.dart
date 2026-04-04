@@ -6,14 +6,14 @@ import 'package:smc/core/ui/imperfect_shapes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smc/data/services/firestore_service.dart';
 
-class FamilyWardScreen extends StatefulWidget {
-  const FamilyWardScreen({super.key});
+class AssetNetworkScreen extends StatefulWidget {
+  const AssetNetworkScreen({super.key});
 
   @override
-  State<FamilyWardScreen> createState() => _FamilyWardScreenState();
+  State<AssetNetworkScreen> createState() => _AssetNetworkScreenState();
 }
 
-class _FamilyWardScreenState extends State<FamilyWardScreen> {
+class _AssetNetworkScreenState extends State<AssetNetworkScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   final String _citizenId = 'citizen_1'; // Demo ID
 
@@ -311,7 +311,7 @@ class _FamilyWardScreenState extends State<FamilyWardScreen> {
       case 'spouse':
         return Colors.pinkAccent;
       case 'child':
-        return Colors.blueAccent;
+        return Theme.of(context).primaryColor;
       case 'parent':
         return Colors.orangeAccent;
       default:
@@ -567,7 +567,7 @@ class _AddMemberDialogState extends State<_AddMemberDialog> {
     return InputDecoration(
       hintText: hint,
       prefixIcon:
-          icon != null ? Icon(icon, size: 20, color: Colors.blue[300]) : null,
+          icon != null ? Icon(icon, size: 20, color: Theme.of(context).primaryColor.withValues(alpha: 0.5)) : null,
       filled: true,
       fillColor: isDark ? const Color(0xFF0F172A) : const Color(0xFFF1F5F9),
       border: OutlineInputBorder(

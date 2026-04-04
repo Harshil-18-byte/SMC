@@ -18,21 +18,32 @@ import 'package:smc/screens/admin/admin_command_center_screen.dart';
 import 'package:smc/screens/admin/defect_surveillance_screen.dart';
 import 'package:smc/screens/admin/site_status_screen.dart';
 import 'package:smc/screens/admin/infra_risk_heatmap_screen.dart';
+import 'package:smc/screens/admin/user_management_screen.dart';
+import 'package:smc/screens/admin/emergency_alert_control_screen.dart';
+import 'package:smc/screens/admin/system_audit_logs_screen.dart';
+import 'package:smc/screens/admin/system_inspection_screen.dart';
+import 'package:smc/screens/admin/asset_inventory_screen.dart';
 
 // Inspector / Field Ops Screens
 import 'package:smc/screens/inspector/inspector_dashboard_screen.dart';
 import 'package:smc/screens/inspector/inspection_form_screen.dart';
+import 'package:smc/screens/inspector/inspector_schedule_screen.dart';
 import 'package:smc/screens/field_worker/defect_diagnostic_engine_screen.dart';
 import 'package:smc/screens/field_worker/asset_audit_screen.dart';
 import 'package:smc/screens/field_worker/field_worker_visits_screen.dart';
 
 // Compliance / Public / Citizen Screens
-import 'package:smc/screens/citizen/appointments_screen.dart'; // now InspectionsScreen
-import 'package:smc/screens/citizen/medication_reminders_screen.dart'; // now MaintenanceRemindersScreen
-import 'package:smc/screens/citizen/health_records_screen.dart'; // now AuditHistoryScreen
-import 'package:smc/screens/citizen/health_id_screen.dart'; // now TacticalIDScreen
+import 'package:smc/screens/citizen/appointments_screen.dart';
+import 'package:smc/screens/citizen/medication_reminders_screen.dart';
+import 'package:smc/screens/citizen/audit_history_screen.dart';
+import 'package:smc/screens/citizen/health_id_screen.dart';
 import 'package:smc/screens/citizen/asset_finder_screen.dart';
 import 'package:smc/screens/citizen/emergency_sos_screen.dart';
+import 'package:smc/screens/citizen/citizen_home_screen.dart';
+import 'package:smc/screens/citizen/regional_analytics_screen.dart';
+import 'package:smc/screens/citizen/compliance_report_screen.dart';
+import 'package:smc/screens/citizen/diagnostic_bot_screen.dart';
+import 'package:smc/screens/common/asset_summary_screen.dart';
 
 // IoT Domain
 import 'package:smc/screens/iot/iot_dashboard_screen.dart';
@@ -59,7 +70,7 @@ class AppRoutes {
   static const String cityDashboard = '/admin/city-dashboard';
   static const String adminSurveillance = '/admin/surveillance';
   static const String adminInfrastructureStatus = '/admin/infra-status';
-  static const String adminAssetInventory = '/admin/asset-inventory';
+  static const String assetInventory = '/admin/asset-inventory';
   static const String adminEmergencyAlert = '/admin/emergency-alert';
   static const String adminUserManagement = '/admin/user-management';
   static const String adminAuditLogs = '/admin/audit-logs';
@@ -96,6 +107,7 @@ class AppRoutes {
 
   // IoT Domain
   static const String iotDashboard = '/iot/dashboard';
+  static const String diagnosticBot = '/public/diagnostic-bot';
 }
 
 /// Route Generator with Guard Logic
@@ -139,8 +151,24 @@ class RouteGenerator {
         return _buildRoute(const DefectSurveillanceScreen(), settings);
       case AppRoutes.adminInfrastructureStatus:
         return _buildRoute(const SiteStatusScreen(), settings);
+      case AppRoutes.assetInventory:
+        return _buildRoute(const AssetInventoryScreen(), settings);
+      case AppRoutes.adminEmergencyAlert:
+        return _buildRoute(const EmergencyAlertControlScreen(), settings);
+      case AppRoutes.adminUserManagement:
+        return _buildRoute(const UserManagementScreen(), settings);
+      case AppRoutes.adminAuditLogs:
+        return _buildRoute(const SystemAuditLogsScreen(), settings);
+      case AppRoutes.systemInspection:
+        return _buildRoute(const SystemInspectionScreen(), settings);
       case AppRoutes.riskHeatmap:
         return _buildRoute(const InfraRiskHeatmapScreen(), settings);
+      case AppRoutes.inspectorSchedule:
+        return _buildRoute(const InspectorScheduleScreen(), settings);
+      case AppRoutes.regionalAnalytics:
+        return _buildRoute(const RegionalAnalyticsScreen(), settings);
+      case AppRoutes.complianceReports:
+        return _buildRoute(const ComplianceReportScreen(), settings);
 
       // --- Inspector Domain ---
       case AppRoutes.inspectorHome:
@@ -191,6 +219,8 @@ class RouteGenerator {
         return _buildRoute(const FieldWorkerVisitsScreen(fieldWorkerId: ''), settings);
 
       // --- Compliance / Public Domain ---
+      case AppRoutes.viewerHome:
+        return _buildRoute(const CitizenHomeScreen(), settings);
       case AppRoutes.inspections:
         return _buildRoute(const InspectionsScreen(), settings);
       case AppRoutes.maintenanceReminders:
@@ -200,11 +230,23 @@ class RouteGenerator {
       case AppRoutes.tacticalId:
         return _buildRoute(const TacticalIDScreen(), settings);
       case AppRoutes.assetDetail:
-        return _buildRoute(const AuditHistoryScreen(), settings);
+        if (settings.arguments is Map<String, dynamic>) {
+          final args = settings.arguments as Map<String, dynamic>;
+          return _buildRoute(
+            AssetSummaryScreen(
+              assetId: args['assetId'] as String?,
+              assetName: args['assetName'] as String?,
+            ),
+            settings,
+          );
+        }
+        return _buildRoute(const AssetSummaryScreen(), settings);
       case AppRoutes.assetSearch:
         return _buildRoute(const AssetFinderScreen(), settings);
       case AppRoutes.publicSOS:
         return _buildRoute(const CitizenSOSScreen(), settings);
+      case AppRoutes.diagnosticBot:
+        return _buildRoute(const DiagnosticBotScreen(), settings);
 
       // --- Common Routes ---
       case AppRoutes.notifications:

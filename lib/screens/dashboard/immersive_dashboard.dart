@@ -118,7 +118,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
                             children: [
                               _buildGreetingWithAnimation(),
                               const SizedBox(height: 12),
-                              _buildLiveInspectionScore(),
+                              _buildLiveInspectionScore(context),
                             ],
                           ),
                         ),
@@ -189,7 +189,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
     );
   }
 
-  Widget _buildLiveInspectionScore() {
+  Widget _buildLiveInspectionScore(BuildContext context) {
     return StreamBuilder<int>(
       stream: _getCityInspectionScoreStream(),
       builder: (context, snapshot) {
@@ -202,7 +202,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
               child: CustomPaint(
                 painter: GlowingCirclePainter(
                   progress: score / 100,
-                  color: _getScoreColor(score),
+                  color: _getScoreColor(context, score),
                 ),
                 child: Center(
                   child: Text(
@@ -257,14 +257,14 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
         MagicCard(
           color: const Color(0xFF6366F1),
           padding: const EdgeInsets.all(16),
-          child: _buildCardContent(AppLocalizations.of(context).vitality,
-              Icons.favorite_rounded, '92%', '+3% spike'),
+          child: _buildCardContent('STRUCTURAL INTEGRITY',
+              Icons.architecture_rounded, '92%', '+3% safety margin'),
         ),
         MagicCard(
           color: const Color(0xFFEC4899),
           padding: const EdgeInsets.all(16),
-          child: _buildCardContent(AppLocalizations.of(context).alerts,
-              Icons.warning_amber_rounded, '04', '2 urgent'),
+          child: _buildCardContent('INFRA ALERTS',
+              Icons.warning_amber_rounded, '04', '2 critical'),
         ),
         MagicCard(
           color: const Color(0xFF10B981),
@@ -338,7 +338,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
           ),
           const SizedBox(height: 16),
           const Text(
-            "Predicting a 15% increase in respiratory cases due to upcoming seasonal changes. Recommend inventory check for Sector 7.",
+            "Detecting structural fatigue in Sector 7 bridge link. Recommended immediate tactical inspection (Ref: PAT-1052).",
             style: TextStyle(color: Colors.white70, height: 1.5),
           ),
         ],
@@ -366,7 +366,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
               color: Colors.black26,
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                  color: Colors.blueAccent.withValues(alpha: 0.3), width: 1),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.3), width: 1),
             ),
             child: Stack(
               children: [
@@ -377,11 +377,11 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
                     child: Opacity(
                       opacity: 0.3,
                       child: Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: [Colors.blue, Colors.purple],
+                            colors: [Theme.of(context).primaryColor, Colors.purple],
                           ),
                         ),
                       ),
@@ -397,9 +397,9 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.blueAccent.withValues(alpha: 0.2),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                           border: Border.all(
-                              color: Colors.blueAccent.withValues(alpha: 0.5)),
+                              color: Theme.of(context).primaryColor.withValues(alpha: 0.5)),
                         ),
                         child: const Icon(Icons.view_in_ar_rounded,
                             color: Colors.white, size: 32),
@@ -446,9 +446,9 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
         const Duration(seconds: 5), (i) => 80 + math.Random().nextInt(10));
   }
 
-  Color _getScoreColor(int score) {
+  Color _getScoreColor(BuildContext context, int score) {
     if (score >= 90) return Colors.greenAccent;
-    if (score >= 80) return Colors.blueAccent;
+    if (score >= 80) return Theme.of(context).primaryColor;
     return Colors.orangeAccent;
   }
 

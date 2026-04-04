@@ -191,7 +191,7 @@ class _CitizenReportScreenState extends State<CitizenReportScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.my_location_rounded, color: Colors.blue),
+          Icon(Icons.my_location_rounded, color: Theme.of(context).primaryColor),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -202,7 +202,7 @@ class _CitizenReportScreenState extends State<CitizenReportScreen> {
                   style: GoogleFonts.outfit(
                     fontWeight: FontWeight.w800,
                     fontSize: 10,
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 Text(

@@ -7,6 +7,7 @@ import 'package:smc/widgets/smc_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:smc/core/widgets/universal_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smc/widgets/charts/working_line_chart.dart';
 
 /// Professional Infrastructure Risk & Compliance Analysis Screen
 /// High-fidelity Charts, maps, and raw defect logs for strategic verification.
@@ -116,24 +117,20 @@ class _DefectSurveillanceScreenState extends State<DefectSurveillanceScreen> wit
   }
 
   Widget _buildChartPlaceholder() {
-    // High-fidelity placeholder for the trend chart
     return Container(
-      height: 220,
-      width: double.infinity,
+      height: 250,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
-      child: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.bar_chart_rounded, size: 48, color: Colors.blue),
-            SizedBox(height: 8),
-            Text('Processing 30-Day Defect Telemetry...', style: TextStyle(color: Colors.grey, fontSize: 12)),
-          ],
-        ),
+      child: WorkingLineChart(
+        title: "30-Day Defect Telemetry",
+        dataFuture: Future.value(_caseData.map((d) => ChartDataPoint(
+          label: "${d.date.day}/${d.date.month}",
+          value: d.newDefects.toDouble(),
+        )).toList()),
       ),
     );
   }
@@ -274,6 +271,6 @@ class _DefectSurveillanceScreenState extends State<DefectSurveillanceScreen> wit
   }
 
   Widget _sectionHeader(String title) {
-    return Text(title, style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5));
+    return Text(title, style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5));
   }
 }

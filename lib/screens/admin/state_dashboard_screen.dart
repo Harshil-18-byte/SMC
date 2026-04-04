@@ -190,7 +190,7 @@ class _StateDashboardScreenState extends State<StateDashboardScreen> {
       childAspectRatio: 1.5,
       children: [
         _buildMetricTile("State Inspection", "82.1", Icons.analytics_rounded, Colors.teal),
-        _buildMetricTile("Projects Active", "412", Icons.engineering_rounded, Colors.blue),
+        _buildMetricTile("Projects Active", "412", Icons.engineering_rounded, Theme.of(context).primaryColor),
         _buildMetricTile("Grants Out", "₹850Cr", Icons.payments_rounded, Colors.orange),
         _buildMetricTile("QA Lab Status", "Normal", Icons.science_rounded, Colors.green),
       ],
@@ -259,7 +259,7 @@ class _StateDashboardScreenState extends State<StateDashboardScreen> {
         Expanded(child: Text(from, style: GoogleFonts.outfit(fontWeight: FontWeight.bold))),
         const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Icon(Icons.arrow_forward_rounded, size: 14)),
         Expanded(child: Text(to, style: GoogleFonts.outfit(fontWeight: FontWeight.bold))),
-        Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: Colors.blue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)), child: Text(asset, style: GoogleFonts.outfit(fontSize: 10, color: Colors.blue))),
+        Container(padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: Theme.of(context).primaryColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)), child: Text(asset, style: GoogleFonts.outfit(fontSize: 10, color: Theme.of(context).primaryColor))),
       ],
     );
   }
@@ -275,7 +275,7 @@ class _StateDashboardScreenState extends State<StateDashboardScreen> {
           children: [
             _buildGrantCard("Bharat Hub", "₹42 Cr", "Released", Colors.green),
             _buildGrantCard("Pune Rail", "₹115 Cr", "Pending", Colors.orange),
-            _buildGrantCard("Nagpur Road", "₹89 Cr", "Audited", Colors.blue),
+            _buildGrantCard("Nagpur Road", "₹89 Cr", "Audited", Theme.of(context).primaryColor),
             _buildGrantCard("Thane Water", "₹34 Cr", "Released", Colors.green),
           ],
         ),

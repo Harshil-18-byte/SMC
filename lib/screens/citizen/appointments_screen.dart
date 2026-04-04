@@ -65,7 +65,7 @@ class InspectionsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showBookInspectionSheet(context),
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).primaryColor,
         label: Text('NEW AUDIT CYCLE', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, color: Colors.white, fontSize: 12)),
         icon: const Icon(Icons.add_task_rounded, color: Colors.white),
       ),
@@ -88,8 +88,8 @@ class InspectionsScreen extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: _getStatusColor(status).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
-            child: Icon(_getStatusIcon(status), color: _getStatusColor(status)),
+            decoration: BoxDecoration(color: _getStatusColor(context, status).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
+            child: Icon(_getStatusIcon(status), color: _getStatusColor(context, status)),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -101,7 +101,7 @@ class InspectionsScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(Icons.access_time_rounded, size: 14, color: Colors.blue),
+                    Icon(Icons.access_time_rounded, size: 14, color: Theme.of(context).primaryColor),
                     const SizedBox(width: 4),
                     Text(DateFormat('MMM dd, yyyy - hh:mm a').format(time), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white70)),
                   ],
@@ -109,25 +109,25 @@ class InspectionsScreen extends StatelessWidget {
               ],
             ),
           ),
-          _statusBadge(status),
+          _statusBadge(context, status),
         ],
       ),
     );
   }
 
-  Widget _statusBadge(String status) {
+  Widget _statusBadge(BuildContext context, String status) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: _getStatusColor(status).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-      child: Text(status.toUpperCase(), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: _getStatusColor(status))),
+      decoration: BoxDecoration(color: _getStatusColor(context, status).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+      child: Text(status.toUpperCase(), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: _getStatusColor(context, status))),
     );
   }
 
-  Color _getStatusColor(String status) {
+  Color _getStatusColor(BuildContext context, String status) {
     switch (status) {
       case 'confirmed': return Colors.green;
       case 'cancelled': return Colors.red;
-      case 'completed': return Colors.blue;
+      case 'completed': return Theme.of(context).primaryColor;
       default: return Colors.orange;
     }
   }

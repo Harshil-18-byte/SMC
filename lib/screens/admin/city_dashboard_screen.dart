@@ -92,7 +92,7 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
                 child: ChoiceChip(
                   label: Text(city, style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.bold, color: isSelected ? Colors.white : (isDark ? Colors.white70 : Colors.black87))),
                   selected: isSelected,
-                  selectedColor: Colors.blue[600],
+                  selectedColor: Theme.of(context).primaryColor,
                   backgroundColor: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
                   onSelected: (selected) {
                     if (selected) setState(() => _selectedCity = city);
@@ -110,7 +110,7 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
     return AdaptiveGrid(
       childAspectRatio: 1.5,
       children: [
-        _buildMetricTile("Local Inspection", "76.4", Icons.location_city_rounded, Colors.blue),
+        _buildMetricTile("Local Inspection", "76.4", Icons.location_city_rounded, Theme.of(context).primaryColor),
         _buildMetricTile("Open Alerts", "12", Icons.warning_amber_rounded, Colors.red),
         _buildMetricTile("Crews Active", "8", Icons.people_outline_rounded, Colors.orange),
         _buildMetricTile("Compliance", "84%", Icons.fact_check_rounded, Colors.green),
@@ -174,7 +174,7 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
         Expanded(
           child: IndustrialActionButton(
             height: 48,
-            color: Colors.blue[600]!,
+            color: Theme.of(context).primaryColor,
             onTap: () {},
             child: Text("NEW WORK ORDER", style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.bold)),
           ),
@@ -325,13 +325,13 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
                 Expanded(
                   child: IndustrialActionButton(
                     height: 56,
-                    color: Colors.blue[700]!,
+                    color: Theme.of(context).primaryColor,
                     onTap: () async {
                       HapticFeedback.mediumImpact();
                       Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Resource Provisioning Initialized..."), backgroundColor: Colors.blue));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Resource Provisioning Initialized..."), backgroundColor: Theme.of(context).primaryColor));
                       await Future.delayed(const Duration(milliseconds: 1200));
-                      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Heavy Equipment Dispatched to Site."), backgroundColor: Colors.blue));
+                      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Heavy Equipment Dispatched to Site."), backgroundColor: Theme.of(context).primaryColor));
                     },
                     child: Text("PROVISION RESOURCES", style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.bold)),
                   ),
@@ -367,8 +367,8 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Colors.blue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-            child: Icon(icon, size: 20, color: Colors.blue),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+            child: Icon(icon, size: 20, color: Theme.of(context).primaryColor),
           ),
           const SizedBox(width: 16),
           Column(
@@ -416,7 +416,7 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 24, color: Colors.blue),
+          Icon(icon, size: 24, color: Theme.of(context).primaryColor),
           const SizedBox(height: 8),
           Text(title, style: GoogleFonts.outfit(fontWeight: FontWeight.bold, fontSize: 13)),
           const SizedBox(height: 4),
@@ -429,7 +429,7 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
   Widget _buildSectionHeader(String title, IconData icon) {
     return Row(
       children: [
-        Icon(icon, size: 16, color: Colors.blue),
+        Icon(icon, size: 16, color: Theme.of(context).primaryColor),
         const SizedBox(width: 8),
         Text(
           title,
@@ -437,7 +437,7 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
             fontWeight: FontWeight.w800,
             fontSize: 11,
             letterSpacing: 1.2,
-            color: Colors.blue,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       ],

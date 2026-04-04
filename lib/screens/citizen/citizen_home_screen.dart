@@ -274,7 +274,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
             _buildActionCard(
               "Asset Map",
               Icons.map_rounded,
-              Colors.blue,
+              Theme.of(context).primaryColor,
               () =>
                   Navigator.pushNamed(context, AppRoutes.assetSearch),
             ),

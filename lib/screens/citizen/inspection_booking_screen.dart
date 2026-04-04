@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AppointmentBookingScreen extends StatefulWidget {
-  const AppointmentBookingScreen({super.key});
+class InspectionBookingScreen extends StatefulWidget {
+  const InspectionBookingScreen({super.key});
 
   @override
-  State<AppointmentBookingScreen> createState() =>
-      _AppointmentBookingScreenState();
+  State<InspectionBookingScreen> createState() =>
+      _InspectionBookingScreenState();
 }
 
-class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
+class _InspectionBookingScreenState extends State<InspectionBookingScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedDepartment;
   String? _selectedDoctor;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/core/widgets/smc_back_button.dart';
 
-class VaccinationCardScreen extends StatelessWidget {
-  const VaccinationCardScreen({super.key});
+class IntegrityCertificateScreen extends StatelessWidget {
+  const IntegrityCertificateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

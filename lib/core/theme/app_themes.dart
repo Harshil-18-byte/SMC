@@ -16,9 +16,7 @@ class AppThemes {
   static const Color _lightScaffold = Color(0xFFFAFAFA);
 
   // Surface Colors - Dark (OLED Black)
-  static const Color _darkSurface = Color(0xFF000000);
   static const Color _darkOnSurface = Color(0xFFFFFFFF);
-  static const Color _darkScaffold = Color(0xFF000000);
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -78,21 +76,22 @@ class AppThemes {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      primaryColor: primaryBlue,
-      scaffoldBackgroundColor: _darkScaffold,
+      primaryColor: accentAmber,
+      scaffoldBackgroundColor: const Color(0xFF121417), // Industrial Charcoal
       colorScheme: ColorScheme.dark(
-        surface: _darkSurface,
+        surface: const Color(0xFF1C1E22), // Steel Gray
         onSurface: _darkOnSurface,
-        primary: primaryBlue,
-        onPrimary: Colors.white,
-        secondary: accentAmber,
-        onSecondary: Colors.white,
+        primary: accentAmber,
+        onPrimary: Colors.black,
+        secondary: const Color(0xFF94A3B8), // Steel Gray
+        onSecondary: Colors.black,
         error: errorRed,
         onError: Colors.white,
-        outline: Color(0xFF333333),
+        outline: const Color(0xFF2D3139),
+        surfaceContainerHighest: const Color(0xFF2D3139),
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: _darkSurface,
+        backgroundColor: const Color(0xFF121417),
         foregroundColor: _darkOnSurface,
         elevation: 0,
         centerTitle: true,
@@ -104,17 +103,17 @@ class AppThemes {
         iconTheme: const IconThemeData(color: _darkOnSurface),
       ),
       cardTheme: CardThemeData(
-        color: _darkSurface,
+        color: const Color(0xFF1C1E22),
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Color(0xFF222222), width: 1),
+          side: const BorderSide(color: Color(0xFF2D3139), width: 1),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryBlue,
-          foregroundColor: Colors.white,
+          backgroundColor: accentAmber,
+          foregroundColor: Colors.black,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/data/services/firestore_service.dart';
 
-class VolunteerNetworkScreen extends StatefulWidget {
-  const VolunteerNetworkScreen({super.key});
+class CommunityTaskScreen extends StatefulWidget {
+  const CommunityTaskScreen({super.key});
 
   @override
-  State<VolunteerNetworkScreen> createState() => _VolunteerNetworkScreenState();
+  State<CommunityTaskScreen> createState() => _CommunityTaskScreenState();
 }
 
-class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
+class _CommunityTaskScreenState extends State<CommunityTaskScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -24,14 +24,14 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
       backgroundColor:
           isDark ? const Color(0xFF101922) : const Color(0xFFF6F7F8),
       appBar: AppBar(
-        title: Text(l10n.translate('volunteer_network')),
+        title: const Text('CITIZEN RESPONSE NETWORK'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             _buildHero(context, l10n, isDark, firestoreService),
             const SizedBox(height: 32),
-            _buildSectionTitle(l10n.translate('inspection_camps')),
+            _buildSectionTitle(context, 'UPCOMING INSPECTION CAMPS'),
             _buildCampsList(context, isDark, firestoreService),
             const SizedBox(height: 32),
             _buildVolunteerBenefits(isDark),
@@ -64,7 +64,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
           const SizedBox(height: 20),
           FadeInLeft(
             child: Text(
-              "Join the SMC Volunteer Force",
+              "Join the Strategic Response Network",
               style: GoogleFonts.outfit(
                 color: Colors.white,
                 fontSize: 28,
@@ -76,7 +76,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
           FadeInLeft(
             delay: const Duration(milliseconds: 200),
             child: Text(
-              "Help us make Bharat a inspectionier city. Volunteer for upcoming medical camps and inspection drives.",
+              "Empower Bharat's urban resilience. Support upcoming infrastructure audits and community safety drives.",
               style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8), fontSize: 16),
             ),
@@ -111,7 +111,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
@@ -122,9 +122,9 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
             style:
                 GoogleFonts.outfit(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          const Text("View All",
+          Text("View All",
               style:
-                  TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+                  TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -212,8 +212,8 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12,
                                     color: Colors.blueGrey)),
-                            const Icon(Icons.arrow_forward_rounded,
-                                color: Colors.blue, size: 20),
+                            Icon(Icons.arrow_forward_rounded,
+                                color: Theme.of(context).primaryColor, size: 20),
                           ],
                         ),
                       ],

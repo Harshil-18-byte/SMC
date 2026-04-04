@@ -20,9 +20,9 @@ class AssetResourceScreen extends StatelessWidget {
           leading: const SMCBackButton(),
           title: Text('NODE MONITORING', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
           bottom: TabBar(
-            labelColor: Colors.blue,
+            labelColor: Theme.of(context).primaryColor,
             unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.blue,
+            indicatorColor: Theme.of(context).primaryColor,
             tabs: const [
               Tab(text: 'ZONE ALPHA'),
               Tab(text: 'ZONE BETA'),
@@ -31,7 +31,7 @@ class AssetResourceScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.refresh_rounded, color: Colors.blue),
+              icon: Icon(Icons.refresh_rounded, color: Theme.of(context).primaryColor),
               onPressed: () => _refreshNodes(context),
             ),
           ],
@@ -124,7 +124,7 @@ class _NodeCard extends StatelessWidget {
         break;
       case 'Baseline':
       default:
-        color = Colors.blue;
+        color = Theme.of(context).primaryColor;
         icon = Icons.sensors_rounded;
         break;
     }

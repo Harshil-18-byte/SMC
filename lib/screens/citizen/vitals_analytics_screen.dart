@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/data/services/firestore_service.dart';
 
-class VitalsAnalyticsScreen extends StatefulWidget {
-  const VitalsAnalyticsScreen({super.key});
+class TelemetryAnalyticsScreen extends StatefulWidget {
+  const TelemetryAnalyticsScreen({super.key});
 
   @override
-  State<VitalsAnalyticsScreen> createState() => _VitalsAnalyticsScreenState();
+  State<TelemetryAnalyticsScreen> createState() => _TelemetryAnalyticsScreenState();
 }
 
-class _VitalsAnalyticsScreenState extends State<VitalsAnalyticsScreen> {
+class _TelemetryAnalyticsScreenState extends State<TelemetryAnalyticsScreen> {
   String _selectedPeriod = '7D';
 
   @override
@@ -26,7 +26,7 @@ class _VitalsAnalyticsScreenState extends State<VitalsAnalyticsScreen> {
       backgroundColor:
           isDark ? const Color(0xFF101922) : const Color(0xFFF6F7F8),
       appBar: AppBar(
-        title: Text(l10n.translate('vitals_trends')),
+        title: const Text('ASSET TELEMETRY TRENDS'),
         actions: [
           IconButton(
               icon: const Icon(Icons.add_chart_rounded),
@@ -35,11 +35,10 @@ class _VitalsAnalyticsScreenState extends State<VitalsAnalyticsScreen> {
                     collection: 'citizens/CIT001/vitals',
                     data: {
                       'timestamp': DateTime.now().toIso8601String(),
-                      'heartRate': 75,
-                      'systolic': 120,
-                      'diastolic': 80,
-                      'temp': 98.6,
-                      'oxygen': 99,
+                      'vibration': 0.12,
+                      'stress_load': 45.2,
+                      'temp': 32.4,
+                      'integrity_index': 99.4,
                     });
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("New vitals recorded.")),
@@ -89,15 +88,15 @@ class _VitalsAnalyticsScreenState extends State<VitalsAnalyticsScreen> {
                   _buildPeriodSelector(isDark),
                   const SizedBox(height: 24),
                   _buildVitalsCard(
-                    l10n.translate('bp_trend'),
+                    'STRUCTURAL STRESS',
                     latestBP,
-                    "mmHg",
+                    "kN/m²",
                     Colors.red,
                     bpSpots,
                     isDark,
                   ),
                   const SizedBox(height: 24),
-                  _buildVitalsCard("Heart Rate", latestHR, "bpm", Colors.orange,
+                  _buildVitalsCard("VIBRATION FREQUENCY", latestHR, "Hz", Colors.orange,
                       hrSpots, isDark),
                   const SizedBox(height: 32),
                   _buildWeightGoal(isDark),
@@ -257,30 +256,30 @@ class _VitalsAnalyticsScreenState extends State<VitalsAnalyticsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Weight Goal",
+                "Compliance Target",
                 style: GoogleFonts.outfit(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF137fec)),
               ),
-              const Text("72 / 68 kg",
+              Text("92 / 100",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue)),
+                      fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
             ],
           ),
           const SizedBox(height: 16),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: const LinearProgressIndicator(
-              value: 0.7,
+            child: LinearProgressIndicator(
+              value: 0.92,
               minHeight: 12,
               backgroundColor: Colors.white,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
             ),
           ),
           const SizedBox(height: 12),
           const Text(
-            "Almost there! You have lost 4kg since January. Keep maintaining your diet.",
+            "Optimal performance. All structural components within registered safety margins.",
             style: TextStyle(fontSize: 13, color: Colors.blueGrey),
           ),
         ],

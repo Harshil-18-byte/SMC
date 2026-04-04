@@ -40,7 +40,7 @@ class SiteDashboardScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildHeader(),
+                      _buildHeader(context),
                       const SizedBox(height: 32),
                       _buildQuickActions(context),
                       const SizedBox(height: 32),
@@ -70,7 +70,7 @@ class SiteDashboardScreen extends StatelessWidget {
         children: [
           Builder(
             builder: (ctx) => IconButton(
-              icon: const Icon(Icons.menu_open_rounded, color: Colors.blue),
+              icon: Icon(Icons.menu_open_rounded, color: Theme.of(context).primaryColor),
               onPressed: () => Scaffold.of(ctx).openDrawer(),
             ),
           ),
@@ -81,11 +81,11 @@ class SiteDashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("LOCAL JURISDICTION", style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 2)),
+        Text("LOCAL JURISDICTION", style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 2)),
         const SizedBox(height: 4),
         Text("Sector-09 Field Operations", style: GoogleFonts.outfit(fontSize: 28, fontWeight: FontWeight.w900, color: Colors.white)),
       ],
@@ -189,7 +189,7 @@ class SiteDashboardScreen extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 8),
             decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(12)),
             child: ListTile(
-              leading: const Icon(Icons.description_rounded, color: Colors.blue),
+              leading: Icon(Icons.description_rounded, color: Theme.of(context).primaryColor),
               title: Text('Audit Report #12${8-i}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
               subtitle: const Text('Status: Verified • 2h ago', style: TextStyle(color: Colors.grey, fontSize: 11)),
               trailing: const Icon(Icons.chevron_right, color: Colors.grey, size: 16),

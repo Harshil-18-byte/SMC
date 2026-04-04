@@ -8,7 +8,11 @@ enum AssetType {
   telecomTower,
   powerGrid,
   waterTank,
-  drainageSystem
+  drainageSystem,
+  dam,
+  tunnel,
+  sewerLine,
+  pavement
 }
 
 enum ComplianceStatus {
@@ -126,13 +130,13 @@ class InspectionRecord {
   Color get statusColor {
     switch (status) {
       case ComplianceStatus.compliant:
-        return const Color(0xFF10B981);
+        return const Color(0xFF10B981); // Emerald
       case ComplianceStatus.nonCompliant:
-        return const Color(0xFFFFAB00);
+        return const Color(0xFFF59E0B); // Amber
       case ComplianceStatus.critical:
-        return const Color(0xFFFF4D4D);
+        return const Color(0xFFEF4444); // Red
       case ComplianceStatus.pendingReview:
-        return const Color(0xFF6366F1);
+        return const Color(0xFF64748B); // Slate
     }
   }
 }

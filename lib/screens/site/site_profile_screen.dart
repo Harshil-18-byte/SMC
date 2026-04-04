@@ -42,16 +42,16 @@ class SiteProfileScreen extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.blue, width: 2)),
-          child: const CircleAvatar(
+          decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Theme.of(context).primaryColor, width: 2)),
+          child: CircleAvatar(
             radius: 50,
-            backgroundColor: Color(0xFF1E293B),
-            child: Icon(Icons.engineering_rounded, size: 50, color: Colors.blue),
+            backgroundColor: const Color(0xFF1E293B),
+            child: Icon(Icons.engineering_rounded, size: 50, color: Theme.of(context).primaryColor),
           ),
         ),
         const SizedBox(height: 20),
         Text('INGR. ARNAV DESAI', style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.white)),
-        Text('LEAD FIELD ENGINEER • SECTOR-04', style: GoogleFonts.outfit(color: Colors.blue, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+        Text('LEAD FIELD ENGINEER • SECTOR-04', style: GoogleFonts.outfit(color: Theme.of(context).primaryColor, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
       ],
     );
   }
@@ -86,9 +86,9 @@ class SiteProfileScreen extends StatelessWidget {
           decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white.withValues(alpha: 0.05))),
           child: Column(
             children: [
-              _buildSettingTile(Icons.security_rounded, 'Security Protocol'),
-              _buildSettingTile(Icons.notifications_active_rounded, 'Alert Thresholds'),
-              _buildSettingTile(Icons.logout_rounded, 'Terminate Session', isDestructive: true, onTap: () {
+              _buildSettingTile(context, Icons.security_rounded, 'Security Protocol'),
+              _buildSettingTile(context, Icons.notifications_active_rounded, 'Alert Thresholds'),
+              _buildSettingTile(context, Icons.logout_rounded, 'Terminate Session', isDestructive: true, onTap: () {
                 Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
               }),
             ],
@@ -98,9 +98,9 @@ class SiteProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingTile(IconData icon, String title, {bool isDestructive = false, VoidCallback? onTap}) {
+  Widget _buildSettingTile(BuildContext context, IconData icon, String title, {bool isDestructive = false, VoidCallback? onTap}) {
     return ListTile(
-      leading: Icon(icon, color: isDestructive ? Colors.red : Colors.blue, size: 20),
+      leading: Icon(icon, color: isDestructive ? Colors.red : Theme.of(context).primaryColor, size: 20),
       title: Text(title, style: TextStyle(color: isDestructive ? Colors.red : Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
       trailing: const Icon(Icons.chevron_right_rounded, size: 18, color: Colors.grey),
       onTap: onTap ?? () {},

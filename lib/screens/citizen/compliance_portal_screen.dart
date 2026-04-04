@@ -5,8 +5,8 @@ import 'package:smc/config/routes.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/core/widgets/smc_back_button.dart';
 
-class VaccinationPortalScreen extends StatelessWidget {
-  const VaccinationPortalScreen({super.key});
+class CompliancePortalScreen extends StatelessWidget {
+  const CompliancePortalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

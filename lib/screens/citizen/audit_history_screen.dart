@@ -4,6 +4,8 @@ import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/core/theme/theme_switcher.dart';
 import 'package:smc/core/widgets/smc_back_button.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smc/data/models/inspection_record.dart';
+import 'package:smc/data/services/pdf_report_service.dart';
 
 /// Audit History & Asset Technical Logs
 /// Replaces HealthRecordsScreen with Industrial Inspection & Service History.
@@ -12,14 +14,12 @@ class AuditHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1E293B),
         leading: const SMCBackButton(),
-        title: Text('HISTORICAL AUDIT LOGS', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
+        title: Text('PUBLIC VERIFICATION PORTAL', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
         actions: const [ThemeSwitcher(), SizedBox(width: 8)],
       ),
       body: StreamBuilder<List<Map<String, dynamic>>>(
@@ -38,6 +38,7 @@ class AuditHistoryScreen extends StatelessWidget {
                     'provider': 'National Infra Bureau',
                     'date': DateTime.now().subtract(const Duration(days: 30)).toIso8601String(),
                     'type': 'structural',
+                    'assetType': AssetType.bridge,
                     'description': 'Annual check of Load-Bearing components (Sector 4). All nodes nominal.',
                     'details': {'Integrity': '94%', 'Stress Ratio': '0.42', 'Result': 'PASSED'}
                   },
@@ -47,6 +48,7 @@ class AuditHistoryScreen extends StatelessWidget {
                     'provider': 'SMC Soil Research',
                     'date': DateTime.now().subtract(const Duration(days: 15)).toIso8601String(),
                     'type': 'geotech',
+                    'assetType': AssetType.pavement,
                     'description': 'Soil stability analysis for South Drainage Grid project.',
                     'details': {'Saturation': '12%', 'Shift Factor': '0.001', 'Compaction': 'OPTIMAL'}
                   },
@@ -56,6 +58,7 @@ class AuditHistoryScreen extends StatelessWidget {
                     'provider': 'Universal Power Corp',
                     'date': DateTime.now().subtract(const Duration(days: 10)).toIso8601String(),
                     'type': 'utility',
+                    'assetType': AssetType.powerGrid,
                     'description': 'Substation transformer replacement and circuit diagnostic.',
                     'details': {'Efficiency': '+15%', 'Output': '4.2 GW', 'Downtime': '0s'}
                   },
@@ -69,14 +72,47 @@ class AuditHistoryScreen extends StatelessWidget {
           return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: records.length,
-            itemBuilder: (context, index) => _buildRecordCard(context, records[index], isDark),
+            itemBuilder: (context, index) => _buildRecordCard(context, records[index]),
           );
         },
       ),
     );
   }
 
-  Widget _buildRecordCard(BuildContext context, Map<String, dynamic> record, bool isDark) {
+  void _generatePdf(BuildContext context, Map<String, dynamic> data) async {
+    final pdfService = PdfReportService();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Generating Digital Inspection Certificate...'), duration: Duration(seconds: 1)),
+    );
+
+    final record = InspectionRecord(
+      id: data['id'],
+      inspectorId: data['provider'],
+      assetId: 'ASSET_${data['id']}',
+      assetType: data['assetType'] ?? AssetType.bridge,
+      assetName: data['title'],
+      address: 'Industrial Core Grid',
+      latitude: 28.6139,
+      longitude: 77.2090,
+      inspectionDate: DateTime.parse(data['date']),
+      type: 'Technical Audit',
+      defects: [],
+      aiAnalysisResult: {
+        'patternId': 'PAT-${data['id'].toUpperCase()}V',
+        'severity': 'OPERATIONAL',
+        'finding': data['title'],
+        'recommendation': 'Maintained as per SMC standard protocols.',
+        'description': data['description'],
+      },
+      photoUrls: [],
+      notes: 'Certified technical log.',
+      status: ComplianceStatus.compliant,
+    );
+
+    await pdfService.generateAndPrintReport(record);
+  }
+
+  Widget _buildRecordCard(BuildContext context, Map<String, dynamic> record) {
     final date = record['date'] != null ? DateTime.parse(record['date']) : DateTime.now();
     final type = record['type'] ?? 'document';
 
@@ -90,14 +126,14 @@ class AuditHistoryScreen extends StatelessWidget {
       child: ExpansionTile(
         leading: Container(
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: _getRecordColor(type).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-          child: Icon(_getRecordIcon(type), color: _getRecordColor(type), size: 20),
+          decoration: BoxDecoration(color: _getRecordColor(context, type).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+          child: Icon(_getRecordIcon(type), color: _getRecordColor(context, type), size: 20),
         ),
         title: Text(record['title']?.toUpperCase() ?? 'TECHNICAL RECORD', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 14, color: Colors.white)),
         subtitle: Text('${record['provider']} • ${DateFormat('MMM dd, yyyy').format(date)}', style: const TextStyle(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold)),
         childrenPadding: const EdgeInsets.all(16),
         collapsedIconColor: Colors.white,
-        iconColor: Colors.blue,
+        iconColor: Theme.of(context).primaryColor,
         children: [
           Align(
             alignment: Alignment.centerLeft,
@@ -107,7 +143,7 @@ class AuditHistoryScreen extends StatelessWidget {
                 Text(record['description'] ?? 'No data provided.', style: const TextStyle(fontSize: 13, color: Colors.white70)),
                 const SizedBox(height: 16),
                 if (record['details'] != null) ...[
-                  const Text('DIAGNOSTIC METRICS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5)),
+                  Text('DIAGNOSTIC METRICS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5)),
                   const SizedBox(height: 8),
                   ...(record['details'] as Map<String, dynamic>).entries.map((e) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),
@@ -122,10 +158,10 @@ class AuditHistoryScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 Center(
                   child: OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: () => _generatePdf(context, record),
                     icon: const Icon(Icons.download_rounded, size: 16),
                     label: const Text('GENERATE TECHNICAL PDF', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 11)),
-                    style: OutlinedButton.styleFrom(foregroundColor: Colors.blue, side: const BorderSide(color: Colors.blue)),
+                    style: OutlinedButton.styleFrom(foregroundColor: Theme.of(context).primaryColor, side: BorderSide(color: Theme.of(context).primaryColor)),
                   ),
                 ),
               ],
@@ -136,12 +172,11 @@ class AuditHistoryScreen extends StatelessWidget {
     );
   }
 
-  Color _getRecordColor(String type) {
+  Color _getRecordColor(BuildContext context, String type) {
     switch (type) {
       case 'structural': return Colors.orange;
       case 'geotech': return Colors.brown;
       case 'utility': return Colors.yellow;
-      case 'overhaul': return Colors.blue;
       default: return Colors.grey;
     }
   }
