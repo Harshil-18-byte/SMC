@@ -124,7 +124,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
           ),
           const Text("View All",
               style:
-                  TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+                  TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -213,7 +213,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
                                     fontSize: 12,
                                     color: Colors.blueGrey)),
                             const Icon(Icons.arrow_forward_rounded,
-                                color: Colors.blue, size: 20),
+                                color: Theme.of(context).primaryColor, size: 20),
                           ],
                         ),
                       ],

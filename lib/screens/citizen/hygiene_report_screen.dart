@@ -214,7 +214,7 @@ class _HygieneReportScreenState extends State<HygieneReportScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.add_a_photo_rounded,
-                          size: 48, color: Colors.blue.withValues(alpha: 0.6)),
+                          size: 48, color: Theme.of(context).primaryColor.withValues(alpha: 0.6)),
                       const SizedBox(height: 12),
                       Text(
                         "Tap to capture photo",
@@ -329,7 +329,7 @@ class _HygieneReportScreenState extends State<HygieneReportScreen> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             elevation: 0,
-            shadowColor: Colors.blue.withValues(alpha: 0.4),
+            shadowColor: Theme.of(context).primaryColor.withValues(alpha: 0.4),
           ),
           child: _isSubmitting
               ? const SizedBox(

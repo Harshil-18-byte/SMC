@@ -231,9 +231,9 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
           const SizedBox(width: 8),
           CircleAvatar(
             radius: 24,
-            backgroundColor: Colors.blue.withValues(alpha: 0.1),
+            backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1),
             child:
-                const Icon(Icons.healing_rounded, color: Colors.blue, size: 28),
+                Icon(Icons.healing_rounded, color: Theme.of(context).primaryColor, size: 28),
           ),
           const SizedBox(width: 16),
           Column(
@@ -298,14 +298,14 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
                         backgroundColor:
                             isDark ? const Color(0xFF334155) : Colors.white,
                         labelStyle: TextStyle(
-                          color: isDark ? Colors.blue[300] : Colors.blue[700],
+                          color: isDark ? Theme.of(context).primaryColor[300] : Theme.of(context).primaryColor[700],
                           fontWeight: FontWeight.w600,
                           fontSize: 13,
                         ),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         side: BorderSide(
-                            color: Colors.blue.withValues(alpha: 0.2)),
+                            color: Theme.of(context).primaryColor.withValues(alpha: 0.2)),
                       ),
                     ),
                   ))
@@ -454,7 +454,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon,
-              color: color ?? (isDark ? Colors.blue[300] : Colors.blue[600]),
+              color: color ?? (isDark ? Theme.of(context).primaryColor[300] : Theme.of(context).primaryColor[600]),
               size: 20),
         ),
       ),
@@ -507,7 +507,7 @@ class _TypingIndicator extends StatelessWidget {
               width: 12,
               height: 12,
               child:
-                  CircularProgressIndicator(strokeWidth: 2, color: Colors.blue),
+                  CircularProgressIndicator(strokeWidth: 2, color: Theme.of(context).primaryColor),
             ),
             const SizedBox(width: 12),
             Text(

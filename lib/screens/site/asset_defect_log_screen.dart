@@ -19,7 +19,7 @@ class AssetDefectLogScreen extends StatelessWidget {
         title: Text('DEFECT REGISTRY', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_toggle_off_rounded, color: Colors.blue),
+            icon: Icon(Icons.history_toggle_off_rounded, color: Theme.of(context).primaryColor),
             onPressed: () {},
           ),
         ],

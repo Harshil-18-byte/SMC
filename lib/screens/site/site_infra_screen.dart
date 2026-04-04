@@ -30,7 +30,7 @@ class SiteInfraScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Row(
                 children: [
-                  Expanded(child: _buildStatTile('STRUCTURAL NODES', '1,240', Icons.hub_rounded, Colors.blue)),
+                  Expanded(child: _buildStatTile('STRUCTURAL NODES', '1,240', Icons.hub_rounded, Theme.of(context).primaryColor)),
                   const SizedBox(width: 12),
                   Expanded(child: _buildStatTile('TELEMETRY STATUS', 'ACTIVE', Icons.sensors_rounded, Colors.green)),
                 ],
@@ -60,7 +60,7 @@ class SiteInfraScreen extends StatelessWidget {
               _buildSectionTitle('REGIONAL UTILITIES'),
               const SizedBox(height: 16),
               _buildUtilityCard('Primary Power Grid', 'Main + Backup Genset', Icons.bolt_rounded, Colors.amber, 0.98),
-              _buildUtilityCard('Data Network', 'Fiber + Satellite Uplink', Icons.language_rounded, Colors.blue, 0.99),
+              _buildUtilityCard('Data Network', 'Fiber + Satellite Uplink', Icons.language_rounded, Theme.of(context).primaryColor, 0.99),
               _buildUtilityCard('Hydrology Control', 'Pumping Station 04', Icons.water_drop_rounded, Colors.cyan, 0.82),
 
               const SizedBox(height: 100),
@@ -72,7 +72,7 @@ class SiteInfraScreen extends StatelessWidget {
   }
 
   Widget _buildSectionTitle(String title) {
-    return Text(title, style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5));
+    return Text(title, style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5));
   }
 
   Widget _buildStatTile(String label, String value, IconData icon, Color color) {
@@ -93,7 +93,7 @@ class SiteInfraScreen extends StatelessWidget {
 
   List<Widget> _buildSystemCards() {
     final systems = [
-      {'name': 'Foundation Integrity', 'nodes': '480', 'health': '99%', 'color': Colors.blue, 'icon': Icons.architecture_rounded},
+      {'name': 'Foundation Integrity', 'nodes': '480', 'health': '99%', 'color': Theme.of(context).primaryColor, 'icon': Icons.architecture_rounded},
       {'name': 'Electrical Infrastructure', 'nodes': '210', 'health': '85%', 'color': Colors.orange, 'icon': Icons.bolt_rounded},
       {'name': 'Sanitation Systems', 'nodes': '150', 'health': '92%', 'color': Colors.green, 'icon': Icons.water_damage_rounded},
     ];
@@ -135,7 +135,7 @@ class SiteInfraScreen extends StatelessWidget {
         decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(12)),
         child: Row(
           children: [
-            Icon(Icons.biotech_rounded, size: 18, color: (t['ok'] as bool) ? Colors.blue : Colors.orange),
+            Icon(Icons.biotech_rounded, size: 18, color: (t['ok'] as bool) ? Theme.of(context).primaryColor : Colors.orange),
             const SizedBox(width: 12),
             Expanded(child: Text(t['name'] as String, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12))),
             Text(t['status'] as String, style: TextStyle(color: (t['ok'] as bool) ? Colors.green : Colors.orange, fontSize: 10, fontWeight: FontWeight.bold)),

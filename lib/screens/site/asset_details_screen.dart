@@ -77,8 +77,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> with SingleTick
                 background: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Container(color: Colors.blue.withValues(alpha: 0.2)),
-                    const Center(child: Opacity(opacity: 0.2, child: Icon(Icons.architecture_rounded, color: Colors.blue, size: 80))),
+                    Container(color: Theme.of(context).primaryColor.withValues(alpha: 0.2)),
+                    Center(child: Opacity(opacity: 0.2, child: Icon(Icons.architecture_rounded, color: Theme.of(context).primaryColor, size: 80))),
                   ],
                 ),
               ),
@@ -86,9 +86,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> with SingleTick
             SliverToBoxAdapter(
               child: TabBar(
                 controller: _tabController,
-                labelColor: Colors.blue,
+                labelColor: Theme.of(context).primaryColor,
                 unselectedLabelColor: Colors.grey,
-                indicatorColor: Colors.blue,
+                indicatorColor: Theme.of(context).primaryColor,
                 tabs: const [
                   Tab(text: "ANALYTICS"),
                   Tab(text: "COMPONENTS"),
@@ -119,13 +119,13 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> with SingleTick
         children: [
           Row(
             children: [
-              Expanded(child: _statCard('HEALTH SCORE', '${health.toInt()}%', Icons.health_and_safety_rounded, Colors.blue)),
+              Expanded(child: _statCard('HEALTH SCORE', '${health.toInt()}%', Icons.health_and_safety_rounded, Theme.of(context).primaryColor)),
               const SizedBox(width: 12),
               Expanded(child: _statCard('STRESS INDEX', 'MODERATE', Icons.compress_rounded, Colors.orange)),
             ],
           ),
           const SizedBox(height: 24),
-          Text("STRUCTURAL STABILITY TREND", style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5)),
+          Text("STRUCTURAL STABILITY TREND", style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5)),
           const SizedBox(height: 16),
           SizedBox(
             height: 200,
@@ -138,9 +138,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> with SingleTick
                   LineChartBarData(
                     spots: const [FlSpot(0, 80), FlSpot(1, 85), FlSpot(2, 70), FlSpot(3, 75), FlSpot(4, 90)],
                     isCurved: true,
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                     barWidth: 4,
-                    belowBarData: BarAreaData(show: true, color: Colors.blue.withValues(alpha: 0.1)),
+                    belowBarData: BarAreaData(show: true, color: Theme.of(context).primaryColor.withValues(alpha: 0.1)),
                   ),
                 ],
               ),
@@ -164,7 +164,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> with SingleTick
         decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(12)),
         child: Row(
           children: [
-            CircularProgressIndicator(value: _components[i]['rating'], strokeWidth: 3, color: Colors.blue, backgroundColor: Colors.white10),
+            CircularProgressIndicator(value: _components[i]['rating'], strokeWidth: 3, color: Theme.of(context).primaryColor, backgroundColor: Colors.white10),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -192,7 +192,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> with SingleTick
           leading: const CircleAvatar(backgroundColor: Colors.blueGrey, child: Icon(Icons.person_rounded, color: Colors.white)),
           title: Text(_team[i]['fullName'] ?? 'Field Engineer', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           subtitle: Text(_team[i]['role'] ?? 'Inspector', style: const TextStyle(color: Colors.grey, fontSize: 11)),
-          trailing: const Icon(Icons.message_rounded, color: Colors.blue, size: 20),
+          trailing: Icon(Icons.message_rounded, color: Theme.of(context).primaryColor, size: 20),
         ),
       ),
     );
@@ -219,7 +219,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> with SingleTick
       padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
-          Icon(icon, color: Colors.blue, size: 18),
+          Icon(icon, color: Theme.of(context).primaryColor, size: 18),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

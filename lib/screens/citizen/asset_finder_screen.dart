@@ -61,7 +61,7 @@ class _AssetFinderScreenState extends State<AssetFinderScreen> {
                 decoration: InputDecoration(
                   hintText: 'Search for Bridge, Road, Sea Link...',
                   hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
-                  prefixIcon: const Icon(Icons.search_rounded, color: Colors.blue),
+                  prefixIcon: Icon(Icons.search_rounded, color: Theme.of(context).primaryColor),
                   filled: true,
                   fillColor: const Color(0xFF1E293B),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),

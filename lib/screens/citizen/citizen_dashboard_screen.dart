@@ -173,10 +173,10 @@ class _CitizenDashboardScreenState extends State<CitizenDashboardScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: isDark ? [const Color(0xFF1E293B), Colors.black] : [Colors.blue.shade50, Colors.white],
+          colors: isDark ? [Color(0xFF1E293B), Colors.black] : [Theme.of(context).primaryColor.shade50, Colors.white],
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
+        border: Border.all(color: Theme.of(context).primaryColor.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +256,7 @@ class _CitizenDashboardScreenState extends State<CitizenDashboardScreen> {
       child: Row(
         children: [
           _serviceCard("Paving", Icons.rounded_corner_rounded, Colors.purpleAccent, isDark),
-          _serviceCard("Lights", Icons.lightbulb_outline_rounded, Colors.blueAccent, isDark),
+          _serviceCard("Lights", Icons.lightbulb_outline_rounded, Theme.of(context).primaryColor, isDark),
           _serviceCard("Drainage", Icons.waves_rounded, Colors.tealAccent, isDark),
           _serviceCard("Greens", Icons.park_outlined, Colors.greenAccent, isDark),
         ],

@@ -97,7 +97,7 @@ class AuditHistoryScreen extends StatelessWidget {
         subtitle: Text('${record['provider']} • ${DateFormat('MMM dd, yyyy').format(date)}', style: const TextStyle(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold)),
         childrenPadding: const EdgeInsets.all(16),
         collapsedIconColor: Colors.white,
-        iconColor: Colors.blue,
+        iconColor: Theme.of(context).primaryColor,
         children: [
           Align(
             alignment: Alignment.centerLeft,
@@ -107,7 +107,7 @@ class AuditHistoryScreen extends StatelessWidget {
                 Text(record['description'] ?? 'No data provided.', style: const TextStyle(fontSize: 13, color: Colors.white70)),
                 const SizedBox(height: 16),
                 if (record['details'] != null) ...[
-                  const Text('DIAGNOSTIC METRICS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5)),
+                  Text('DIAGNOSTIC METRICS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5)),
                   const SizedBox(height: 8),
                   ...(record['details'] as Map<String, dynamic>).entries.map((e) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),
@@ -125,7 +125,7 @@ class AuditHistoryScreen extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(Icons.download_rounded, size: 16),
                     label: const Text('GENERATE TECHNICAL PDF', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 11)),
-                    style: OutlinedButton.styleFrom(foregroundColor: Colors.blue, side: const BorderSide(color: Colors.blue)),
+                    style: OutlinedButton.styleFrom(foregroundColor: Theme.of(context).primaryColor, side: BorderSide(color: Theme.of(context).primaryColor)),
                   ),
                 ),
               ],
@@ -141,7 +141,7 @@ class AuditHistoryScreen extends StatelessWidget {
       case 'structural': return Colors.orange;
       case 'geotech': return Colors.brown;
       case 'utility': return Colors.yellow;
-      case 'overhaul': return Colors.blue;
+      case 'overhaul': return Theme.of(context).primaryColor;
       default: return Colors.grey;
     }
   }

@@ -97,7 +97,7 @@ class _MaintenanceRemindersScreenState extends State<MaintenanceRemindersScreen>
         fontSize: 12,
         fontWeight: FontWeight.w900,
         letterSpacing: 1.5,
-        color: Colors.blue[400],
+        color: Theme.of(context).primaryColor[400],
       ),
     );
   }
@@ -116,12 +116,12 @@ class _MaintenanceRemindersScreenState extends State<MaintenanceRemindersScreen>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.blue.withValues(alpha: 0.1),
+              color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
               _formatTime(time),
-              style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.blue, fontSize: 12),
+              style: TextStyle(fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, fontSize: 12),
             ),
           ),
           const SizedBox(width: 16),

@@ -158,7 +158,7 @@ class _CitizenMedicineInventoryScreenState
                                   decoration: BoxDecoration(
                                     color: (m['isLow'] == true
                                             ? Colors.orange
-                                            : Colors.blue)
+                                            : Theme.of(context).primaryColor)
                                         .withValues(alpha: 0.1),
                                     shape: BoxShape.circle,
                                   ),
@@ -166,7 +166,7 @@ class _CitizenMedicineInventoryScreenState
                                     Icons.medication_rounded,
                                     color: m['isLow'] == true
                                         ? Colors.orange
-                                        : Colors.blue,
+                                        : Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 const SizedBox(width: 16),

@@ -178,7 +178,7 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
               builder: (context, _) {
                 return CustomPaint(
                   painter: GridBackgroundPainter(
-                    gridColor: (isDark ? Colors.blue : Colors.blueGrey),
+                    gridColor: (isDark ? accentColor.withValues(alpha: 0.5) : Colors.blueGrey),
                     opacity: isDark ? 0.08 : 0.04,
                   ),
                   foregroundPainter: InfraBlueprintPainter(
@@ -477,7 +477,7 @@ class _SecureLoginScreenState extends State<SecureLoginScreen>
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? Colors.blue.withValues(alpha: 0.1) : Colors.blue.withValues(alpha: 0.05),
+        color: isDark ? accentColor.withValues(alpha: 0.1) : accentColor.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: accentColor.withValues(alpha: 0.2)),
       ),

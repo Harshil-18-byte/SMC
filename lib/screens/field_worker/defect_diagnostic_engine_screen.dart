@@ -63,7 +63,7 @@ class _DefectDiagnosticEngineScreenState extends State<DefectDiagnosticEngineScr
     switch (_riskLevel) {
       case 'CRITICAL (CAT-1)': return IndustrialVisuals.dangerRed;
       case 'HIGH (CAT-2)': return IndustrialVisuals.cautionYellow;
-      case 'ROUTINE (CAT-3)': return Colors.blue;
+      case 'ROUTINE (CAT-3)': return Theme.of(context).primaryColor;
       default: return IndustrialVisuals.successGreen;
     }
   }
@@ -109,7 +109,7 @@ class _DefectDiagnosticEngineScreenState extends State<DefectDiagnosticEngineScr
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('DEFECT DIAGNOSTICS', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 18, color: Colors.white)),
-            Text(widget.componentName, style: const TextStyle(fontSize: 10, color: Colors.blue, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+            Text(widget.componentName, style: TextStyle(fontSize: 10, color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
           ],
         ),
       ),
@@ -182,7 +182,7 @@ class _DefectDiagnosticEngineScreenState extends State<DefectDiagnosticEngineScr
                 value: _defectIndicators[indicator],
                 onChanged: (value) => setState(() => _defectIndicators[indicator] = value ?? false),
                 title: Text(indicator, style: const TextStyle(color: Colors.white, fontSize: 14)),
-                activeColor: Colors.blue,
+                activeColor: Theme.of(context).primaryColor,
                 dense: true,
               );
             }).toList(),
@@ -207,7 +207,7 @@ class _DefectDiagnosticEngineScreenState extends State<DefectDiagnosticEngineScr
               Slider(
                 value: _structuralStress,
                 min: 0.0, max: 150.0,
-                activeColor: Colors.blue,
+                activeColor: Theme.of(context).primaryColor,
                 onChanged: (val) => setState(() => _structuralStress = val),
               ),
             ],
@@ -234,11 +234,11 @@ class _DefectDiagnosticEngineScreenState extends State<DefectDiagnosticEngineScr
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: isSelected ? (_severity == 'Critical' ? Colors.red.withValues(alpha: 0.2) : Colors.blue.withValues(alpha: 0.2)) : const Color(0xFF1E293B),
+                      color: isSelected ? (_severity == 'Critical' ? Colors.red.withValues(alpha: 0.2) : Theme.of(context).primaryColor.withValues(alpha: 0.2)) : Color(0xFF1E293B),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: isSelected ? (_severity == 'Critical' ? Colors.red : Colors.blue) : Colors.white10),
+                      border: Border.all(color: isSelected ? (_severity == 'Critical' ? Colors.red : Theme.of(context).primaryColor) : Colors.white10),
                     ),
-                    child: Center(child: Text(level, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: isSelected ? (_severity == 'Critical' ? Colors.red : Colors.blue) : Colors.grey))),
+                    child: Center(child: Text(level, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: isSelected ? (_severity == 'Critical' ? Colors.red : Theme.of(context).primaryColor) : Colors.grey))),
                   ),
                 ),
               ),
@@ -254,11 +254,11 @@ class _DefectDiagnosticEngineScreenState extends State<DefectDiagnosticEngineScr
       label: 'SUBMIT DIAGNOSTIC LOG',
       icon: Icons.analytics_rounded,
       onTap: _isSaving ? () {} : _saveAssessment,
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
     );
   }
 
   Widget _sectionHeader(String title) {
-    return Text(title, style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5));
+    return Text(title, style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5));
   }
 }

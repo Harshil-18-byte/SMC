@@ -154,7 +154,7 @@ class _AssetAuditScreenState extends State<AssetAuditScreen> {
                   label: 'SUBMIT AUDIT LOG',
                   icon: Icons.assignment_turned_in_rounded,
                   onTap: _isSubmitting ? () {} : _submitAudit,
-                  color: Colors.blue,
+                  color: Theme.of(context).primaryColor,
                 ),
                 const SizedBox(height: 40),
               ],
@@ -172,8 +172,8 @@ class _AssetAuditScreenState extends State<AssetAuditScreen> {
         label: Text(type.toUpperCase(), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         selected: _auditType == type,
         onSelected: (val) => setState(() => _auditType = type),
-        selectedColor: Colors.blue.withValues(alpha: 0.2),
-        labelStyle: TextStyle(color: _auditType == type ? Colors.blue : Colors.grey),
+        selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.2),
+        labelStyle: TextStyle(color: _auditType == type ? Theme.of(context).primaryColor : Colors.grey),
       )).toList(),
     );
   }
@@ -185,8 +185,8 @@ class _AssetAuditScreenState extends State<AssetAuditScreen> {
         label: Text(status.toUpperCase(), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         selected: _integrityStatus == status,
         onSelected: (val) => setState(() => _integrityStatus = status),
-        selectedColor: status == 'critical' ? Colors.red.withValues(alpha: 0.2) : Colors.blue.withValues(alpha: 0.2),
-        labelStyle: TextStyle(color: _integrityStatus == status ? (status == 'critical' ? Colors.red : Colors.blue) : Colors.grey),
+        selectedColor: status == 'critical' ? Colors.red.withValues(alpha: 0.2) : Theme.of(context).primaryColor.withValues(alpha: 0.2),
+        labelStyle: TextStyle(color: _integrityStatus == status ? (status == 'critical' ? Colors.red : Theme.of(context).primaryColor) : Colors.grey),
       )).toList(),
     );
   }
@@ -234,8 +234,8 @@ class _AssetAuditScreenState extends State<AssetAuditScreen> {
           icon: const Icon(Icons.camera_alt_rounded),
           label: const Text('CAPTURE EVIDENCE'),
           style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.blue,
-            side: const BorderSide(color: Colors.blue),
+            foregroundColor: Theme.of(context).primaryColor,
+            side: BorderSide(color: Theme.of(context).primaryColor),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
@@ -280,6 +280,6 @@ class _AssetAuditScreenState extends State<AssetAuditScreen> {
   }
 
   Widget _buildSectionHeader(String title) {
-    return Text(title, style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5));
+    return Text(title, style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5));
   }
 }

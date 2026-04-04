@@ -185,7 +185,7 @@ class _CitizenProfileView extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            _ProfileHeader(user: user, roleColor: Colors.blue),
+            _ProfileHeader(user: user, roleColor: Theme.of(context).primaryColor),
             const SizedBox(height: 24),
             _buildStatCard(
               context,

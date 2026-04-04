@@ -366,7 +366,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
               color: Colors.black26,
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                  color: Colors.blueAccent.withValues(alpha: 0.3), width: 1),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.3), width: 1),
             ),
             child: Stack(
               children: [
@@ -381,7 +381,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: [Colors.blue, Colors.purple],
+                            colors: [Theme.of(context).primaryColor, Colors.purple],
                           ),
                         ),
                       ),
@@ -397,9 +397,9 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.blueAccent.withValues(alpha: 0.2),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                           border: Border.all(
-                              color: Colors.blueAccent.withValues(alpha: 0.5)),
+                              color: Theme.of(context).primaryColor.withValues(alpha: 0.5)),
                         ),
                         child: const Icon(Icons.view_in_ar_rounded,
                             color: Colors.white, size: 32),
@@ -448,7 +448,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
 
   Color _getScoreColor(int score) {
     if (score >= 90) return Colors.greenAccent;
-    if (score >= 80) return Colors.blueAccent;
+    if (score >= 80) return Theme.of(context).primaryColor;
     return Colors.orangeAccent;
   }
 

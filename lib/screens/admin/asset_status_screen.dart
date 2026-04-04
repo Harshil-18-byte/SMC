@@ -109,7 +109,7 @@ class _SiteResourceTrackerScreenState
             l10n.translate('beds'),
             "$_availableBeds/$_totalBeds",
             Icons.bed_rounded,
-            Colors.blue,
+            Theme.of(context).primaryColor,
             isDark,
           ),
         ),
@@ -214,12 +214,12 @@ class _SiteResourceTrackerScreenState
                       const FlSpot(6, 5.5),
                     ],
                     isCurved: true,
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                     barWidth: 4,
                     dotData: const FlDotData(show: false),
                     belowBarData: BarAreaData(
                       show: true,
-                      color: Colors.blue.withValues(alpha: 0.1),
+                      color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                     ),
                   ),
                 ],
@@ -264,7 +264,7 @@ class _SiteResourceTrackerScreenState
           final occupancy = total > 0 ? (total - available) / total : 0.0;
 
           String status = 'Stable';
-          Color statusCol = Colors.blue;
+          Color statusCol = Theme.of(context).primaryColor;
           if (occupancy > 0.9) {
             status = 'Critical';
             statusCol = Colors.red;
@@ -301,7 +301,7 @@ class _SiteResourceTrackerScreenState
                         Row(
                           children: [
                             _buildMiniStatus(Icons.bed_rounded,
-                                "$available Beds", Colors.blue),
+                                "$available Beds", Theme.of(context).primaryColor),
                             const SizedBox(width: 16),
                             _buildMiniStatus(Icons.gas_meter_rounded,
                                 "$oxy% Oxygen", Colors.teal),

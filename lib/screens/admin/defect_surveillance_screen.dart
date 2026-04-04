@@ -129,7 +129,7 @@ class _DefectSurveillanceScreenState extends State<DefectSurveillanceScreen> wit
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.bar_chart_rounded, size: 48, color: Colors.blue),
+            Icon(Icons.bar_chart_rounded, size: 48, color: Theme.of(context).primaryColor),
             SizedBox(height: 8),
             Text('Processing 30-Day Defect Telemetry...', style: TextStyle(color: Colors.grey, fontSize: 12)),
           ],
@@ -274,6 +274,6 @@ class _DefectSurveillanceScreenState extends State<DefectSurveillanceScreen> wit
   }
 
   Widget _sectionHeader(String title) {
-    return Text(title, style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5));
+    return Text(title, style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: Theme.of(context).primaryColor, letterSpacing: 1.5));
   }
 }

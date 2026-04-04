@@ -78,13 +78,13 @@ class AppThemes {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      primaryColor: primaryBlue,
+      primaryColor: accentAmber,
       scaffoldBackgroundColor: _darkScaffold,
       colorScheme: ColorScheme.dark(
         surface: _darkSurface,
         onSurface: _darkOnSurface,
-        primary: primaryBlue,
-        onPrimary: Colors.white,
+        primary: accentAmber,
+        onPrimary: Colors.black,
         secondary: accentAmber,
         onSecondary: Colors.white,
         error: errorRed,
@@ -113,8 +113,8 @@ class AppThemes {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryBlue,
-          foregroundColor: Colors.white,
+          backgroundColor: accentAmber,
+          foregroundColor: Colors.black,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

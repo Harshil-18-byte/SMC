@@ -149,7 +149,7 @@ class AssetSummaryScreen extends StatelessWidget {
         'value': '97',
         'unit': '%',
         'icon': Icons.air_rounded,
-        'color': Colors.blue
+        'color': Theme.of(context).primaryColor
       },
       {
         'label': 'Temperature',
@@ -323,11 +323,11 @@ class AssetSummaryScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withValues(alpha: 0.1),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(Icons.event_rounded,
-                    color: Colors.blue, size: 18),
+                    color: Theme.of(context).primaryColor, size: 18),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -367,7 +367,7 @@ class AssetSummaryScreen extends StatelessWidget {
       {
         'name': 'Metformin 500mg',
         'dosage': '1 tab twice daily',
-        'color': Colors.blue
+        'color': Theme.of(context).primaryColor
       },
       {
         'name': 'Amlodipine 5mg',

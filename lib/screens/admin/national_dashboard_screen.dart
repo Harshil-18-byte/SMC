@@ -94,7 +94,7 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
           children: [
             Row(
               children: [
-                _buildMetricTile("NIRI Index", "88.4", Icons.insights_rounded, Colors.blue),
+                _buildMetricTile("NIRI Index", "88.4", Icons.insights_rounded, Theme.of(context).primaryColor),
                 const SizedBox(width: 12),
                 _buildMetricTile("Governance", "28/28", Icons.account_tree_rounded, Colors.teal),
               ],
@@ -171,7 +171,7 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
   Widget _buildSectionHeader(String title, IconData icon) {
     return Row(
       children: [
-        Icon(icon, size: 16, color: Colors.blue),
+        Icon(icon, size: 16, color: Theme.of(context).primaryColor),
         const SizedBox(width: 8),
         Text(
           title,
@@ -179,7 +179,7 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
             fontWeight: FontWeight.w800,
             fontSize: 10,
             letterSpacing: 1.2,
-            color: Colors.blue,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       ],
@@ -208,10 +208,10 @@ class _NationalDashboardScreenState extends State<NationalDashboardScreen> {
           ),
           child: Row(
             children: [
-              CircleAvatar(backgroundColor: Colors.blue.withValues(alpha: 0.1), radius: 16, child: Text(state['name']![0], style: const TextStyle(fontSize: 12))),
+              CircleAvatar(backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1), radius: 16, child: Text(state['name']![0], style: TextStyle(fontSize: 12))),
               const SizedBox(width: 12),
               Expanded(child: Text(state['name']!, style: GoogleFonts.outfit(fontWeight: FontWeight.bold, fontSize: 13))),
-              Text(state['score']!, style: GoogleFonts.outfit(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 13)),
+              Text(state['score']!, style: GoogleFonts.outfit(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor, fontSize: 13)),
               const SizedBox(width: 8),
               Text(state['trend']!, style: GoogleFonts.outfit(fontSize: 11, color: Colors.green)),
             ],

@@ -25,7 +25,7 @@ class _InspectorScheduleScreenState extends State<InspectorScheduleScreen> {
         title: Text('DUTY ROTA', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add_task_rounded, color: Colors.blue),
+            icon: Icon(Icons.add_task_rounded, color: Theme.of(context).primaryColor),
             onPressed: () => _showAddShiftDialog(context),
           ),
         ],
@@ -80,14 +80,14 @@ class _InspectorScheduleScreenState extends State<InspectorScheduleScreen> {
               margin: const EdgeInsets.only(bottom: 12),
               decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white.withValues(alpha: 0.05))),
               child: ListTile(
-                leading: CircleAvatar(backgroundColor: Colors.blue.withValues(alpha: 0.1), child: const Icon(Icons.engineering_rounded, color: Colors.blue, size: 20)),
+                leading: CircleAvatar(backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1), child: Icon(Icons.engineering_rounded, color: Theme.of(context).primaryColor, size: 20)),
                 title: Text(data['inspectorName'] ?? 'Lead Engineer', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 subtitle: Text("${shift.zone} • ${data['rank'] ?? 'Expert'}", style: const TextStyle(color: Colors.grey, fontSize: 11)),
                 trailing: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text("${shift.startTime.hour}:${shift.startTime.minute.toString().padLeft(2, '0')}", style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+                    Text("${shift.startTime.hour}:${shift.startTime.minute.toString().padLeft(2, '0')}", style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                     const Text("SHIFT START", style: TextStyle(color: Colors.grey, fontSize: 8)),
                   ],
                 ),

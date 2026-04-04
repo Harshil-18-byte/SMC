@@ -107,7 +107,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
             child: _buildActionButton(
               l10n.translate('donor_registration'),
               Icons.app_registration_rounded,
-              Colors.blue,
+              Theme.of(context).primaryColor,
               () async {
                 await firestore.createDocument(collection: 'donors', data: {
                   'registeredAt': DateTime.now().toIso8601String(),

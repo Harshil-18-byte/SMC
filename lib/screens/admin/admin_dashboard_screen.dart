@@ -51,7 +51,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           value: counts['activeAssets']?.toString() ?? '0',
           change: 0.05,
           icon: Icons.construction_rounded,
-          color: Colors.blue,
+          color: Theme.of(context).primaryColor,
         ),
         InspectionMetric(
           label: 'Asset Integrity',
@@ -190,7 +190,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(AppLocalizations.of(context).translate('key_metrics').toUpperCase(), style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 1.5, color: isDark ? Colors.grey : Colors.black87)),
-            Text(AppLocalizations.of(context).updatedJustNow, style: GoogleFonts.outfit(fontSize: 12, color: Colors.blue, fontWeight: FontWeight.bold)),
+            Text(AppLocalizations.of(context).updatedJustNow, style: GoogleFonts.outfit(fontSize: 12, color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 16),
@@ -234,7 +234,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       child: IndustrialActionButton(
         height: 80,
         width: double.infinity,
-        color: Colors.blue[700]!,
+        color: Theme.of(context).primaryColor[700]!,
         onTap: () => Navigator.pushNamed(context, AppRoutes.adminAssetInventory),
         child: Row(
           children: [
@@ -294,7 +294,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   }
 
   Widget _buildAlertCard(CriticalAlert alert, bool isDark) {
-    final statusColor = alert.severity == 'danger' ? Colors.red : (alert.severity == 'warning' ? Colors.orange : Colors.blue);
+    final statusColor = alert.severity == 'danger' ? Colors.red : (alert.severity == 'warning' ? Colors.orange : Theme.of(context).primaryColor);
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),

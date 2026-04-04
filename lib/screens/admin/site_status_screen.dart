@@ -126,7 +126,7 @@ class _SiteStatusScreenState extends State<SiteStatusScreen> {
             ],
           ),
           const SizedBox(height: 12),
-          _metricTile('REPAIR BACKLOG', '${site.repairBacklogDays} DAYS', Icons.history_rounded, site.repairBacklogDays > 10 ? Colors.orange : Colors.blue),
+          _metricTile('REPAIR BACKLOG', '${site.repairBacklogDays} DAYS', Icons.history_rounded, site.repairBacklogDays > 10 ? Colors.orange : Theme.of(context).primaryColor),
           
           if (site.maintenanceLocked) ...[
             const SizedBox(height: 16),

@@ -265,7 +265,7 @@ class _VitalsAnalyticsScreenState extends State<VitalsAnalyticsScreen> {
               ),
               const Text("72 / 68 kg",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue)),
+                      fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
             ],
           ),
           const SizedBox(height: 16),
@@ -275,7 +275,7 @@ class _VitalsAnalyticsScreenState extends State<VitalsAnalyticsScreen> {
               value: 0.7,
               minHeight: 12,
               backgroundColor: Colors.white,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
             ),
           ),
           const SizedBox(height: 12),

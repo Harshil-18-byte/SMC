@@ -33,6 +33,7 @@ import 'package:smc/screens/citizen/health_records_screen.dart'; // now AuditHis
 import 'package:smc/screens/citizen/health_id_screen.dart'; // now TacticalIDScreen
 import 'package:smc/screens/citizen/asset_finder_screen.dart';
 import 'package:smc/screens/citizen/emergency_sos_screen.dart';
+import 'package:smc/screens/citizen/citizen_home_screen.dart';
 
 // IoT Domain
 import 'package:smc/screens/iot/iot_dashboard_screen.dart';
@@ -191,6 +192,8 @@ class RouteGenerator {
         return _buildRoute(const FieldWorkerVisitsScreen(fieldWorkerId: ''), settings);
 
       // --- Compliance / Public Domain ---
+      case AppRoutes.viewerHome:
+        return _buildRoute(const CitizenHomeScreen(), settings);
       case AppRoutes.inspections:
         return _buildRoute(const InspectionsScreen(), settings);
       case AppRoutes.maintenanceReminders:
