@@ -397,27 +397,27 @@ class _IoTDashboardScreenState extends State<IoTDashboardScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle(l10n.translate('iot_my_health_devices'), isDark),
+        _buildSectionTitle(l10n.translate('iot_my_inspection_devices'), isDark),
         const SizedBox(height: 12),
-        _buildHealthDevice(isDark, Icons.watch_rounded,
+        _buildInspectionDevice(isDark, Icons.watch_rounded,
             l10n.translate('iot_smartwatch'), 'Connected', true, [
           _SensorReading('Steps', '8,432', 'Today'),
           _SensorReading('SpO2', '98%', 'Normal'),
           _SensorReading('Sleep', '7.2 hrs', 'Good'),
         ]),
         const SizedBox(height: 12),
-        _buildHealthDevice(isDark, Icons.monitor_heart_rounded,
+        _buildInspectionDevice(isDark, Icons.monitor_heart_rounded,
             l10n.translate('iot_bp_monitor'), 'Synced 10m ago', true, [
           _SensorReading('Systolic', '120', 'Normal'),
           _SensorReading('Diastolic', '80', 'Normal'),
           _SensorReading('Pulse', '72', 'bpm'),
         ]),
         const SizedBox(height: 12),
-        _buildHealthDevice(isDark, Icons.scale_rounded,
+        _buildInspectionDevice(isDark, Icons.scale_rounded,
             l10n.translate('iot_smart_scale'), 'Synced 2h ago', true, [
           _SensorReading('Weight', '68.5 kg', ''),
           _SensorReading('BMI', '22.1', 'Normal'),
-          _SensorReading('Body Fat', '18.3%', 'Healthy'),
+          _SensorReading('Body Fat', '18.3%', 'Inspectiony'),
         ]),
         const SizedBox(height: 24),
         _buildSectionTitle(l10n.translate('iot_home_environment'), isDark),
@@ -487,7 +487,7 @@ class _IoTDashboardScreenState extends State<IoTDashboardScreen>
     );
   }
 
-  Widget _buildHealthDevice(bool isDark, IconData icon, String title,
+  Widget _buildInspectionDevice(bool isDark, IconData icon, String title,
       String status, bool connected, List<_SensorReading> readings) {
     return Container(
       padding: const EdgeInsets.all(16),

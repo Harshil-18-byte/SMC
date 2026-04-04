@@ -1,4 +1,4 @@
-class HospitalStaffShift {
+class SiteStaffShift {
   final String id;
   final String staffName;
   final String role; // Doctor, Nurse, Technician
@@ -6,7 +6,7 @@ class HospitalStaffShift {
   final DateTime endTime;
   final String ward;
 
-  HospitalStaffShift({
+  SiteStaffShift({
     required this.id,
     required this.staffName,
     required this.role,
@@ -25,8 +25,8 @@ class HospitalStaffShift {
     };
   }
 
-  factory HospitalStaffShift.fromMap(Map<String, dynamic> map, String id) {
-    return HospitalStaffShift(
+  factory SiteStaffShift.fromMap(Map<String, dynamic> map, String id) {
+    return SiteStaffShift(
       id: id,
       staffName: map['staffName'] ?? '',
       role: map['role'] ?? 'Staff',

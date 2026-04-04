@@ -45,7 +45,7 @@ class _CitizenProfileScreenState extends State<CitizenProfileScreen> {
         _citizen = Citizen(
           id: uid,
           name: user?.displayName ?? 'Suresh Patil',
-          healthId: 'SOL-4522-8901',
+          inspectionId: 'SOL-4522-8901',
           dateOfBirth: DateTime(1985, 8, 20),
           bloodGroup: 'O+',
           phone: user?.phoneNumber ?? '+91 91234 56789',
@@ -116,7 +116,7 @@ class _CitizenProfileScreenState extends State<CitizenProfileScreen> {
         ),
         const SizedBox(height: 8),
         Text(
-          'Health ID: ${_citizen?.healthId ?? 'N/A'}',
+          'Inspection ID: ${_citizen?.inspectionId ?? 'N/A'}',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,

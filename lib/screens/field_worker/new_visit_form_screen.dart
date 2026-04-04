@@ -580,7 +580,7 @@ class _NewVisitFormScreenState extends State<NewVisitFormScreen> {
                   color: Colors.grey)),
           const SizedBox(height: 8),
           Text(
-            'Capture photos of living conditions, health concerns, or documentation',
+            'Capture photos of living conditions, inspection concerns, or documentation',
             style: TextStyle(fontSize: 12, color: Colors.grey[600]),
           ),
           const SizedBox(height: 24),

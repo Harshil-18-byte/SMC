@@ -353,7 +353,7 @@ class _AchievementSystemState extends State<AchievementSystem> {
         icon: Icons.home,
         color: Colors.green,
         target: 1,
-        realImpact: 'You helped 1 family stay healthy',
+        realImpact: 'You helped 1 family stay inspectiony',
         isUnlocked: true,
         progress: 1,
       ),
@@ -364,7 +364,7 @@ class _AchievementSystemState extends State<AchievementSystem> {
         icon: Icons.emoji_events,
         color: Colors.amber,
         target: 100,
-        realImpact: 'You monitored health of 100 families',
+        realImpact: 'You monitored inspection of 100 families',
         progress: 42,
       ),
       Achievement(
@@ -392,7 +392,7 @@ class _AchievementSystemState extends State<AchievementSystem> {
       Achievement(
         id: 'outbreak_prevention',
         title: 'Outbreak Preventer',
-        description: 'Help identify and contain a disease cluster',
+        description: 'Help identify and contain a defect cluster',
         icon: Icons.shield,
         color: Colors.blue,
         target: 1,

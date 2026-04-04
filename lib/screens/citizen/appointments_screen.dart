@@ -1,143 +1,94 @@
 import 'package:flutter/material.dart';
-import 'package:smc/data/services/auth_service.dart';
 import 'package:smc/data/services/firestore_service.dart';
 import 'package:intl/intl.dart';
-
-import 'package:smc/screens/citizen/book_appointment_sheet.dart';
+import 'package:smc/screens/citizen/book_inspection_sheet.dart';
 import 'package:smc/core/theme/theme_switcher.dart';
-import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/core/widgets/smc_back_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class AppointmentsScreen extends StatelessWidget {
-  const AppointmentsScreen({super.key});
+/// Inspections & Audit Schedule Screen
+/// Replaces AppointmentsScreen. Tracks active and completed site audits.
+class InspectionsScreen extends StatelessWidget {
+  const InspectionsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final uid = AuthService().currentUser?.uid ?? 'cit_001';
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
+        backgroundColor: const Color(0xFF1E293B),
         leading: const SMCBackButton(),
-        title: Text(AppLocalizations.of(context).translate('appointments')),
+        title: Text('ACTIVE AUDIT CYCLES', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
         actions: const [ThemeSwitcher(), SizedBox(width: 8)],
       ),
       body: StreamBuilder<List<Map<String, dynamic>>>(
         stream: FirestoreService().streamCollection(
-          collection: 'appointments',
-          orderBy: 'time',
+          collection: 'inspections', // Updated collection name
+          orderBy: 'scheduledTime',
           descending: true,
         ),
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-                child: Text(
-                    AppLocalizations.of(context).translate('err_generic')));
-          }
-          final rawAppointments = snapshot.data ?? [];
-          final appointments = rawAppointments.isEmpty
+          final rawInspections = snapshot.data ?? [];
+          final inspections = rawInspections.isEmpty
               ? [
                   {
-                    'id': 'appt1',
-                    'citizenId': uid,
-                    'doctorName': 'Dr. Sarah Wilson',
-                    'facilityName': 'City Hub Medical Center',
-                    'time': DateTime.now()
-                        .add(const Duration(days: 2))
-                        .toIso8601String(),
+                    'id': 'insp1',
+                    'inspectorName': 'Arnav Desai',
+                    'assetName': 'City Bridge-04',
+                    'scheduledTime': DateTime.now().add(const Duration(days: 2)).toIso8601String(),
                     'status': 'confirmed',
+                    'type': 'Structural Audit'
                   },
                   {
-                    'id': 'appt2',
-                    'citizenId': uid,
-                    'doctorName': 'Dr. James Chen',
-                    'facilityName': 'SMC Specialist Wing',
-                    'time': DateTime.now()
-                        .subtract(const Duration(days: 5))
-                        .toIso8601String(),
+                    'id': 'insp2',
+                    'inspectorName': 'Sasha Roy',
+                    'assetName': 'Sector 4 Grid',
+                    'scheduledTime': DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
                     'status': 'completed',
+                    'type': 'Electrical Integrity'
                   },
                 ]
-              : rawAppointments.where((a) => a['citizenId'] == uid).toList();
+              : rawInspections;
 
-          if (appointments.isEmpty &&
-              snapshot.connectionState == ConnectionState.waiting) {
+          if (inspections.isEmpty && snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          }
-
-          if (appointments.isEmpty) {
-            return _buildEmptyState(context, isDark);
           }
 
           return ListView.builder(
             padding: const EdgeInsets.all(16),
-            itemCount: appointments.length,
-            itemBuilder: (context, index) {
-              final appt = appointments[index];
-              return _buildAppointmentCard(context, appt, isDark);
-            },
+            itemCount: inspections.length,
+            itemBuilder: (context, index) => _buildInspectionCard(context, inspections[index], isDark),
           );
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showBookAppointmentSheet(context),
-        label: Text(AppLocalizations.of(context).translate('book_new')),
-        icon: const Icon(Icons.add_rounded),
+        onPressed: () => _showBookInspectionSheet(context),
+        backgroundColor: Colors.blue,
+        label: Text('NEW AUDIT CYCLE', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, color: Colors.white, fontSize: 12)),
+        icon: const Icon(Icons.add_task_rounded, color: Colors.white),
       ),
     );
   }
 
-  Widget _buildEmptyState(BuildContext context, bool isDark) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.event_busy_rounded,
-              size: 64, color: Colors.grey.withValues(alpha: 0.5)),
-          const SizedBox(height: 16),
-          Text(
-            AppLocalizations.of(context).noDataAvailable,
-            style: const TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
-          ),
-          const SizedBox(height: 8),
-          const Text('Tap the button below to book one'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAppointmentCard(
-      BuildContext context, Map<String, dynamic> appt, bool isDark) {
-    final time =
-        appt['time'] != null ? DateTime.parse(appt['time']) : DateTime.now();
-    final status = appt['status'] ?? 'pending';
+  Widget _buildInspectionCard(BuildContext context, Map<String, dynamic> insp, bool isDark) {
+    final time = insp['scheduledTime'] != null ? DateTime.parse(insp['scheduledTime']) : DateTime.now();
+    final status = insp['status'] ?? 'pending';
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-            color: isDark ? Colors.white10 : const Color(0xFFE2E8F0)),
-        boxShadow: [
-          if (!isDark)
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-        ],
+        color: const Color(0xFF1E293B),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: _getStatusColor(status).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
+            decoration: BoxDecoration(color: _getStatusColor(status).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
             child: Icon(_getStatusIcon(status), color: _getStatusColor(status)),
           ),
           const SizedBox(width: 16),
@@ -145,101 +96,57 @@ class AppointmentsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  appt['doctorName'] ?? 'General Physician',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Text(
-                  appt['facilityName'] ?? 'City General Hospital',
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-                const SizedBox(height: 4),
+                Text(insp['inspectorName']?.toUpperCase() ?? 'UNASSIGNED', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
+                Text(insp['assetName'] ?? 'Unknown Asset', style: const TextStyle(fontSize: 11, color: Colors.grey, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(Icons.access_time_rounded,
-                        size: 14, color: Colors.blue),
+                    const Icon(Icons.access_time_rounded, size: 14, color: Colors.blue),
                     const SizedBox(width: 4),
-                    Text(
-                      DateFormat('MMM dd, yyyy - hh:mm a').format(time),
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.w600),
-                    ),
+                    Text(DateFormat('MMM dd, yyyy - hh:mm a').format(time), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white70)),
                   ],
                 ),
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _getStatusColor(status).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  status.toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: _getStatusColor(status),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              if (status == 'pending')
-                TextButton(
-                  onPressed: () {},
-                  child: Text(AppLocalizations.of(context).cancel,
-                      style: const TextStyle(color: Colors.red, fontSize: 12)),
-                ),
-            ],
-          ),
+          _statusBadge(status),
         ],
       ),
     );
   }
 
+  Widget _statusBadge(String status) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(color: _getStatusColor(status).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+      child: Text(status.toUpperCase(), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: _getStatusColor(status))),
+    );
+  }
+
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'confirmed':
-        return Colors.green;
-      case 'cancelled':
-        return Colors.red;
-      case 'completed':
-        return Colors.blue;
-      default:
-        return Colors.orange;
+      case 'confirmed': return Colors.green;
+      case 'cancelled': return Colors.red;
+      case 'completed': return Colors.blue;
+      default: return Colors.orange;
     }
   }
 
   IconData _getStatusIcon(String status) {
     switch (status) {
-      case 'confirmed':
-        return Icons.check_circle_rounded;
-      case 'cancelled':
-        return Icons.cancel_rounded;
-      case 'completed':
-        return Icons.task_alt_rounded;
-      default:
-        return Icons.pending_actions_rounded;
+      case 'confirmed': return Icons.verified_rounded;
+      case 'cancelled': return Icons.cancel_rounded;
+      case 'completed': return Icons.task_alt_rounded;
+      default: return Icons.pending_actions_rounded;
     }
   }
 
-  void _showBookAppointmentSheet(BuildContext context) {
+  void _showBookInspectionSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (context) => BookAppointmentSheet(
-        onBooked: (appt) {
-          // List updates automatically via StreamBuilder
-        },
-      ),
+      backgroundColor: Colors.transparent,
+      builder: (context) => BookInspectionSheet(onBooked: (insp) {}),
     );
   }
 }

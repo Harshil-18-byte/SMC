@@ -31,7 +31,7 @@ class _FieldWorkerVisitFormExampleState
   // Form fields
   String _symptoms = '';
   String _diagnosis = '';
-  String _treatment = '';
+  String _repairAction = '';
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +80,11 @@ class _FieldWorkerVisitFormExampleState
 
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Treatment Recommended',
+                  labelText: 'Repair Action Recommended',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 2,
-                onSaved: (value) => _treatment = value ?? '',
+                onSaved: (value) => _repairAction = value ?? '',
               ),
               const SizedBox(height: 24),
 
@@ -227,7 +227,7 @@ class _FieldWorkerVisitFormExampleState
       final formData = {
         'symptoms': _symptoms,
         'diagnosis': _diagnosis,
-        'treatment': _treatment,
+        'repair_action': _repairAction,
         'visitDate': DateTime.now().toIso8601String(),
       };
 

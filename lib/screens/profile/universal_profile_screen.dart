@@ -189,7 +189,7 @@ class _CitizenProfileView extends StatelessWidget {
             const SizedBox(height: 24),
             _buildStatCard(
               context,
-              title: 'Health Summary',
+              title: 'Inspection Summary',
               stats: [
                 _StatItemData(
                     icon: Icons.security,

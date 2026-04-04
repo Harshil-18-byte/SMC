@@ -104,7 +104,7 @@ class NotificationProvider extends ChangeNotifier {
       ),
       AppNotification(
         id: '2',
-        title: 'Health Alert',
+        title: 'Inspection Alert',
         body:
             'Heavy rainfall expected. Please advise citizens to use boiled water.',
         type: 'alert',

@@ -2,7 +2,7 @@ import 'dart:math';
 
 class EnvironmentData {
   final int aqi;
-  final String aqiStatus; // Good, Moderate, Unhealthy
+  final String aqiStatus; // Good, Moderate, Uninspectiony
   final double temperature;
   final String waterQuality; // Safe, Boil Advisory
   final String weatherCondition; // Sunny, Cloudy, Rain
@@ -26,7 +26,7 @@ class EnvironmentService {
     final aqi = 45 + random.nextInt(60);
     String status = 'Good';
     if (aqi > 50) status = 'Moderate';
-    if (aqi > 100) status = 'Unhealthy';
+    if (aqi > 100) status = 'Uninspectiony';
 
     return EnvironmentData(
       aqi: aqi,

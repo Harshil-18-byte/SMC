@@ -240,7 +240,7 @@ class _DoctorBotScreenState extends State<DoctorBotScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppLocalizations.of(context).translate('bot_health_assistant'),
+                AppLocalizations.of(context).translate('bot_inspection_assistant'),
                 style: GoogleFonts.outfit(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

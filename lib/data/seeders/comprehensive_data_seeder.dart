@@ -50,9 +50,9 @@ class ComprehensiveDataSeeder {
 
     // Legacy Seeds (to be migrated later or kept for specific logic)
     await seedSystemUsers();
-    await seedHospitalIntakeStatus();
+    await seedSiteIntakeStatus();
     await seedAuditLogs();
-    await seedSystemHealthMetrics();
+    await seedSystemInspectionMetrics();
     
     debugPrint('✅ Macro Infrastructure data seeded successfully!');
   }
@@ -99,19 +99,19 @@ class ComprehensiveDataSeeder {
         'id': 'TASK001',
         'householdId': 'HH-SOL-042',
         'title': 'Regular Screening',
-        'description': 'Quarterly health survey for all family members',
+        'description': 'Quarterly inspection survey for all family members',
         'priority': 'ROUTINE',
         'imageUrl':
             'https://images.unsplash.com/photo-1574680078891-b01b6336113b?q=80&w=400',
         'isCompleted': false,
         'assignedDate': DateTime.now().toIso8601String(),
-        'notes': 'Check for elderly health concerns',
+        'notes': 'Check for elderly inspection concerns',
       },
       {
         'id': 'TASK002',
         'householdId': 'HH-SOL-128',
         'title': 'Fever Follow-up',
-        'description': 'Monitor symptomatic patients from last week',
+        'description': 'Monitor symptomatic assets from last week',
         'priority': 'PRIORITY',
         'imageUrl':
             'https://images.unsplash.com/photo-1584634731339-252c5aba1917?q=80&w=400',
@@ -132,9 +132,9 @@ class ComprehensiveDataSeeder {
 
     final collections = [
       'system_users',
-      'hospital_intake_status',
+      'site_intake_status',
       'audit_logs',
-      'system_health_metrics',
+      'system_inspection_metrics',
       'infra_assets_national',
       'infra_projects_state',
       'city_incidents',
@@ -190,7 +190,7 @@ class ComprehensiveDataSeeder {
         'status': 'active',
         'designation': 'Medical Officer',
         'specialization': 'General Medicine',
-        'hospitalId': 'HOSP001',
+        'siteId': 'HOSP001',
         'email': 'anil.patil@smc.gov.in',
         'phone': '9111111111',
       },
@@ -203,7 +203,7 @@ class ComprehensiveDataSeeder {
         'employeeId': 'SMC-HW-1023',
         'phone': '9222222224',
         'responsibilities': [
-          'Door-to-door health survey',
+          'Door-to-door inspection survey',
           'Report fever cases',
           'Vaccination follow-up'
         ],
@@ -217,7 +217,7 @@ class ComprehensiveDataSeeder {
         'employeeId': 'SMC-ASHA-0876',
         'phone': '9333333335',
         'responsibilities': [
-          'Maternal health visits',
+          'Maternal inspection visits',
           'Child vaccination tracking',
           'Awareness programs'
         ],
@@ -232,11 +232,11 @@ class ComprehensiveDataSeeder {
     }
   }
 
-  /// Seed Hospital Intake Status
-  Future<void> seedHospitalIntakeStatus() async {
+  /// Seed Site Intake Status
+  Future<void> seedSiteIntakeStatus() async {
     debugPrint('  Seeding regional infrastructure...');
 
-    final hospitals = [
+    final sites = [
       {
         'id': 'HOSP001',
         'name': 'Central Command Center - West',
@@ -287,11 +287,11 @@ class ComprehensiveDataSeeder {
       },
     ];
 
-    for (final hospital in hospitals) {
+    for (final site in sites) {
       await _firestore
-          .collection('hospital_intake_status')
-          .doc(hospital['id'] as String)
-          .set(hospital);
+          .collection('site_intake_status')
+          .doc(site['id'] as String)
+          .set(site);
     }
   }
 
@@ -320,8 +320,8 @@ class ComprehensiveDataSeeder {
         'timestamp':
             DateTime.now().subtract(const Duration(hours: 3)).toIso8601String(),
         'metadata': {
-          'hospitalId': 'HOSP002',
-          'hospitalName': 'Dr. Babasaheb Ambedkar Hospital',
+          'siteId': 'HOSP002',
+          'siteName': 'Dr. Babasaheb Ambedkar Site',
           'justification': 'ICU Capacity full',
         },
       },
@@ -332,9 +332,9 @@ class ComprehensiveDataSeeder {
     }
   }
 
-  /// Seed System Health Metrics
-  Future<void> seedSystemHealthMetrics() async {
-    debugPrint('  Seeding system health metrics...');
+  /// Seed System Inspection Metrics
+  Future<void> seedSystemInspectionMetrics() async {
+    debugPrint('  Seeding system inspection metrics...');
 
     final metrics = [
       {
@@ -342,7 +342,7 @@ class ComprehensiveDataSeeder {
         'value': 24.5,
         'unit': '%',
         'threshold': 80.0,
-        'status': 'healthy',
+        'status': 'inspectiony',
         'lastUpdated': DateTime.now().toIso8601String(),
       },
       {
@@ -350,13 +350,13 @@ class ComprehensiveDataSeeder {
         'value': 99.9,
         'unit': '%',
         'threshold': 99.0,
-        'status': 'healthy',
+        'status': 'inspectiony',
         'lastUpdated': DateTime.now().toIso8601String(),
       },
     ];
 
     for (final metric in metrics) {
-      await _firestore.collection('system_health_metrics').add(metric);
+      await _firestore.collection('system_inspection_metrics').add(metric);
     }
   }
 
@@ -367,7 +367,7 @@ class ComprehensiveDataSeeder {
     final tasks = [
       {
         'title': 'Server Optimization',
-        'description': 'Optimize SMC health portal servers',
+        'description': 'Optimize SMC inspection portal servers',
         'scheduledDate':
             DateTime.now().add(const Duration(days: 1)).toIso8601String(),
         'priority': 'medium',
@@ -410,7 +410,7 @@ class ComprehensiveDataSeeder {
         'longitude': 75.9131,
         'visitDate':
             DateTime.now().subtract(const Duration(hours: 1)).toIso8601String(),
-        'visitType': 'Maternal health visit',
+        'visitType': 'Maternal inspection visit',
         'membersScreened': ['Lata Kendre'],
         'findings': {'stable': true},
         'notes': 'Lata Kendre (Pregnant) visited. Stable condition.',
@@ -458,8 +458,8 @@ class ComprehensiveDataSeeder {
         'ward': 'Ward No. 5',
         'aadhaarLast4': '4321',
         'contact': '9XXXXXXXX6',
-        'healthId': 'SMC-HID-501',
-        'healthConditions': ["Diabetes"],
+        'inspectionId': 'SMC-HID-501',
+        'inspectionConditions': ["Diabetes"],
         'bloodGroup': 'B+',
       },
       {
@@ -471,8 +471,8 @@ class ComprehensiveDataSeeder {
         'ward': 'Ward No. 14',
         'aadhaarLast4': '7854',
         'contact': '9XXXXXXXX7',
-        'healthId': 'SMC-HID-1402',
-        'healthConditions': ["Pregnant"],
+        'inspectionId': 'SMC-HID-1402',
+        'inspectionConditions': ["Pregnant"],
         'bloodGroup': 'A+',
       },
       {
@@ -484,8 +484,8 @@ class ComprehensiveDataSeeder {
         'ward': 'Ward No. 9',
         'aadhaarLast4': '1198',
         'contact': '9XXXXXXXX8',
-        'healthId': 'SMC-HID-903',
-        'healthConditions': [],
+        'inspectionId': 'SMC-HID-903',
+        'inspectionConditions': [],
         'bloodGroup': 'O+',
       }
     ];
@@ -498,22 +498,22 @@ class ComprehensiveDataSeeder {
     }
   }
 
-  /// Seed Health Alerts
-  Future<void> seedHealthAlerts() async {
-    debugPrint('  Seeding health alerts...');
+  /// Seed Inspection Alerts
+  Future<void> seedInspectionAlerts() async {
+    debugPrint('  Seeding inspection alerts...');
 
     final alerts = [
       {
         'title': 'Blood Donation Camp',
         'message':
-            'SMC organizing blood donation camp at Civil Hospital tomorrow.',
+            'SMC organizing blood donation camp at Civil Site tomorrow.',
         'severity': 'info',
         'timestamp': DateTime.now().toIso8601String(),
         'isRead': false,
       },
       {
-        'title': 'Monsoon Health Advisory',
-        'message': 'Precaution against water-borne diseases in Ward 9.',
+        'title': 'Monsoon Inspection Advisory',
+        'message': 'Precaution against water-borne defects in Ward 9.',
         'severity': 'warning',
         'timestamp': DateTime.now()
             .subtract(const Duration(hours: 12))
@@ -523,13 +523,13 @@ class ComprehensiveDataSeeder {
     ];
 
     for (final alert in alerts) {
-      await _firestore.collection('health_alerts').add(alert);
+      await _firestore.collection('inspection_alerts').add(alert);
     }
   }
 
-  /// Seed Health Records
-  Future<void> seedHealthRecords() async {
-    debugPrint('  Seeding health records...');
+  /// Seed Inspection Records
+  Future<void> seedInspectionRecords() async {
+    debugPrint('  Seeding inspection records...');
 
     final records = [
       {
@@ -539,7 +539,7 @@ class ComprehensiveDataSeeder {
         'description': 'Regular sugar checkup',
         'date':
             DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
-        'provider': 'SMC Civil Hospital, Bharat',
+        'provider': 'SMC Civil Site, Bharat',
         'details': {
           'Fasting Sugar': '110 mg/dL',
           'PP Sugar': '160 mg/dL',
@@ -548,7 +548,7 @@ class ComprehensiveDataSeeder {
     ];
 
     for (final record in records) {
-      await _firestore.collection('health_records').add(record);
+      await _firestore.collection('inspection_records').add(record);
     }
   }
 
@@ -561,79 +561,79 @@ class ComprehensiveDataSeeder {
         'latitude': 17.6648,
         'longitude': 75.9202,
         'intensity': 1.0,
-        'disease': 'Dengue'
+        'defect': 'Dengue'
       },
       {
         'latitude': 17.6647,
         'longitude': 75.9201,
         'intensity': 0.8,
-        'disease': 'Dengue'
+        'defect': 'Dengue'
       },
       {
         'latitude': 17.6649,
         'longitude': 75.9203,
         'intensity': 0.9,
-        'disease': 'Dengue'
+        'defect': 'Dengue'
       },
       {
         'latitude': 17.6599,
         'longitude': 75.9064,
         'intensity': 1.0,
-        'disease': 'Malaria'
+        'defect': 'Malaria'
       },
       {
         'latitude': 17.6601,
         'longitude': 75.9066,
         'intensity': 0.7,
-        'disease': 'Malaria'
+        'defect': 'Malaria'
       },
       {
         'latitude': 17.6597,
         'longitude': 75.9062,
         'intensity': 0.6,
-        'disease': 'Malaria'
+        'defect': 'Malaria'
       },
       {
         'latitude': 17.6352,
         'longitude': 75.9131,
         'intensity': 1.0,
-        'disease': 'Viral Fever'
+        'defect': 'Viral Fever'
       },
       {
         'latitude': 17.6354,
         'longitude': 75.9133,
         'intensity': 0.5,
-        'disease': 'Viral Fever'
+        'defect': 'Viral Fever'
       },
       {
         'latitude': 17.6351,
         'longitude': 75.9129,
         'intensity': 0.4,
-        'disease': 'Viral Fever'
+        'defect': 'Viral Fever'
       },
       {
         'latitude': 17.6702,
         'longitude': 75.8956,
         'intensity': 0.9,
-        'disease': 'Dengue'
+        'defect': 'Dengue'
       },
       {
         'latitude': 17.6704,
         'longitude': 75.8958,
         'intensity': 0.8,
-        'disease': 'Dengue'
+        'defect': 'Dengue'
       },
       {
         'latitude': 17.6551,
         'longitude': 75.8998,
         'intensity': 1.0,
-        'disease': 'Cholera'
+        'defect': 'Cholera'
       },
       {
         'latitude': 17.6553,
         'longitude': 75.9000,
         'intensity': 0.9,
-        'disease': 'Cholera'
+        'defect': 'Cholera'
       },
     ];
 
@@ -645,9 +645,9 @@ class ComprehensiveDataSeeder {
     }
   }
 
-  /// Seed Field Health Reports
+  /// Seed Field Inspection Reports
   Future<void> seedFieldReports() async {
-    debugPrint('  Seeding field health reports...');
+    debugPrint('  Seeding field inspection reports...');
 
     final reports = [
       {
@@ -676,7 +676,7 @@ class ComprehensiveDataSeeder {
   Future<void> seedDashboardMetrics() async {
     debugPrint('  Seeding dashboard KPIs and trends...');
 
-    // 1. Health Metrics
+    // 1. Inspection Metrics
     final metrics = [
       {
         'title': 'Active Cases',
@@ -729,13 +729,13 @@ class ComprehensiveDataSeeder {
     ];
 
     for (final metric in metrics) {
-      await _firestore.collection('health_metrics').add(metric);
+      await _firestore.collection('inspection_metrics').add(metric);
     }
 
     // 2. Critical Alerts
     final alerts = [
       {
-        'title': 'Oxygen Low at Civil Hospital',
+        'title': 'Oxygen Low at Civil Site',
         'description': 'Main tank below 15%. Logistics dispatched.',
         'iconName': 'warning',
         'severity': 'danger',
@@ -780,7 +780,7 @@ class ComprehensiveDataSeeder {
     await _firestore.collection('command_center_kpi').doc('current').set({
       'activeCases': 1240,
       'icuCapacity': 78.5,
-      'hospitalStressIndex': 62.0,
+      'siteStressIndex': 62.0,
       'lastUpdated': DateTime.now().toIso8601String(),
     });
 
@@ -788,7 +788,7 @@ class ComprehensiveDataSeeder {
     final systemAlerts = [
       {
         'message':
-            'Oxygen pressure dropping at SMC Civil Hospital, Main Tank Reservoir.',
+            'Oxygen pressure dropping at SMC Civil Site, Main Tank Reservoir.',
         'severity': 'critical',
         'timestamp': DateTime.now()
             .subtract(const Duration(minutes: 15))
@@ -866,7 +866,7 @@ class ComprehensiveDataSeeder {
 
     // 1. Time-series Case Data
     for (int i = 0; i < 30; i++) {
-      await _firestore.collection('disease_case_data').add({
+      await _firestore.collection('defect_case_data').add({
         'date':
             DateTime.now().subtract(Duration(days: 29 - i)).toIso8601String(),
         'newCases': 100 + (i * 2) + (i % 5 * 10),
@@ -922,7 +922,7 @@ class ComprehensiveDataSeeder {
     final casePrefixes = ['PAT-501-', 'PAT-902-', 'PAT-143-'];
     for (int i = 0; i < 20; i++) {
       await _firestore.collection('raw_case_entries').add({
-        'patientId': '${casePrefixes[i % 3]}${1000 + i}',
+        'assetId': '${casePrefixes[i % 3]}${1000 + i}',
         'zone': zones[i % zones.length]['name'],
         'reportedDate':
             DateTime.now().subtract(Duration(hours: i * 2)).toIso8601String(),
@@ -938,18 +938,18 @@ class ComprehensiveDataSeeder {
     debugPrint('  Seeding blood requests...');
     final requests = [
       {
-        'patientName': 'Suresh Patil',
+        'assetName': 'Suresh Patil',
         'bloodGroup': 'O+',
-        'hospital': 'SMC Civil Hospital',
+        'site': 'SMC Civil Site',
         'unitsNeeded': 2,
         'urgency': 'Critical',
         'date': DateTime.now().toIso8601String(),
         'status': 'active',
       },
       {
-        'patientName': 'Ramesh Shinde',
+        'assetName': 'Ramesh Shinde',
         'bloodGroup': 'B-',
-        'hospital': 'Ashwini Sahakari Rugnalaya',
+        'site': 'Ashwini Sahakari Rugnalaya',
         'unitsNeeded': 1,
         'urgency': 'High',
         'date':
@@ -972,7 +972,7 @@ class ComprehensiveDataSeeder {
         'location': 'SMC Central Park',
         'needed': '20 Volunteers',
         'colorValue': 0xFF9C27B0, // Purple
-        'category': 'Health',
+        'category': 'Inspection',
       },
       {
         'title': 'Free Eye Checkup Camp',
@@ -985,7 +985,7 @@ class ComprehensiveDataSeeder {
       {
         'title': 'Blood Donation Drive',
         'date': 'Nov 12, 2026',
-        'location': 'Civil Hospital',
+        'location': 'Civil Site',
         'needed': '15 Volunteers',
         'colorValue': 0xFFF44336, // Red
         'category': 'Donation',

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-/// System Health Metric Model
-class SystemHealthMetric {
+/// System Inspection Metric Model
+class SystemInspectionMetric {
   final String id;
   final String name;
   final double value;
   final String unit;
   final double threshold;
-  final String status; // 'healthy', 'warning', 'critical'
+  final String status; // 'inspectiony', 'warning', 'critical'
   final DateTime lastUpdated;
 
-  SystemHealthMetric({
+  SystemInspectionMetric({
     required this.id,
     required this.name,
     required this.value,
@@ -20,14 +20,14 @@ class SystemHealthMetric {
     required this.lastUpdated,
   });
 
-  factory SystemHealthMetric.fromMap(Map<String, dynamic> map, String id) {
-    return SystemHealthMetric(
+  factory SystemInspectionMetric.fromMap(Map<String, dynamic> map, String id) {
+    return SystemInspectionMetric(
       id: id,
       name: map['name'] ?? '',
       value: (map['value'] ?? 0.0).toDouble(),
       unit: map['unit'] ?? '',
       threshold: (map['threshold'] ?? 0.0).toDouble(),
-      status: map['status'] ?? 'healthy',
+      status: map['status'] ?? 'inspectiony',
       lastUpdated: map['lastUpdated'] != null
           ? DateTime.parse(map['lastUpdated'])
           : DateTime.now(),

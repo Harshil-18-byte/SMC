@@ -189,7 +189,7 @@ class _StateDashboardScreenState extends State<StateDashboardScreen> {
     return AdaptiveGrid(
       childAspectRatio: 1.5,
       children: [
-        _buildMetricTile("State Health", "82.1", Icons.analytics_rounded, Colors.teal),
+        _buildMetricTile("State Inspection", "82.1", Icons.analytics_rounded, Colors.teal),
         _buildMetricTile("Projects Active", "412", Icons.engineering_rounded, Colors.blue),
         _buildMetricTile("Grants Out", "₹850Cr", Icons.payments_rounded, Colors.orange),
         _buildMetricTile("QA Lab Status", "Normal", Icons.science_rounded, Colors.green),

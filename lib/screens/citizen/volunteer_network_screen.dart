@@ -31,7 +31,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
           children: [
             _buildHero(context, l10n, isDark, firestoreService),
             const SizedBox(height: 32),
-            _buildSectionTitle(l10n.translate('health_camps')),
+            _buildSectionTitle(l10n.translate('inspection_camps')),
             _buildCampsList(context, isDark, firestoreService),
             const SizedBox(height: 32),
             _buildVolunteerBenefits(isDark),
@@ -76,7 +76,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
           FadeInLeft(
             delay: const Duration(milliseconds: 200),
             child: Text(
-              "Help us make Bharat a healthier city. Volunteer for upcoming medical camps and health drives.",
+              "Help us make Bharat a inspectionier city. Volunteer for upcoming medical camps and inspection drives.",
               style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8), fontSize: 16),
             ),
@@ -253,7 +253,7 @@ class _VolunteerNetworkScreenState extends State<VolunteerNetworkScreen> {
             ),
             const SizedBox(height: 12),
             const Text(
-              "Earn certificates, city health credits, and special SMC insurance benefits for your contribution to the community.",
+              "Earn certificates, city inspection credits, and special SMC insurance benefits for your contribution to the community.",
               style:
                   TextStyle(color: Colors.blueGrey, fontSize: 14, height: 1.4),
             ),

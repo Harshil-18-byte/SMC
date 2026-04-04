@@ -8,15 +8,15 @@ class AdminAnalyticsService {
     // In a real app, you might use distributed counters or a scheduled function
     // For this demo, we'll just count documents in key collections
     try {
-      final hospitalData =
-          await _firestore.collection('hospital_intake_status').get();
+      final siteData =
+          await _firestore.collection('site_intake_status').get();
 
-      int totalPatients = 0;
+      int totalAssets = 0;
       int availableBeds = 0;
 
-      for (var doc in hospitalData.docs) {
+      for (var doc in siteData.docs) {
         final data = doc.data();
-        totalPatients += (data['bedTotal'] as int? ?? 0) -
+        totalAssets += (data['bedTotal'] as int? ?? 0) -
             (data['bedAvailable'] as int? ?? 0);
         availableBeds += (data['bedAvailable'] as int? ?? 0);
       }
@@ -35,14 +35,14 @@ class AdminAnalyticsService {
           .get();
 
       return {
-        'activePatients': totalPatients,
+        'activeAssets': totalAssets,
         'availableBeds': availableBeds,
         'activeDoctors': doctors.count ?? 0,
         'criticalAlerts': criticalAlertsSnapshot.count ?? 0,
       };
     } catch (e) {
       return {
-        'activePatients': 0,
+        'activeAssets': 0,
         'availableBeds': 0,
         'activeDoctors': 0,
         'criticalAlerts': 0,
@@ -79,8 +79,8 @@ class AdminAnalyticsService {
     }
   }
 
-  /// Get disease spread data for heatmap (Mocked for now)
-  Future<List<Map<String, dynamic>>> getDiseaseHeatmapData() async {
+  /// Get defect spread data for heatmap (Mocked for now)
+  Future<List<Map<String, dynamic>>> getDefectHeatmapData() async {
     await Future.delayed(const Duration(milliseconds: 500));
     // Bharat locations
     return [
@@ -99,7 +99,7 @@ class AdminAnalyticsService {
     // This would typically aggregate data.
     // For Real-time, we can stream recent admissions
     return _firestore
-        .collection('hospital_admissions')
+        .collection('site_admissions')
         .orderBy('admissionTime', descending: true)
         .limit(10)
         .snapshots()

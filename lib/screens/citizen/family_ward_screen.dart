@@ -282,7 +282,7 @@ class _FamilyWardScreenState extends State<FamilyWardScreen> {
                     ],
                   ),
                 ),
-                // Health ID Badge
+                // Inspection ID Badge
                 if (member.chronicConditions.isNotEmpty)
                   Tooltip(
                     message: 'Has Chronic Conditions',
@@ -422,7 +422,7 @@ class _AddMemberDialogState extends State<_AddMemberDialog> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Add a member to your virtual ward for health monitoring.',
+                    'Add a member to your virtual ward for inspection monitoring.',
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey[500],
@@ -522,7 +522,7 @@ class _AddMemberDialogState extends State<_AddMemberDialog> {
                                 relation: _relation,
                                 age: int.parse(_ageController.text),
                                 gender: _gender,
-                                healthId: 'SMC-NEW-${DateTime.now().second}',
+                                inspectionId: 'SMC-NEW-${DateTime.now().second}',
                               );
                               widget.onAdd(newMember);
                               Navigator.pop(context);

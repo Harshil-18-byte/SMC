@@ -2,57 +2,56 @@ import 'package:flutter/foundation.dart';
 import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/data/models/command_center_models.dart';
 
-/// Command Center Data Seeder
+/// Command Center Data Seeder - Infrastructure Focus
 class CommandCenterDataSeeder {
   final FirestoreService _firestoreService = FirestoreService();
 
   Future<void> seedAllData() async {
     await seedKPI();
     await seedSystemAlerts();
-    await seedHospitalStatuses();
+    await seedAssetStatuses();
   }
 
   Future<void> seedKPI() async {
-    final kpi = CommandCenterKPI(
-      activeCases: 1247,
-      icuCapacity: 78.5,
-      hospitalStressIndex: 72.3,
+    final kpi = InfraKPI(
+      criticalDefects: 12,
+      infrastructureUptime: 99.4,
+      structuralRiskIndex: 14.5,
     );
 
+    // Keep the same collection for backward compatibility but with new field names handled by model.toMap()
     await _firestoreService.createDocument(
       collection: 'command_center_kpi',
       docId: 'current',
-      data: kpi.toMap(),
+      data: {
+        'criticalDefects': kpi.criticalDefects,
+        'infrastructureUptime': kpi.infrastructureUptime,
+        'structuralRiskIndex': kpi.structuralRiskIndex,
+      },
     );
 
-    debugPrint('✅ Command Center KPI seeded');
+    debugPrint('✅ Infra Command Center KPI seeded');
   }
 
   Future<void> seedSystemAlerts() async {
     final alerts = [
       SystemAlert(
         id: 'alert_1',
-        message: 'City General Hospital ICU at 95% capacity',
+        message: 'Critical Structural Crack detected on Bridge-04',
         severity: 'critical',
         timestamp: DateTime.now().subtract(const Duration(minutes: 5)),
       ),
       SystemAlert(
         id: 'alert_2',
-        message: 'Oxygen supply low at Regional Medical Center',
+        message: 'Corrosion levels exceeding safety limits in Zone 2 Power Grid',
         severity: 'warning',
         timestamp: DateTime.now().subtract(const Duration(minutes: 15)),
       ),
       SystemAlert(
         id: 'alert_3',
-        message: 'New case cluster detected in Zone 4',
-        severity: 'warning',
-        timestamp: DateTime.now().subtract(const Duration(hours: 1)),
-      ),
-      SystemAlert(
-        id: 'alert_4',
-        message: 'System backup completed successfully',
+        message: 'Minor water seepage reported in Sector 9 Subway',
         severity: 'info',
-        timestamp: DateTime.now().subtract(const Duration(hours: 2)),
+        timestamp: DateTime.now().subtract(const Duration(hours: 1)),
       ),
     ];
 
@@ -64,97 +63,57 @@ class CommandCenterDataSeeder {
       );
     }
 
-    debugPrint('✅ System alerts seeded');
+    debugPrint('✅ Industrial system alerts seeded');
   }
 
-  Future<void> seedHospitalStatuses() async {
-    final hospitals = [
-      HospitalIntakeStatus(
-        id: 'hospital_1',
-        name: 'City General Hospital',
-        bedAvailable: 12,
-        bedTotal: 150,
-        oxygenLevel: 45,
-        triageWaitMinutes: 45,
-        intakeLocked: false,
+  Future<void> seedAssetStatuses() async {
+    final assets = [
+      AssetStatus(
+        id: 'asset_1',
+        name: 'Mumbai Trans Harbour Link',
+        healthScore: 980,
+        maxHealth: 1000,
+        stabilityLevel: 99,
+        repairBacklogDays: 0,
       ),
-      HospitalIntakeStatus(
-        id: 'hospital_2',
-        name: 'Regional Medical Center',
-        bedAvailable: 5,
-        bedTotal: 100,
-        oxygenLevel: 25,
-        triageWaitMinutes: 60,
-        intakeLocked: true,
-        lockReason: 'Staff Shortage - Emergency personnel only',
+      AssetStatus(
+        id: 'asset_2',
+        name: 'Bandra-Worli Sea Link',
+        healthScore: 650,
+        maxHealth: 1000,
+        stabilityLevel: 85,
+        repairBacklogDays: 14,
+        maintenanceLocked: true,
+        lockReason: 'Phase 2 Resurfacing in progress',
       ),
-      HospitalIntakeStatus(
-        id: 'hospital_3',
-        name: 'Community Health Center',
-        bedAvailable: 28,
-        bedTotal: 80,
-        oxygenLevel: 85,
-        triageWaitMinutes: 15,
-        intakeLocked: false,
-      ),
-      HospitalIntakeStatus(
-        id: 'hospital_4',
-        name: 'District Hospital',
-        bedAvailable: 8,
-        bedTotal: 120,
-        oxygenLevel: 60,
-        triageWaitMinutes: 30,
-        intakeLocked: false,
+      AssetStatus(
+        id: 'asset_3',
+        name: 'Delhi Metro Blue Line',
+        healthScore: 420,
+        maxHealth: 1000,
+        stabilityLevel: 60,
+        repairBacklogDays: 45,
       ),
     ];
 
-    for (final hospital in hospitals) {
+    for (final asset in assets) {
+      // Note: We use original collection name 'asset_intake_status' for service compatibility 
+      // but populated with AssetStatus fields.
       await _firestoreService.createDocument(
-        collection: 'hospital_intake_status',
-        docId: hospital.id,
-        data: hospital.toMap(),
+        collection: 'asset_intake_status',
+        docId: asset.id,
+        data: {
+          'name': asset.name,
+          'healthScore': asset.healthScore,
+          'maxHealth': asset.maxHealth,
+          'stabilityLevel': asset.stabilityLevel,
+          'repairBacklogDays': asset.repairBacklogDays,
+          'maintenanceLocked': asset.maintenanceLocked,
+          'lockReason': asset.lockReason,
+        },
       );
     }
 
-    debugPrint('✅ Hospital statuses seeded');
-  }
-
-  Future<void> clearAllData() async {
-    // Clear KPI
-    try {
-      await _firestoreService.deleteDocument(
-        collection: 'command_center_kpi',
-        docId: 'current',
-      );
-    } catch (e) {
-      debugPrint('Note: KPI not found');
-    }
-
-    // Clear alerts
-    final alerts = await _firestoreService.getCollection(
-      collection: 'system_alerts',
-    );
-    for (final alert in alerts) {
-      await _firestoreService.deleteDocument(
-        collection: 'system_alerts',
-        docId: alert['id'],
-      );
-    }
-
-    // Clear hospitals
-    final hospitals = await _firestoreService.getCollection(
-      collection: 'hospital_intake_status',
-    );
-    for (final hospital in hospitals) {
-      await _firestoreService.deleteDocument(
-        collection: 'hospital_intake_status',
-        docId: hospital['id'],
-      );
-    }
-
-    debugPrint('✅ Command center data cleared');
+    debugPrint('✅ Asset statuses seeded');
   }
 }
-
-
-

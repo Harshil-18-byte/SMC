@@ -92,7 +92,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
                   : Citizen(
                       id: uid,
                       name: 'Suresh Patil',
-                      healthId: 'SOL-4522-8901',
+                      inspectionId: 'SOL-4522-8901',
                       dateOfBirth: DateTime(1985, 8, 20),
                       bloodGroup: 'O+',
                       phone: '+91 91234 56789',
@@ -102,7 +102,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
 
               return StreamBuilder<List<Map<String, dynamic>>>(
                 stream: _firestoreService.streamCollection(
-                  collection: 'health_alerts',
+                  collection: 'inspection_alerts',
                   orderBy: 'timestamp',
                   descending: true,
                   limit: 5,
@@ -117,7 +117,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
                   final rawAlerts = alertsSnapshot.data ?? [];
                   final alerts = rawAlerts.isEmpty
                       ? [
-                          HealthAlert(
+                          InspectionAlert(
                             id: 'a1',
                             title: 'Air Quality Advisory',
                             message:
@@ -126,7 +126,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
                             timestamp: DateTime.now(),
                             isRead: false,
                           ),
-                          HealthAlert(
+                          InspectionAlert(
                             id: 'a2',
                             title: 'Vaccination Drive',
                             message:
@@ -138,7 +138,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
                           ),
                         ]
                       : rawAlerts
-                          .map((data) => HealthAlert.fromMap(
+                          .map((data) => InspectionAlert.fromMap(
                               data, (data['id'] ?? '') as String))
                           .toList();
 
@@ -230,7 +230,7 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                '${AppLocalizations.of(context).healthID}: ${citizen.healthId}',
+                '${AppLocalizations.of(context).inspectionID}: ${citizen.inspectionId}',
                 style: GoogleFonts.caveat(
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 16,
@@ -354,12 +354,12 @@ class _CitizenHomeScreenState extends State<CitizenHomeScreen> {
     );
   }
 
-  Widget _buildAlertsSection(List<HealthAlert> alerts) {
+  Widget _buildAlertsSection(List<InspectionAlert> alerts) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context).healthAlerts,
+          AppLocalizations.of(context).inspectionAlerts,
           style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,

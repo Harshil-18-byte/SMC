@@ -109,7 +109,7 @@ class ImpactSummaryWidget extends StatelessWidget {
                 const SizedBox(width: 12),
                 const Expanded(
                   child: Text(
-                    'Your data provides crucial insights to the Bharat Health Board.',
+                    'Your data provides crucial insights to the Bharat Inspection Board.',
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 11,

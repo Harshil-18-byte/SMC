@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/data/models/command_center_models.dart';
-import 'package:smc/core/constants/app_colors.dart';
+import 'package:smc/core/visuals/industrial_visuals.dart';
+import 'package:smc/core/widgets/universal_drawer.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-/// Enhanced Admin Command Center Dashboard
-/// High-density KPIs, real-time alerts, hospital intake status
+/// Professional Admin Command Center
+/// Real-time infrastructure monitoring, defect alerts, and asset health scoring.
 class AdminCommandCenterScreen extends StatefulWidget {
   const AdminCommandCenterScreen({super.key});
 
   @override
-  State<AdminCommandCenterScreen> createState() =>
-      _AdminCommandCenterScreenState();
+  State<AdminCommandCenterScreen> createState() => _AdminCommandCenterScreenState();
 }
 
 class _AdminCommandCenterScreenState extends State<AdminCommandCenterScreen> {
   final FirestoreService _firestoreService = FirestoreService();
-
   bool _isLoading = true;
-  CommandCenterKPI? _kpi;
+  InfraKPI? _kpi;
   List<SystemAlert> _alerts = [];
-  List<HospitalIntakeStatus> _hospitals = [];
+  List<AssetStatus> _assets = [];
 
   @override
   void initState() {
@@ -28,372 +28,236 @@ class _AdminCommandCenterScreenState extends State<AdminCommandCenterScreen> {
   }
 
   Future<void> _loadDashboardData() async {
+    if (!mounted) return;
     setState(() => _isLoading = true);
-
     try {
-      // Load KPI data
-      final kpiData = await _firestoreService.readDocument(
-        collection: 'command_center_kpi',
-        docId: 'current',
-      );
-      if (kpiData != null) {
-        _kpi = CommandCenterKPI.fromMap(kpiData);
-      }
+      final kpiData = await _firestoreService.readDocument(collection: 'command_center_kpi', docId: 'current');
+      if (kpiData != null) _kpi = InfraKPI.fromMap(kpiData);
 
-      // Load system alerts
-      final alertsData = await _firestoreService.getCollection(
-        collection: 'system_alerts',
-        orderBy: 'timestamp',
-        descending: true,
-        limit: 10,
-      );
-      _alerts = alertsData
-          .map((data) => SystemAlert.fromMap(data, data['id']))
-          .toList();
+      final alertsData = await _firestoreService.getCollection(collection: 'system_alerts', orderBy: 'timestamp', descending: true, limit: 10);
+      _alerts = alertsData.map((data) => SystemAlert.fromMap(data, data['id'])).toList();
 
-      // Load hospital statuses
-      final hospitalsData = await _firestoreService.getCollection(
-        collection: 'hospital_intake_status',
-        orderBy: 'name',
-      );
-      _hospitals = hospitalsData
-          .map((data) => HospitalIntakeStatus.fromMap(data, data['id']))
-          .toList();
+      final assetsData = await _firestoreService.getCollection(collection: 'asset_intake_status', orderBy: 'name');
+      _assets = assetsData.map((data) => AssetStatus.fromMap(data, data['id'])).toList();
 
-      setState(() => _isLoading = false);
+      if (mounted) setState(() => _isLoading = false);
     } catch (e) {
-      debugPrint('Error loading dashboard: $e');
-      setState(() => _isLoading = false);
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error loading data: $e')));
-      }
+      debugPrint('Error loading command center: $e');
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundDark,
-      appBar: AppBar(
-        backgroundColor: AppColors.backgroundDark,
-        elevation: 0,
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Command Center',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        _showExitConfirmation(context);
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFF0F172A),
+        drawer: const UniversalDrawer(),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu_open_rounded, color: Colors.white),
+              onPressed: () => Scaffold.of(context).openDrawer(),
             ),
-            Text(
-              'ADMIN DASHBOARD',
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                color: AppColors.safetyNavy,
-                letterSpacing: 1.5,
-              ),
-            ),
+          ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('INFRA COMMAND CENTER', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 18, color: Colors.white)),
+              Text('GLOBAL STRATEGIC TERMINAL', style: GoogleFonts.outfit(fontSize: 10, color: Colors.blue, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+            ],
+          ),
+          actions: [
+            IconButton(icon: const Icon(Icons.refresh, color: Colors.white), onPressed: _loadDashboardData),
+            const SizedBox(width: 12),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _loadDashboardData,
-          ),
-        ],
-      ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-              onRefresh: _loadDashboardData,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 16),
-                    _buildKPIGrid(),
-                    const SizedBox(height: 20),
-                    _buildAlertsFeed(),
-                    const SizedBox(height: 20),
-                    _buildHospitalStatusSection(),
-                    const SizedBox(height: 100),
-                  ],
+        body: IndustrialVisuals.blueprintBackground(
+          isDark: true,
+          child: _isLoading 
+            ? const Center(child: CircularProgressIndicator(color: Colors.blue))
+            : RefreshIndicator(
+                onRefresh: _loadDashboardData,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildKPIGrid(),
+                      const SizedBox(height: 32),
+                      _buildAlertsFeed(),
+                      const SizedBox(height: 32),
+                      _buildAssetStatusSection(),
+                      const SizedBox(height: 120),
+                    ],
+                  ),
                 ),
               ),
-            ),
+        ),
+      ),
     );
   }
 
-  /// Top: KPI Grid (High Density)
+  void _showExitConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF1E293B),
+        title: const Text("Terminate Command Session?", style: TextStyle(color: Colors.white)),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text("CANCEL")),
+          TextButton(onPressed: () => Navigator.pushReplacementNamed(context, '/auth/login'), child: const Text("TERMINATE", style: TextStyle(color: Colors.red))),
+        ],
+      ),
+    );
+  }
+
   Widget _buildKPIGrid() {
     if (_kpi == null) return const SizedBox.shrink();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('TOP KEY PERFORMANCE INDICATORS'),
-        const SizedBox(height: 10),
+        _sectionHeader('STRATEGIC METRICS'),
+        const SizedBox(height: 16),
         Row(
           children: [
-            Expanded(
-              child: _buildKPICard(
-                'Active Cases',
-                _kpi!.activeCases.toString(),
-                Icons.person_search,
-                AppColors.emergencyRed,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _buildKPICard(
-                'ICU Capacity',
-                '${_kpi!.icuCapacity.toInt()}%',
-                Icons.local_hospital,
-                AppColors.warningOrange,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _buildKPICard(
-                'Stress Index',
-                _kpi!.hospitalStressIndex.toInt().toString(),
-                Icons.speed,
-                _getStressColor(_kpi!.hospitalStressIndex),
-              ),
-            ),
+            _kpiCard('Critical Defects', _kpi!.criticalDefects.toString(), Icons.warning_amber_rounded, Colors.red),
+            const SizedBox(width: 12),
+            _kpiCard('Infra Uptime', '${_kpi!.infrastructureUptime.toInt()}%', Icons.timer_rounded, Colors.green),
+            const SizedBox(width: 12),
+            _kpiCard('Risk Index', _kpi!.structuralRiskIndex.toInt().toString(), Icons.security_rounded, _kpi!.riskColor),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildKPICard(String title, String value, IconData icon, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.cardDark,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.borderDark),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 18, color: color),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              title.toUpperCase(),
-              style: const TextStyle(fontSize: 9, color: AppColors.textBody),
-            ),
-          ),
-        ],
+  Widget _kpiCard(String label, String value, IconData icon, Color color) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1E293B),
+          borderRadius: BorderRadius.circular(12),
+          border: Border(top: BorderSide(color: color, width: 3)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, size: 16, color: color),
+            const SizedBox(height: 12),
+            FittedBox(child: Text(value, style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white))),
+            Text(label.toUpperCase(), style: const TextStyle(fontSize: 9, color: Colors.grey, fontWeight: FontWeight.bold)),
+          ],
+        ),
       ),
     );
   }
 
-  /// Middle: Real-time Alerts Feed
   Widget _buildAlertsFeed() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildSectionHeader('SYSTEM ALERTS FEED'),
-            const Text(
-              'LIVE',
-              style: TextStyle(
-                fontSize: 10,
-                color: AppColors.successGreen,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
+        _sectionHeader('REAL-TIME SYSTEM ALERTS'),
+        const SizedBox(height: 16),
         Container(
-          height: 220,
+          height: 240,
           decoration: BoxDecoration(
-            color: AppColors.cardDark,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.borderDark),
+            color: const Color(0xFF1E293B).withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
-          child: _alerts.isEmpty
-              ? const Center(
-                  child: Text('No active alerts',
-                      style: TextStyle(color: AppColors.textBody)))
-              : ListView.separated(
-                  padding: const EdgeInsets.all(0),
-                  itemCount: _alerts.length,
-                  separatorBuilder: (context, index) =>
-                      Divider(color: AppColors.borderDark, height: 1),
-                  itemBuilder: (context, index) {
-                    final alert = _alerts[index];
-                    return ListTile(
-                      dense: true,
-                      leading: Icon(Icons.circle,
-                          size: 8, color: _getSeverityColor(alert.severity)),
-                      title: Text(alert.message,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 13)),
-                      subtitle: Text(alert.getTimeAgo(),
-                          style: const TextStyle(
-                              fontSize: 10, color: AppColors.textBody)),
-                      trailing: const Icon(Icons.chevron_right,
-                          size: 14, color: AppColors.textBody),
-                    );
-                  },
-                ),
+          child: _alerts.isEmpty 
+            ? const Center(child: Text('All systems nominal.', style: TextStyle(color: Colors.grey)))
+            : ListView.separated(
+                padding: const EdgeInsets.all(12),
+                itemCount: _alerts.length,
+                separatorBuilder: (context, index) => Divider(color: Colors.white.withValues(alpha: 0.05)),
+                itemBuilder: (context, index) {
+                  final alert = _alerts[index];
+                  return ListTile(
+                    dense: true,
+                    leading: Icon(Icons.circle, size: 8, color: alert.severityColor),
+                    title: Text(alert.message, style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
+                    subtitle: Text(alert.getTimeAgo(), style: const TextStyle(fontSize: 10, color: Colors.grey)),
+                    trailing: const Icon(Icons.chevron_right, size: 14, color: Colors.grey),
+                  );
+                },
+              ),
         ),
       ],
     );
   }
 
-  /// Bottom: Hospital Intake Status Cards (Grid/Wrap)
-  Widget _buildHospitalStatusSection() {
+  Widget _buildAssetStatusSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('HOSPITAL INTAKE STATUS'),
-        const SizedBox(height: 10),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: _hospitals.map((h) => _buildHospitalListItem(h)).toList(),
-        ),
+        _sectionHeader('CRITICAL ASSET INTEGRITY'),
+        const SizedBox(height: 16),
+        if (_assets.isEmpty) 
+          const Center(child: Text('Scanning assets...', style: TextStyle(color: Colors.grey)))
+        else
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, 
+              crossAxisSpacing: 12, 
+              mainAxisSpacing: 12,
+              childAspectRatio: 1.4,
+            ),
+            itemCount: _assets.length,
+            itemBuilder: (context, index) => _assetCard(_assets[index]),
+          ),
       ],
     );
   }
 
-  Widget _buildHospitalListItem(HospitalIntakeStatus h) {
-    final width = (MediaQuery.of(context).size.width - 44) / 2;
+  Widget _assetCard(AssetStatus asset) {
     return Container(
-      width: width,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.cardDark,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: h.intakeLocked ? AppColors.emergencyRed : AppColors.borderDark,
-          width: h.intakeLocked ? 1.5 : 1,
-        ),
+        color: const Color(0xFF1E293B),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
+          Text(asset.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12), maxLines: 1, overflow: TextOverflow.ellipsis),
+          Column(
             children: [
-              Expanded(
-                child: Text(
-                  h.name,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('${asset.integrityPercentage.toInt()}%', style: TextStyle(color: asset.statusColor, fontWeight: FontWeight.bold, fontSize: 18)),
+                  const Text('INTEGRITY', style: TextStyle(color: Colors.grey, fontSize: 8)),
+                ],
               ),
-              if (h.intakeLocked)
-                const Icon(Icons.lock, size: 12, color: AppColors.emergencyRed),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(child: _buildSmallMetric('BEDS', '${h.bedAvailable}')),
-              Flexible(child: _buildSmallMetric('O₂', '${h.oxygenLevel}%')),
-              Flexible(
-                  child: _buildSmallMetric('WAIT', '${h.triageWaitMinutes}m')),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Container(
-            height: 4,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColors.backgroundDark,
-              borderRadius: BorderRadius.circular(2),
-            ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: (h.bedTotal - h.bedAvailable) / h.bedTotal,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: h.statusColor,
-                  borderRadius: BorderRadius.circular(2),
-                ),
+              const SizedBox(height: 4),
+              LinearProgressIndicator(
+                value: asset.integrityPercentage / 100,
+                backgroundColor: Colors.black26,
+                color: asset.statusColor,
+                minHeight: 2,
               ),
-            ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSmallMetric(String label, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value,
-            style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.white)),
-        Text(label,
-            style: const TextStyle(fontSize: 8, color: AppColors.textBody)),
-      ],
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.bold,
-        color: AppColors.textBody,
-        letterSpacing: 1.1,
-      ),
-    );
-  }
-
-  Color _getStressColor(double index) {
-    if (index > 80) return AppColors.emergencyRed;
-    if (index > 50) return AppColors.warningOrange;
-    return AppColors.successGreen;
-  }
-
-  Color _getSeverityColor(String severity) {
-    switch (severity) {
-      case 'critical':
-        return AppColors.emergencyRed;
-      case 'warning':
-        return AppColors.warningOrange;
-      default:
-        return AppColors.successGreen;
-    }
+  Widget _sectionHeader(String title) {
+    return Text(title.toUpperCase(), style: GoogleFonts.outfit(fontSize: 11, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5));
   }
 }
-
-

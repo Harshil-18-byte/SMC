@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:smc/data/services/firestore_service.dart';
-import 'package:smc/data/models/system_health_model.dart';
+import 'package:smc/data/models/system_inspection_model.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 
-/// System Health & Performance Screen
+/// System Inspection & Performance Screen
 /// Real-time metrics + Maintenance Scheduler
-class SystemHealthScreen extends StatefulWidget {
-  const SystemHealthScreen({super.key});
+class SystemInspectionScreen extends StatefulWidget {
+  const SystemInspectionScreen({super.key});
 
   @override
-  State<SystemHealthScreen> createState() => _SystemHealthScreenState();
+  State<SystemInspectionScreen> createState() => _SystemInspectionScreenState();
 }
 
-class _SystemHealthScreenState extends State<SystemHealthScreen>
+class _SystemInspectionScreenState extends State<SystemInspectionScreen>
     with SingleTickerProviderStateMixin {
   final FirestoreService _firestoreService = FirestoreService();
   late TabController _tabController;
 
   bool _isLoading = true;
-  List<SystemHealthMetric> _metrics = [];
+  List<SystemInspectionMetric> _metrics = [];
   List<MaintenanceTask> _tasks = [];
 
   @override
@@ -38,12 +38,12 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
     setState(() => _isLoading = true);
 
     try {
-      // Load health metrics
+      // Load inspection metrics
       final metricsData = await _firestoreService.getCollection(
-        collection: 'system_health_metrics',
+        collection: 'system_inspection_metrics',
       );
       _metrics = metricsData
-          .map((data) => SystemHealthMetric.fromMap(data, data['id']))
+          .map((data) => SystemInspectionMetric.fromMap(data, data['id']))
           .toList();
 
       // Load maintenance tasks
@@ -101,7 +101,7 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
         backgroundColor: const Color(0xFF101922),
         elevation: 0,
         title: Text(
-          AppLocalizations.of(context).systemHealth,
+          AppLocalizations.of(context).systemInspection,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -117,7 +117,7 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
           labelColor: const Color(0xFF137fec),
           unselectedLabelColor: Colors.grey[500],
           tabs: [
-            Tab(text: AppLocalizations.of(context).translate('health_metrics')),
+            Tab(text: AppLocalizations.of(context).translate('inspection_metrics')),
             Tab(text: AppLocalizations.of(context).translate('maintenance')),
           ],
         ),
@@ -126,17 +126,15 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
           ? const Center(child: CircularProgressIndicator())
           : TabBarView(
               controller: _tabController,
-              children: [_buildHealthMetricsTab(), _buildMaintenanceTab()],
+              children: [_buildInspectionMetricsTab(), _buildMaintenanceTab()],
             ),
     );
   }
 
-  /// Health Metrics Tab
-  Widget _buildHealthMetricsTab() {
-    final criticalMetrics =
-        _metrics.where((m) => m.status == 'critical').length;
+  Widget _buildInspectionMetricsTab() {
+    final criticalMetrics = _metrics.where((m) => m.status == 'critical').length;
     final warningMetrics = _metrics.where((m) => m.status == 'warning').length;
-    final healthyMetrics = _metrics.where((m) => m.status == 'healthy').length;
+    final normalMetrics = _metrics.where((m) => m.status == 'inspectiony').length;
 
     return RefreshIndicator(
       onRefresh: _loadData,
@@ -146,10 +144,10 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHealthSummary(
+            _buildInspectionSummary(
               criticalMetrics,
               warningMetrics,
-              healthyMetrics,
+              normalMetrics,
             ),
             const SizedBox(height: 24),
             Text(
@@ -180,7 +178,7 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
     );
   }
 
-  Widget _buildHealthSummary(int critical, int warning, int healthy) {
+  Widget _buildInspectionSummary(int critical, int warning, int normal) {
     return Row(
       children: [
         Expanded(
@@ -203,9 +201,8 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
         const SizedBox(width: 12),
         Expanded(
           child: _buildSummaryCard(
-            AppLocalizations.of(context)
-                .translate('success'), // Using success for healthy
-            healthy.toString(),
+            AppLocalizations.of(context).translate('success'),
+            normal.toString(),
             Icons.check_circle,
             const Color(0xFF10B981),
           ),
@@ -246,7 +243,7 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
     );
   }
 
-  Widget _buildMetricCard(SystemHealthMetric metric) {
+  Widget _buildMetricCard(SystemInspectionMetric metric) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -254,10 +251,10 @@ class _SystemHealthScreenState extends State<SystemHealthScreen>
         color: const Color(0xFF1B2733),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: metric.status != 'healthy'
+          color: metric.status != 'inspectiony'
               ? metric.statusColor
               : const Color(0xFF2D3748),
-          width: metric.status != 'healthy' ? 2 : 1,
+          width: metric.status != 'inspectiony' ? 2 : 1,
         ),
       ),
       child: Column(

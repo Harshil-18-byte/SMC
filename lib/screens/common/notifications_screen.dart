@@ -37,7 +37,7 @@ class NotificationsScreen extends StatelessWidget {
           ),
           _buildNotificationItem(
             context,
-            'New Health Alert',
+            'New Inspection Alert',
             'High pollen count alert in your area.',
             DateTime.now().subtract(const Duration(days: 2)),
             Icons.warning,

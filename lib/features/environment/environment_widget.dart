@@ -48,7 +48,7 @@ class EnvironmentStatusWidget extends StatelessWidget {
                       const SizedBox(width: 12),
                       Text(
                         AppLocalizations.of(context)
-                            .translate('env_city_health_index'),
+                            .translate('env_city_inspection_index'),
                         style: GoogleFonts.outfit(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -207,7 +207,7 @@ class _EnvironmentDetailsSheet extends StatelessWidget {
                     "Ward 4 (Railway Station Area)", 112, Colors.orange),
                 _buildWardItem("Ward 5 (MIDC Area)", 156, Colors.red),
                 const SizedBox(height: 24),
-                _buildHealthAdvice(context),
+                _buildInspectionAdvice(context),
               ],
             ),
           ),
@@ -245,7 +245,7 @@ class _EnvironmentDetailsSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildHealthAdvice(BuildContext context) {
+  Widget _buildInspectionAdvice(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -260,7 +260,7 @@ class _EnvironmentDetailsSheet extends StatelessWidget {
               const Icon(Icons.info_outline_rounded, color: Colors.blue),
               const SizedBox(width: 12),
               Text(
-                AppLocalizations.of(context).translate('env_health_advice'),
+                AppLocalizations.of(context).translate('env_inspection_advice'),
                 style: GoogleFonts.outfit(
                     fontWeight: FontWeight.bold,
                     color: Colors.blue,

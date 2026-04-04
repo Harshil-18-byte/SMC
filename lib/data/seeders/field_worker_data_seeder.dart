@@ -66,14 +66,14 @@ class FieldWorkerDataSeeder {
       Task(
         id: 'task_3',
         householdId: 'Household #112',
-        title: 'General Health Survey',
-        description: 'General Health Survey • Family of 5',
+        title: 'General Inspection Survey',
+        description: 'General Inspection Survey • Family of 5',
         priority: 'SURVEY',
         imageUrl:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuC702EWW4KB7lIvFk7U8ZIWemtQE6x1LK2wwTq-S5rMo4GHGCaTULvrKHuWujFh1kQq2bGInbELScGpm5Sd8RxZKOwfG6jlDv-qjR8Iwuz6iuh3DCLiM6q3hFX8zlfgrhcLfgYgHNcLs_bMtjOVocVzm9kyoLU18J33q2wsqZixEQzWbri6D5ZPfAePyrck5hTkOK6hT0KqeWpgHQLubN0fBy_SIHyjUETcbGoL-Nj286oEtokgCK6pwtFR91ZOQFgbmyZzdQOqXA4',
         isCompleted: false,
         assignedDate: DateTime.now(),
-        notes: 'Conduct general health survey for family of 5',
+        notes: 'Conduct general inspection survey for family of 5',
       ),
     ];
 

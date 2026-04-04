@@ -1,6 +1,6 @@
-class HospitalAdmission {
+class SiteAdmission {
   final String id;
-  final String patientName;
+  final String assetName;
   final int age;
   final String gender;
   final String severity; // Low, Medium, Critical
@@ -10,9 +10,9 @@ class HospitalAdmission {
   final List<String> symptoms;
   final String? doctorId;
 
-  HospitalAdmission({
+  SiteAdmission({
     required this.id,
-    required this.patientName,
+    required this.assetName,
     required this.age,
     required this.gender,
     required this.severity,
@@ -25,7 +25,7 @@ class HospitalAdmission {
 
   Map<String, dynamic> toMap() {
     return {
-      'patientName': patientName,
+      'assetName': assetName,
       'age': age,
       'gender': gender,
       'severity': severity,
@@ -37,10 +37,10 @@ class HospitalAdmission {
     };
   }
 
-  factory HospitalAdmission.fromMap(Map<String, dynamic> map, String id) {
-    return HospitalAdmission(
+  factory SiteAdmission.fromMap(Map<String, dynamic> map, String id) {
+    return SiteAdmission(
       id: id,
-      patientName: map['patientName'] ?? '',
+      assetName: map['assetName'] ?? '',
       age: map['age']?.toInt() ?? 0,
       gender: map['gender'] ?? '',
       severity: map['severity'] ?? 'Low',

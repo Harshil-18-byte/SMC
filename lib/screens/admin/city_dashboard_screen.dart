@@ -110,7 +110,7 @@ class _CityDashboardScreenState extends State<CityDashboardScreen> {
     return AdaptiveGrid(
       childAspectRatio: 1.5,
       children: [
-        _buildMetricTile("Local Health", "76.4", Icons.location_city_rounded, Colors.blue),
+        _buildMetricTile("Local Inspection", "76.4", Icons.location_city_rounded, Colors.blue),
         _buildMetricTile("Open Alerts", "12", Icons.warning_amber_rounded, Colors.red),
         _buildMetricTile("Crews Active", "8", Icons.people_outline_rounded, Colors.orange),
         _buildMetricTile("Compliance", "84%", Icons.fact_check_rounded, Colors.green),

@@ -29,7 +29,7 @@ class AnimatedBackgroundPainter extends CustomPainter {
   bool shouldRepaint(AnimatedBackgroundPainter oldDelegate) => true;
 }
 
-/// Painter for the glowing health score circle
+/// Painter for the glowing inspection score circle
 class GlowingCirclePainter extends CustomPainter {
   final double progress;
   final Color color;

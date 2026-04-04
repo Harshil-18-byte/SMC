@@ -204,7 +204,7 @@ class VisitSummaryScreen extends StatelessWidget {
         'name': 'Suresh Patil',
         'age': '40',
         'gender': 'Male',
-        'status': 'Healthy'
+        'status': 'Inspectiony'
       },
       {
         'name': 'Sunita Patil',
@@ -216,7 +216,7 @@ class VisitSummaryScreen extends StatelessWidget {
         'name': 'Rahul Patil',
         'age': '12',
         'gender': 'Male',
-        'status': 'Healthy'
+        'status': 'Inspectiony'
       },
       {
         'name': 'Sita Patil',
@@ -227,7 +227,7 @@ class VisitSummaryScreen extends StatelessWidget {
     ];
 
     return members.map((m) {
-      final hasIssue = m['status'] != 'Healthy';
+      final hasIssue = m['status'] != 'Inspectiony';
       return Container(
         margin: const EdgeInsets.only(bottom: 6),
         padding: const EdgeInsets.all(12),
@@ -493,7 +493,7 @@ class VisitSummaryScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Visited Patil household for routine NCD screening. Sita Patil\'s BP continues to be elevated - recommended physician consultation at Civil Hospital. '
+            'Visited Patil household for routine NCD screening. Sita Patil\'s BP continues to be elevated - recommended physician consultation at Civil Site. '
             'Sunita Patil shows signs of iron deficiency anemia, distributed 30-day supply of iron tablets. '
             'Overall family hygiene maintained. Drinking water source: borewell (tested OK).',
             style: TextStyle(

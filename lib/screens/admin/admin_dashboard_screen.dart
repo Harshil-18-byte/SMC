@@ -3,7 +3,7 @@ import 'package:smc/config/routes.dart';
 import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/data/services/admin_analytics_service.dart';
 import 'package:smc/data/seeders/comprehensive_data_seeder.dart';
-import 'package:smc/data/models/health_metric.dart';
+import 'package:smc/data/models/inspection_metric.dart';
 import 'package:smc/data/models/critical_alert.dart';
 import 'package:smc/core/widgets/dashboard_back_handler.dart';
 
@@ -32,7 +32,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   final AdminAnalyticsService _analyticsService = AdminAnalyticsService();
 
   bool _isLoading = true;
-  List<HealthMetric> _metrics = [];
+  List<InspectionMetric> _metrics = [];
   List<CriticalAlert> _alerts = [];
 
   @override
@@ -46,41 +46,26 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     try {
       final counts = await _analyticsService.getDashboardCounts();
       _metrics = [
-        HealthMetric(
-          id: '1',
-          title: 'Active Projects',
-          value: counts['activePatients']!,
-          iconName: 'construction',
-          percentage: 0,
-          changePercentage: 5,
-          isIncreasing: true,
-          trend: 'up',
-          severity: 'normal',
-          lastUpdated: DateTime.now(),
+        InspectionMetric(
+          label: 'Active Projects',
+          value: counts['activeAssets']?.toString() ?? '0',
+          change: 0.05,
+          icon: Icons.construction_rounded,
+          color: Colors.blue,
         ),
-        HealthMetric(
-          id: '2',
-          title: 'Asset Health',
-          value: counts['availableBeds']!,
-          iconName: 'assessment',
-          percentage: 0,
-          changePercentage: 2,
-          isIncreasing: false,
-          trend: 'down',
-          severity: counts['availableBeds']! < 10 ? 'danger' : 'normal',
-          lastUpdated: DateTime.now(),
+        InspectionMetric(
+          label: 'Asset Integrity',
+          value: '${counts['assetIntegrity'] ?? 94}%',
+          change: -0.02,
+          icon: Icons.assessment_rounded,
+          color: (counts['assetIntegrity'] ?? 94) < 90 ? Colors.red : Colors.green,
         ),
-        HealthMetric(
-          id: '3',
-          title: 'Field Inspectors',
-          value: counts['activeDoctors']!,
-          iconName: 'badge',
-          percentage: 0,
-          changePercentage: 0,
-          isIncreasing: true,
-          trend: 'stable',
-          severity: 'normal',
-          lastUpdated: DateTime.now(),
+        InspectionMetric(
+          label: 'Field Force',
+          value: counts['activeInspectors']?.toString() ?? '0',
+          change: 0.0,
+          icon: Icons.badge_rounded,
+          color: Colors.purple,
         ),
       ];
 
@@ -217,8 +202,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     );
   }
 
-  Widget _buildMetricCard(HealthMetric metric, bool isDark) {
-    final accentColor = metric.severity == 'danger' ? Colors.red : (metric.severity == 'warning' ? Colors.orange : Colors.blue);
+  Widget _buildMetricCard(InspectionMetric metric, bool isDark) {
+    final accentColor = metric.color;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -232,12 +217,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         children: [
           Row(
             children: [
-              Expanded(child: Text(metric.title.toUpperCase(), style: GoogleFonts.outfit(fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: 0.5, color: isDark ? Colors.grey[300] : Colors.black87))),
-              Icon(metric.isIncreasing ? Icons.trending_up : Icons.trending_down, color: accentColor, size: 14),
+              Expanded(child: Text(metric.label.toUpperCase(), style: GoogleFonts.outfit(fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 0.5, color: isDark ? Colors.grey[300] : Colors.black87))),
+              Icon(metric.isPositive ? Icons.trending_up : Icons.trending_down, color: accentColor, size: 14),
             ],
           ),
-          FittedBox(fit: BoxFit.scaleDown, child: Text(metric.value.toString(), style: GoogleFonts.outfit(fontSize: 28, fontWeight: FontWeight.bold, color: accentColor))),
-          Text('${metric.isIncreasing ? "+" : "-"}${metric.changePercentage.toStringAsFixed(0)}% Weekly', style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w600, color: isDark ? Colors.grey[400] : Colors.grey[600])),
+          FittedBox(fit: BoxFit.scaleDown, child: Text(metric.value, style: GoogleFonts.outfit(fontSize: 28, fontWeight: FontWeight.bold, color: accentColor))),
+          Text('${metric.isPositive ? "+" : ""}${(metric.change * 100).toStringAsFixed(0)}% Weekly', style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w600, color: isDark ? Colors.grey[400] : Colors.grey[600])),
         ],
       ),
     );

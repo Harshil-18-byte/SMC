@@ -1,154 +1,120 @@
 import 'package:flutter/material.dart';
 
-/// Disease Case Data Model
-class DiseaseCaseData {
+/// Defect Trend Data Model - Infrastructure Focus
+class DefectCaseData {
   final DateTime date;
-  final int newCases;
-  final int recoveredCases;
-  final int activeCases;
-  final int deaths;
+  final int newDefects;
+  final int resolvedDefects;
+  final int pendingDefects;
+  final int criticalFailures;
 
-  DiseaseCaseData({
+  DefectCaseData({
     required this.date,
-    required this.newCases,
-    required this.recoveredCases,
-    required this.activeCases,
-    required this.deaths,
+    required this.newDefects,
+    required this.resolvedDefects,
+    required this.pendingDefects,
+    required this.criticalFailures,
   });
 
-  factory DiseaseCaseData.fromMap(Map<String, dynamic> map, String id) {
-    return DiseaseCaseData(
+  factory DefectCaseData.fromMap(Map<String, dynamic> map, String id) {
+    return DefectCaseData(
       date: map['date'] != null ? DateTime.parse(map['date']) : DateTime.now(),
-      newCases: map['newCases'] ?? 0,
-      recoveredCases: map['recoveredCases'] ?? 0,
-      activeCases: map['activeCases'] ?? 0,
-      deaths: map['deaths'] ?? 0,
+      newDefects: map['newDefects'] ?? map['newCases'] ?? 0,
+      resolvedDefects: map['resolvedDefects'] ?? map['recoveredCases'] ?? 0,
+      pendingDefects: map['pendingDefects'] ?? map['activeCases'] ?? 0,
+      criticalFailures: map['criticalFailures'] ?? map['deaths'] ?? 0,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'date': date.toIso8601String(),
-      'newCases': newCases,
-      'recoveredCases': recoveredCases,
-      'activeCases': activeCases,
-      'deaths': deaths,
+      'newDefects': newDefects,
+      'resolvedDefects': resolvedDefects,
+      'pendingDefects': pendingDefects,
+      'criticalFailures': criticalFailures,
     };
   }
 }
 
-/// Geospatial Heatmap Zone Data
+/// Geospatial Heatmap Zone Data - Asset Risk focus
 class ZoneHeatmapData {
   final String zoneId;
   final String zoneName;
-  final int caseCount;
+  final int defectCount;
   final double latitude;
   final double longitude;
-  final String severity; // 'low', 'medium', 'high', 'critical'
+  final String riskLevel; // 'low', 'medium', 'high', 'critical'
 
   ZoneHeatmapData({
     required this.zoneId,
     required this.zoneName,
-    required this.caseCount,
+    required this.defectCount,
     required this.latitude,
     required this.longitude,
-    required this.severity,
+    required this.riskLevel,
   });
 
   factory ZoneHeatmapData.fromMap(Map<String, dynamic> map, String id) {
     return ZoneHeatmapData(
       zoneId: id,
       zoneName: map['zoneName'] ?? '',
-      caseCount: map['caseCount'] ?? 0,
+      defectCount: map['defectCount'] ?? map['caseCount'] ?? 0,
       latitude: (map['latitude'] ?? 0.0).toDouble(),
       longitude: (map['longitude'] ?? 0.0).toDouble(),
-      severity: map['severity'] ?? 'low',
+      riskLevel: map['riskLevel'] ?? map['severity'] ?? 'low',
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'zoneName': zoneName,
-      'caseCount': caseCount,
-      'latitude': latitude,
-      'longitude': longitude,
-      'severity': severity,
-    };
-  }
-
-  Color get severityColor {
-    switch (severity) {
-      case 'critical':
-        return const Color(0xFFFF4D4D);
-      case 'high':
-        return const Color(0xFFFF8A00);
-      case 'medium':
-        return const Color(0xFFFFAB00);
-      default:
-        return const Color(0xFF10B981);
+  Color get riskColor {
+    switch (riskLevel) {
+      case 'critical': return const Color(0xFFFF4D4D);
+      case 'high': return const Color(0xFFFF8A00);
+      case 'medium': return const Color(0xFFFFAB00);
+      default: return const Color(0xFF10B981);
     }
   }
 }
 
-/// Raw Case Entry Model
+/// Raw Asset Defect Entry
 class RawCaseEntry {
   final String id;
-  final String patientId;
-  final String disease;
+  final String assetId;
+  final String defectType;
   final String zone;
   final DateTime reportedDate;
-  final String status; // 'active', 'recovered', 'deceased'
-  final int age;
-  final String gender;
+  final String status; // 'pending', 'resolved', 'critical'
+  final String severity; // 'S1', 'S2', 'S3'
 
   RawCaseEntry({
     required this.id,
-    required this.patientId,
-    required this.disease,
+    required this.assetId,
+    required this.defectType,
     required this.zone,
     required this.reportedDate,
     required this.status,
-    required this.age,
-    required this.gender,
+    required this.severity,
   });
 
   factory RawCaseEntry.fromMap(Map<String, dynamic> map, String id) {
     return RawCaseEntry(
       id: id,
-      patientId: map['patientId'] ?? '',
-      disease: map['disease'] ?? 'Dengue',
-      zone: map['zone'] ?? '',
-      reportedDate: map['reportedDate'] != null
-          ? DateTime.parse(map['reportedDate'])
+      assetId: map['assetId'] ?? '',
+      defectType: map['defectType'] ?? map['defect'] ?? 'Structural',
+      zone: map['zone'] ?? 'Unknown',
+      reportedDate: map['reportedDate'] != null 
+          ? (map['reportedDate'] is String ? DateTime.parse(map['reportedDate']) : (map['reportedDate'] as dynamic).toDate())
           : DateTime.now(),
-      status: map['status'] ?? 'active',
-      age: map['age'] ?? 0,
-      gender: map['gender'] ?? '',
+      status: map['status'] ?? 'pending',
+      severity: map['severity'] ?? 'S2',
     );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'patientId': patientId,
-      'disease': disease,
-      'zone': zone,
-      'reportedDate': reportedDate.toIso8601String(),
-      'status': status,
-      'age': age,
-      'gender': gender,
-    };
   }
 
   Color get statusColor {
     switch (status) {
-      case 'recovered':
-        return const Color(0xFF10B981);
-      case 'deceased':
-        return const Color(0xFF6B7280);
-      default:
-        return const Color(0xFFFFAB00);
+      case 'resolved': return const Color(0xFF10B981);
+      case 'critical': return const Color(0xFFFF4D4D);
+      default: return const Color(0xFFFFAB00);
     }
   }
 }
-
-

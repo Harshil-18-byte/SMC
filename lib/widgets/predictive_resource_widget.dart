@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
-
 import 'package:smc/data/services/firestore_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+/// AI-Driven Predictive Maintenance & Resource Analysis Widget
+/// Analyzes infrastructure telemetry to predict structural failure points and maintenance requirements.
 class PredictiveResourceWidget extends StatefulWidget {
   const PredictiveResourceWidget({super.key});
 
   @override
-  State<PredictiveResourceWidget> createState() =>
-      _PredictiveResourceWidgetState();
+  State<PredictiveResourceWidget> createState() => _PredictiveResourceWidgetState();
 }
 
-class _PredictiveResourceWidgetState extends State<PredictiveResourceWidget>
-    with SingleTickerProviderStateMixin {
+class _PredictiveResourceWidgetState extends State<PredictiveResourceWidget> with SingleTickerProviderStateMixin {
   final FirestoreService _firestoreService = FirestoreService();
   bool _isLoading = true;
-  List<Map<String, dynamic>> _alerts = [];
+  List<Map<String, dynamic>> _insights = [];
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 
   @override
   void initState() {
     super.initState();
-    _pulseController = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    )..repeat(reverse: true);
-    _pulseAnimation =
-        Tween<double>(begin: 0.95, end: 1.05).animate(_pulseController);
-
-    _analyzeData();
+    _pulseController = AnimationController(duration: const Duration(seconds: 3), vsync: this)..repeat(reverse: true);
+    _pulseAnimation = Tween<double>(begin: 0.98, end: 1.02).animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+    _runDiagnostics();
   }
 
   @override
@@ -37,194 +32,122 @@ class _PredictiveResourceWidgetState extends State<PredictiveResourceWidget>
     super.dispose();
   }
 
-  Future<void> _analyzeData() async {
+  Future<void> _runDiagnostics() async {
+    if (!mounted) return;
     try {
-      // Fetch hospitals with high occupancy or low resources
-      final hospitals = await _firestoreService.getCollection(
-          collection: 'hospital_intake_status');
+      final assets = await _firestoreService.getCollection(collection: 'asset_intake_status');
+      final List<Map<String, dynamic>> generatedInsights = [];
 
-      final List<Map<String, dynamic>> generatedAlerts = [];
+      for (var asset in assets) {
+        final health = (asset['healthScore'] as num?)?.toDouble() ?? 100.0;
+        final maxHealth = (asset['maxHealth'] as num?)?.toDouble() ?? 100.0;
+        final name = asset['name'] ?? 'Asset';
+        final integrityRatio = health / maxHealth;
 
-      for (var hospital in hospitals) {
-        final total = (hospital['bedTotal'] as num?)?.toInt() ?? 100;
-        final available = (hospital['bedAvailable'] as num?)?.toInt() ?? 0;
-        final name = hospital['name'] ?? 'Unknown Hospital';
-        final occupancy = total > 0 ? 1.0 - (available / total) : 0.0;
-
-        if (occupancy > 0.9) {
-          generatedAlerts.add({
+        if (integrityRatio < 0.4) {
+          generatedInsights.add({
             'type': 'critical',
-            'icon': Icons.warning_amber_rounded,
+            'icon': Icons.warning_rounded,
             'color': Colors.red,
-            'message': '$name is at ${(occupancy * 100).toInt()}% capacity.',
-            'action': 'Divert to nearest facility',
+            'message': 'CRITICAL: $name - Structural Integrity < 40%.',
+            'action': 'Immediate closure recommended for inspection.',
           });
-        } else if (occupancy > 0.75) {
-          generatedAlerts.add({
+        } else if (integrityRatio < 0.7) {
+          generatedInsights.add({
             'type': 'warning',
-            'icon': Icons.info_outline,
+            'icon': Icons.engineering_rounded,
             'color': Colors.orange,
-            'message': '$name is at ${(occupancy * 100).toInt()}% capacity.',
-            'action': 'Monitor closely',
-          });
-        }
-
-        // Mock Inventory Checks (since inventory.csv isn't fully linked yet)
-        if (total > 500 && available < 20) {
-          generatedAlerts.add({
-            'type': 'resource',
-            'icon': Icons.local_hospital,
-            'color': Colors.blue,
-            'message': '$name running low on beds.',
-            'action': 'Request resource transfer',
+            'message': '$name - Degradation detected.',
+            'action': 'Schedule maintenance within 7 days.',
           });
         }
       }
 
-      // Add general AI suggestion if no critical alerts
-      if (generatedAlerts.isEmpty) {
-        generatedAlerts.add({
-          'type': 'optimization',
-          'icon': Icons.insights,
+      if (generatedInsights.isEmpty) {
+        generatedInsights.add({
+          'type': 'status',
+          'icon': Icons.check_circle_rounded,
           'color': Colors.green,
-          'message': 'System operating at optimal levels.',
-          'action': 'View detailed analytics',
+          'message': 'All Regional Systems Operational.',
+          'action': 'Next global audit in 48 hours.',
         });
       }
 
       if (mounted) {
         setState(() {
-          // Take top 3 alerts
-          _alerts = generatedAlerts.take(3).toList();
+          _insights = generatedInsights.take(3).toList();
           _isLoading = false;
         });
       }
     } catch (e) {
-      debugPrint('Error analyzing data: $e');
+      debugPrint('Diagnostic Error: $e');
       if (mounted) setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return Container(
-        height: 100,
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(
-          color: Theme.of(context).primaryColor,
-          strokeWidth: 2,
-        ),
-      );
-    }
+    if (_isLoading) return const SizedBox(height: 100, child: Center(child: CircularProgressIndicator(strokeWidth: 2)));
 
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardTheme.color ?? Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            offset: const Offset(0, 4),
-            blurRadius: 16,
-          ),
-        ],
-        border: Border.all(
-          color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
+    return ScaleTransition(
+      scale: _pulseAnimation,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.blue.withValues(alpha: 0.1)),
+          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 15, offset: const Offset(0, 10))],
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              ScaleTransition(
-                scale: _pulseAnimation,
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.purple.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.auto_awesome,
-                      color: Colors.purple, size: 20),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.auto_awesome, color: Colors.blue, size: 18),
+                const SizedBox(width: 12),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "AI Smart Insights",
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      "Predictive Resource Allocation",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).textTheme.bodySmall!.color,
-                          ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    Text("AI PREDICTIVE TERMINAL", style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 13, color: Colors.blue)),
+                    const Text("STRUCTURAL HEALTH ANALYSIS", style: TextStyle(fontSize: 9, color: Colors.grey, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
                   ],
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ..._alerts.map((alert) => _buildAlertItem(context, alert)),
-        ],
+              ],
+            ),
+            const SizedBox(height: 16),
+            ..._insights.map((insight) => _insightItem(insight)),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildAlertItem(BuildContext context, Map<String, dynamic> alert) {
+  Widget _insightItem(Map<String, dynamic> insight) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: (alert['color'] as Color).withValues(alpha: 0.05),
+        color: (insight['color'] as Color).withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (alert['color'] as Color).withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: (insight['color'] as Color).withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
-          Icon(alert['icon'], color: alert['color'], size: 24),
+          Icon(insight['icon'], color: insight['color'], size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  alert['message'],
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  "Suggested Action: ${alert['action']}",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Theme.of(context).textTheme.bodySmall!.color,
-                  ),
-                ),
+                Text(insight['message'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white)),
+                Text("Action: ${insight['action']}", style: TextStyle(fontSize: 10, color: Colors.grey[400])),
               ],
             ),
           ),
-          Icon(Icons.arrow_forward_ios,
-              size: 14, color: Theme.of(context).disabledColor),
         ],
       ),
     );
   }
 }
-
-

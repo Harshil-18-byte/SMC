@@ -1,209 +1,131 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:smc/core/services/user_service.dart';
-import 'package:smc/data/services/firestore_service.dart';
 import 'package:intl/intl.dart';
-import 'package:smc/core/services/pdf_service.dart';
+import 'package:smc/data/services/firestore_service.dart';
 import 'package:smc/core/theme/theme_switcher.dart';
-import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/core/widgets/smc_back_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class HealthRecordsScreen extends StatelessWidget {
-  const HealthRecordsScreen({super.key});
+/// Audit History & Asset Technical Logs
+/// Replaces HealthRecordsScreen with Industrial Inspection & Service History.
+class AuditHistoryScreen extends StatelessWidget {
+  const AuditHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Current user context
-    final userProvider = Provider.of<UserProvider>(context);
-    final uid = userProvider.currentUser?.id ?? 'cit_001';
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
+        backgroundColor: const Color(0xFF1E293B),
         leading: const SMCBackButton(),
-        title: Text(AppLocalizations.of(context).translate('health_records')),
+        title: Text('HISTORICAL AUDIT LOGS', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 16)),
         actions: const [ThemeSwitcher(), SizedBox(width: 8)],
       ),
       body: StreamBuilder<List<Map<String, dynamic>>>(
         stream: FirestoreService().streamCollection(
-          collection: 'health_records',
+          collection: 'audit_records',
           orderBy: 'date',
           descending: true,
         ),
         builder: (context, snapshot) {
-          // DETECT EMPTY STATE AND APPLY FALLBACK
           final rawRecords = snapshot.data ?? [];
           final records = rawRecords.isEmpty
               ? [
                   {
                     'id': 'r1',
-                    'title': 'General Wellness Checkup',
-                    'provider': 'City General Hospital',
-                    'date': DateTime.now()
-                        .subtract(const Duration(days: 30))
-                        .toIso8601String(),
-                    'type': 'visit',
-                    'description':
-                        'Regular quarterly checkup. All vital signs normal.',
-                    'details': {
-                      'Weight': '72kg',
-                      'BP': '120/80',
-                      'Heart Rate': '72 bpm'
-                    }
+                    'title': 'Structural Integrity Audit',
+                    'provider': 'National Infra Bureau',
+                    'date': DateTime.now().subtract(const Duration(days: 30)).toIso8601String(),
+                    'type': 'structural',
+                    'description': 'Annual check of Load-Bearing components (Sector 4). All nodes nominal.',
+                    'details': {'Integrity': '94%', 'Stress Ratio': '0.42', 'Result': 'PASSED'}
                   },
                   {
                     'id': 'r2',
-                    'title': 'Lipid Profile Report',
-                    'provider': 'SMC Diagnostics',
-                    'date': DateTime.now()
-                        .subtract(const Duration(days: 15))
-                        .toIso8601String(),
-                    'type': 'lab_report',
-                    'description':
-                        'Blood analysis results for cholesterol levels.',
-                    'details': {
-                      'Total Cholesterol': '180 mg/dL',
-                      'HDL': '50 mg/dL',
-                      'LDL': '110 mg/dL'
-                    }
+                    'title': 'Geo-Technical Analysis',
+                    'provider': 'SMC Soil Research',
+                    'date': DateTime.now().subtract(const Duration(days: 15)).toIso8601String(),
+                    'type': 'geotech',
+                    'description': 'Soil stability analysis for South Drainage Grid project.',
+                    'details': {'Saturation': '12%', 'Shift Factor': '0.001', 'Compaction': 'OPTIMAL'}
                   },
                   {
                     'id': 'r3',
-                    'title': 'Vitamin D Supplement',
-                    'provider': 'Dr. Sarah Wilson',
-                    'date': DateTime.now()
-                        .subtract(const Duration(days: 10))
-                        .toIso8601String(),
-                    'type': 'prescription',
-                    'description': 'Prescribed 2000 IU daily for 3 months.',
-                    'details': {'Dosage': '1 tablet/day', 'Duration': '90 Days'}
+                    'title': 'Utility Grid Overhaul',
+                    'provider': 'Universal Power Corp',
+                    'date': DateTime.now().subtract(const Duration(days: 10)).toIso8601String(),
+                    'type': 'utility',
+                    'description': 'Substation transformer replacement and circuit diagnostic.',
+                    'details': {'Efficiency': '+15%', 'Output': '4.2 GW', 'Downtime': '0s'}
                   },
                 ]
-              : rawRecords
-                  .where((r) => r['citizenId'] == uid || r['citizenId'] == null)
-                  .toList();
+              : rawRecords;
 
-          if (records.isEmpty &&
-              snapshot.connectionState == ConnectionState.waiting) {
+          if (records.isEmpty && snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          }
-
-          if (records.isEmpty) {
-            return Center(
-                child: Text(AppLocalizations.of(context).noDataAvailable));
           }
 
           return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: records.length,
-            itemBuilder: (context, index) {
-              final record = records[index];
-              return _buildRecordCard(context, record, isDark);
-            },
+            itemBuilder: (context, index) => _buildRecordCard(context, records[index], isDark),
           );
         },
       ),
     );
   }
 
-  Widget _buildRecordCard(
-      BuildContext context, Map<String, dynamic> record, bool isDark) {
-    final date = record['date'] != null
-        ? DateTime.parse(record['date'])
-        : DateTime.now();
+  Widget _buildRecordCard(BuildContext context, Map<String, dynamic> record, bool isDark) {
+    final date = record['date'] != null ? DateTime.parse(record['date']) : DateTime.now();
     final type = record['type'] ?? 'document';
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-            color: isDark ? Colors.white10 : const Color(0xFFE2E8F0)),
+        color: const Color(0xFF1E293B),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white10),
       ),
       child: ExpansionTile(
         leading: Container(
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: _getTypeColor(type).withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(_getTypeIcon(type), color: _getTypeColor(type)),
+          decoration: BoxDecoration(color: _getRecordColor(type).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+          child: Icon(_getRecordIcon(type), color: _getRecordColor(type), size: 20),
         ),
-        title: Text(
-          record['title'] ?? 'Medical Record',
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        subtitle: Text(
-          '${record['provider'] ?? 'Unknown'} • ${DateFormat('MMM dd, yyyy').format(date)}',
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
-        ),
+        title: Text(record['title']?.toUpperCase() ?? 'TECHNICAL RECORD', style: GoogleFonts.outfit(fontWeight: FontWeight.w900, fontSize: 14, color: Colors.white)),
+        subtitle: Text('${record['provider']} • ${DateFormat('MMM dd, yyyy').format(date)}', style: const TextStyle(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold)),
         childrenPadding: const EdgeInsets.all(16),
+        collapsedIconColor: Colors.white,
+        iconColor: Colors.blue,
         children: [
           Align(
             alignment: Alignment.centerLeft,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  record['description'] ?? 'No description provided.',
-                  style: const TextStyle(fontSize: 14),
-                ),
-                const SizedBox(height: 12),
-                if (record['details'] != null) ...[
-                  const Text('DETAILS',
-                      style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey)),
-                  const SizedBox(height: 4),
-                  ...(record['details'] as Map<String, dynamic>)
-                      .entries
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2),
-                            child: Row(
-                              children: [
-                                Text('${e.key}: ',
-                                    style: const TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600)),
-                                Text('${e.value}',
-                                    style: const TextStyle(fontSize: 13)),
-                              ],
-                            ),
-                          )),
-                ],
+                Text(record['description'] ?? 'No data provided.', style: const TextStyle(fontSize: 13, color: Colors.white70)),
                 const SizedBox(height: 16),
-                Center(
-                  child: ElevatedButton.icon(
-                    onPressed: () async {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Generating PDF Report...')),
-                      );
-                      await PdfService.generateMedicalRecordPdf(
-                        citizenName:
-                            'Mahesh Shinde', // Hardcoded for demo/user context
-                        title: record['title'] ?? 'Health Report',
-                        provider: record['provider'] ?? 'SMC Health Network',
-                        date: DateFormat('MMM dd, yyyy').format(date),
-                        type: type,
-                        description: record['description'] ?? '',
-                        details: record['details'] ?? {},
-                      );
-                    },
-                    icon: const Icon(Icons.download_rounded, size: 18),
-                    label: Text(
-                        AppLocalizations.of(context).translate('download_pdf')),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          _getTypeColor(type).withValues(alpha: 0.1),
-                      foregroundColor: _getTypeColor(type),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                if (record['details'] != null) ...[
+                  const Text('DIAGNOSTIC METRICS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: Colors.blue, letterSpacing: 1.5)),
+                  const SizedBox(height: 8),
+                  ...(record['details'] as Map<String, dynamic>).entries.map((e) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      children: [
+                        Text('${e.key}: ', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey)),
+                        Text('${e.value}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
+                      ],
                     ),
+                  )),
+                ],
+                const SizedBox(height: 24),
+                Center(
+                  child: OutlinedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.download_rounded, size: 16),
+                    label: const Text('GENERATE TECHNICAL PDF', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 11)),
+                    style: OutlinedButton.styleFrom(foregroundColor: Colors.blue, side: const BorderSide(color: Colors.blue)),
                   ),
                 ),
               ],
@@ -214,33 +136,23 @@ class HealthRecordsScreen extends StatelessWidget {
     );
   }
 
-  Color _getTypeColor(String type) {
+  Color _getRecordColor(String type) {
     switch (type) {
-      case 'vaccination':
-        return Colors.purple;
-      case 'prescription':
-        return Colors.green;
-      case 'lab_report':
-        return Colors.blue;
-      case 'visit':
-        return Colors.orange;
-      default:
-        return Colors.grey;
+      case 'structural': return Colors.orange;
+      case 'geotech': return Colors.brown;
+      case 'utility': return Colors.yellow;
+      case 'overhaul': return Colors.blue;
+      default: return Colors.grey;
     }
   }
 
-  IconData _getTypeIcon(String type) {
+  IconData _getRecordIcon(String type) {
     switch (type) {
-      case 'vaccination':
-        return Icons.vaccines_rounded;
-      case 'prescription':
-        return Icons.medication_rounded;
-      case 'lab_report':
-        return Icons.analytics_rounded;
-      case 'visit':
-        return Icons.local_hospital_rounded;
-      default:
-        return Icons.description_rounded;
+      case 'structural': return Icons.hub_rounded;
+      case 'geotech': return Icons.landscape_rounded;
+      case 'utility': return Icons.electrical_services_rounded;
+      case 'overhaul': return Icons.build_rounded;
+      default: return Icons.description_rounded;
     }
   }
 }

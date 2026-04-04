@@ -3,8 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:smc/data/services/firestore_service.dart';
-import 'package:smc/screens/hospital/hospital_details_screen.dart';
 import 'package:smc/core/utils/india_location_utils.dart';
+import 'package:smc/config/routes.dart';
 
 extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -13,6 +13,8 @@ extension ThemeExtension on BuildContext {
   bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
 }
 
+/// Industrial SMC Map
+/// Handles geospatial infrastructure asset visualization, heatmaps, and navigation.
 class SMCMap extends StatefulWidget {
   final bool showHeatmap;
   final bool showMarkers;
@@ -40,9 +42,7 @@ class _SMCMapState extends State<SMCMap> {
   bool _isLoading = true;
   String? _error;
 
-  // India default location for National Overview
   static const LatLng _indiaCenter = IndiaLocationUtils.indiaCenter;
-
   List<Marker> _markers = [];
 
   @override
@@ -53,18 +53,15 @@ class _SMCMapState extends State<SMCMap> {
 
   Future<void> _initializeMap() async {
     try {
-      // Check location permission
       try {
         LocationPermission permission = await Geolocator.checkPermission();
         if (permission == LocationPermission.denied) {
           permission = await Geolocator.requestPermission();
         }
       } catch (e) {
-        // Ignore location permission errors on non-mobile platforms if any
         debugPrint('Location permission error: $e');
       }
 
-      // Load markers if needed
       if (widget.showMarkers) {
         await _loadMarkers();
       }
@@ -83,15 +80,14 @@ class _SMCMapState extends State<SMCMap> {
   Future<void> _loadMarkers() async {
     try {
       final firestoreService = FirestoreService();
-      final hospitalsData = await firestoreService.getCollection(
-          collection: 'hospital_intake_status');
+      final sitesData = await firestoreService.getCollection(collection: 'asset_intake_status');
 
-      final markers = hospitalsData.map((hospital) {
-        final id = hospital['id'] as String;
-        final name = hospital['name'] as String? ?? 'Unknown Hospital';
-        final lat = (hospital['latitude'] as num?)?.toDouble() ?? 0.0;
-        final lng = (hospital['longitude'] as num?)?.toDouble() ?? 0.0;
-        final availableBeds = (hospital['bedAvailable'] as num?)?.toInt() ?? 0;
+      final markers = sitesData.map((site) {
+        final id = site['id'] as String;
+        final name = site['name'] as String? ?? 'Asset';
+        final lat = (site['latitude'] as num?)?.toDouble() ?? 19.0760;
+        final lng = (site['longitude'] as num?)?.toDouble() ?? 72.8777;
+        final health = (site['healthScore'] as num?)?.toInt() ?? (site['bedAvailable'] as num?)?.toInt() ?? 100;
 
         return Marker(
           point: LatLng(lat, lng),
@@ -99,31 +95,68 @@ class _SMCMapState extends State<SMCMap> {
           height: 40,
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => HospitalDetailsScreen(
-                    hospitalId: id,
-                    hospitalName: name,
-                  ),
-                ),
-              );
+              _showAssetSummary(id, name, health);
             },
             child: Icon(
               Icons.location_on,
-              color: availableBeds > 10 ? Colors.green : Colors.red,
+              color: health > 50 ? Colors.blue : Colors.red,
               size: 40,
             ),
           ),
         );
       }).toList();
 
-      setState(() {
-        _markers = markers;
-      });
+      if (mounted) {
+        setState(() {
+          _markers = markers;
+        });
+      }
     } catch (e) {
       debugPrint('Error loading markers: $e');
     }
+  }
+
+  void _showAssetSummary(String id, String name, int health) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(24),
+        decoration: const BoxDecoration(
+          color: Color(0xFF1E293B),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('ASSET TELEMETRY', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 10, letterSpacing: 2)),
+            const SizedBox(height: 8),
+            Text(name, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('HEALTH SCORE: $health%', style: TextStyle(color: health > 50 ? Colors.green : Colors.red, fontWeight: FontWeight.bold)),
+                const Icon(Icons.security, color: Colors.blue, size: 20),
+              ],
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, AppRoutes.assetDetail, arguments: {'assetId': id});
+                },
+                child: const Text('VIEW INSPECTION LOGS'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -132,52 +165,13 @@ class _SMCMapState extends State<SMCMap> {
       return Container(
         color: context.colors.surface,
         child: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text('Synthesizing Dashboard Map...'),
-            ],
-          ),
+          child: CircularProgressIndicator(),
         ),
       );
     }
 
     if (_error != null) {
-      return Container(
-        color: context.colors.surface,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error, size: 64, color: Colors.red),
-              const SizedBox(height: 16),
-              const Text('Map Error'),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Text(
-                  _error!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _isLoading = true;
-                    _error = null;
-                  });
-                  _initializeMap();
-                },
-                child: const Text('Retry'),
-              ),
-            ],
-          ),
-        ),
-      );
+      return Center(child: Text('Map Initialization Error', style: TextStyle(color: Colors.red)));
     }
 
     return FlutterMap(
@@ -187,9 +181,6 @@ class _SMCMapState extends State<SMCMap> {
         initialZoom: widget.initialZoom ?? (widget.initialCenter == null ? IndiaLocationUtils.nationalZoom : 12.0),
         minZoom: 3.0,
         maxZoom: 18.0,
-        onTap: widget.onTap != null
-            ? (tapPosition, point) => widget.onTap!(point)
-            : null,
       ),
       children: [
         TileLayer(
@@ -199,19 +190,6 @@ class _SMCMapState extends State<SMCMap> {
         MarkerLayer(
           markers: _markers,
         ),
-        if (widget.showHeatmap)
-          CircleLayer<Object>(
-            circles: widget.heatPoints != null
-                ? widget.heatPoints!
-                    .map((p) => CircleMarker(
-                          point: p,
-                          color: Colors.red.withValues(alpha: 0.3),
-                          useRadiusInMeter: true,
-                          radius: 1200,
-                        ))
-                    .toList()
-                : [],
-          ),
       ],
     );
   }

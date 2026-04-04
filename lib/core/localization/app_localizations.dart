@@ -78,7 +78,7 @@ class AppLocalizations {
   String get sleep => translate('sleep');
   String get exercise => translate('exercise');
   String get appointment => translate('appointment');
-  String get botHospitalInfo => translate('bot_hospital_info');
+  String get botSiteInfo => translate('bot_site_info');
   String get schemes => translate('schemes');
 
   // Common translations
@@ -123,7 +123,7 @@ class AppLocalizations {
 
   // Roles
   String get admin => translate('admin');
-  String get hospital => translate('hospital');
+  String get site => translate('site');
   String get fieldWorker => translate('field_worker');
   String get citizen => translate('citizen');
 
@@ -135,12 +135,12 @@ class AppLocalizations {
   String get analytics => translate('analytics');
 
   // Citizen
-  String get healthID => translate('health_id');
-  String get healthRecords => translate('health_records');
+  String get inspectionID => translate('inspection_id');
+  String get inspectionRecords => translate('inspection_records');
   String get appointments => translate('appointments');
   String get vaccination => translate('vaccination');
   String get emergencySOS => translate('emergency_sos');
-  String get hospitalFinder => translate('hospital_finder');
+  String get siteFinder => translate('site_finder');
 
   // Field Worker
   String get visits => translate('visits');
@@ -150,15 +150,15 @@ class AppLocalizations {
 
   // Admin
   String get surveillance => translate('surveillance');
-  String get hospitalStatus => translate('hospital_status');
+  String get siteStatus => translate('site_status');
   String get medicineInventory => translate('medicine_inventory');
   String get emergencyAlerts => translate('emergency_alerts');
   String get userManagement => translate('user_management');
   String get auditLogs => translate('audit_logs');
-  String get systemHealth => translate('system_health');
+  String get systemInspection => translate('system_inspection');
 
-  // Hospital
-  String get patients => translate('patients');
+  // Site
+  String get assets => translate('assets');
   String get beds => translate('beds');
   String get bedAvailability => translate('bed_availability');
 
@@ -171,7 +171,7 @@ class AppLocalizations {
   // Citizen Home
   String get welcomeBack => translate('welcome_back');
   String get quickActions => translate('quick_actions');
-  String get healthAlerts => translate('health_alerts');
+  String get inspectionAlerts => translate('inspection_alerts');
   String get sos => translate('sos');
 
   // Drawer / Navigation
@@ -195,16 +195,16 @@ class AppLocalizations {
   String get filterOptionsSoon => translate('filter_options_soon');
   String get updatedJustNow => translate('updated_just_now');
 
-  // Hospital Dashboard
-  String get hospitalStaff => translate('hospital_staff');
+  // Site Dashboard
+  String get siteStaff => translate('site_staff');
   String get commandCenter => translate('command_center'); // reusing existing
-  String get liveHospitalStatus => translate('live_hospital_status');
+  String get liveSiteStatus => translate('live_site_status');
   String get viewStaffSchedule => translate('view_staff_schedule');
   String get bedManagement => translate('bed_management');
   String get viewAll => translate('view_all');
   String get icuBeds => translate('icu_beds');
   String get generalBeds => translate('general_beds');
-  String get patientQueue => translate('patient_queue');
+  String get assetQueue => translate('asset_queue');
   String get manage => translate('manage');
   String get waitingForAssessment => translate('waiting_for_assessment');
 
@@ -235,8 +235,8 @@ class AppLocalizations {
   String get directAccessMessage => translate('direct_access_message');
   String get adminDomainSubtitle => translate('admin_domain_subtitle');
   String get fwDomainSubtitle => translate('fw_domain_subtitle');
-  String get hospitalPortal => translate('hospital_portal');
-  String get hospitalDomainSubtitle => translate('hospital_domain_subtitle');
+  String get sitePortal => translate('site_portal');
+  String get siteDomainSubtitle => translate('site_domain_subtitle');
   String get citizenPortal => translate('citizen_portal');
   String get citizenDomainSubtitle => translate('citizen_domain_subtitle');
   String get devModeLabel => translate('dev_mode_label');
@@ -270,7 +270,7 @@ class AppLocalizations {
 
   // Immersive Dashboard
   String get magicDeck => translate('magic_deck');
-  String get cityHealthIndex => translate('city_health_index');
+  String get cityInspectionIndex => translate('city_inspection_index');
   String get aiInsights => translate('ai_insights');
   String get cityVitalsHeatmap => translate('city_vitals_heatmap');
   String get launch3dAnalytics => translate('launch_3d_analytics');

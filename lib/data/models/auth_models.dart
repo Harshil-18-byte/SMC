@@ -11,30 +11,30 @@ enum UserRole {
   String get displayName {
     switch (this) {
       case UserRole.superAdmin:
-        return 'National Admin';
+        return 'National Manager';
       case UserRole.stateAdmin:
-        return 'State Admin';
+        return 'State Manager';
       case UserRole.cityAdmin:
-        return 'City Admin';
+        return 'Admin (Manager)';
       case UserRole.fieldInspector:
-        return 'Field Inspector';
+        return 'Inspector (Field Engineer)';
       case UserRole.viewer:
-        return 'Compliance Viewer';
+        return 'Reviewer / Authority';
     }
   }
 
   String get description {
     switch (this) {
       case UserRole.superAdmin:
-        return 'National Infrastructure Monitoring';
+        return 'National Infrastructure Oversight';
       case UserRole.stateAdmin:
-        return 'Regional Compliance Control';
+        return 'Regional Compliance Management';
       case UserRole.cityAdmin:
-        return 'City-wide Asset Management';
+        return 'City Asset Assignment & Control';
       case UserRole.fieldInspector:
-        return 'Asset Inspection & Reporting';
+        return 'Field Inspection & Data Upload';
       case UserRole.viewer:
-        return 'Public Transparency Access';
+        return 'Report Review & Approval Authority';
     }
   }
 
@@ -49,7 +49,7 @@ enum UserRole {
       case UserRole.fieldInspector:
         return '/inspector-home';
       case UserRole.viewer:
-        return '/viewer-home';
+        return '/reviewer-home';
     }
   }
 }
@@ -71,22 +71,22 @@ class LoginCredentials {
   }
 }
 
-/// System Health Status
-class SystemHealth {
+/// System Inspection Status
+class SystemInspection {
   final bool isOnline;
   final int responseTime; // milliseconds
-  final String status; // 'healthy', 'degraded', 'offline'
+  final String status; // 'inspectiony', 'degraded', 'offline'
   final DateTime lastChecked;
 
-  SystemHealth({
+  SystemInspection({
     required this.isOnline,
     required this.responseTime,
     required this.status,
     required this.lastChecked,
   });
 
-  factory SystemHealth.fromMap(Map<String, dynamic> map) {
-    return SystemHealth(
+  factory SystemInspection.fromMap(Map<String, dynamic> map) {
+    return SystemInspection(
       isOnline: map['isOnline'] ?? false,
       responseTime: map['responseTime'] ?? 0,
       status: map['status'] ?? 'offline',
@@ -98,14 +98,14 @@ class SystemHealth {
 
   String get statusMessage {
     if (!isOnline) return 'System Offline';
-    if (status == 'healthy') return 'All Systems Operational';
+    if (status == 'inspectiony') return 'All Systems Operational';
     if (status == 'degraded') return 'Performance Degraded';
     return 'System Unavailable';
   }
 
   Color get statusColor {
     if (!isOnline) return const Color(0xFFFF4D4D);
-    if (status == 'healthy') return const Color(0xFF10B981);
+    if (status == 'inspectiony') return const Color(0xFF10B981);
     if (status == 'degraded') return const Color(0xFFFFAB00);
     return const Color(0xFFFF4D4D);
   }

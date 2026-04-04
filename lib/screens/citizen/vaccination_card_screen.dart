@@ -94,7 +94,7 @@ class VaccinationCardScreen extends StatelessWidget {
                     context,
                     'COVID-19 Booster',
                     'Jan 15, 2025',
-                    'City Hospital',
+                    'City Site',
                   ),
                   _buildHistoryItem(
                     context,

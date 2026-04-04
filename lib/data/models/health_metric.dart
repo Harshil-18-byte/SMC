@@ -1,6 +1,6 @@
-/// Health Metric Model
+/// Inspection Metric Model
 /// Represents KPI data for the command center dashboard
-class HealthMetric {
+class InspectionMetric {
   final String id;
   final String title;
   final String iconName;
@@ -13,7 +13,7 @@ class HealthMetric {
   final String severity; // 'danger', 'warning', 'normal'
   final DateTime lastUpdated;
 
-  HealthMetric({
+  InspectionMetric({
     required this.id,
     required this.title,
     required this.iconName,
@@ -28,8 +28,8 @@ class HealthMetric {
   });
 
   // Create from Firestore document
-  factory HealthMetric.fromMap(Map<String, dynamic> map, String id) {
-    return HealthMetric(
+  factory InspectionMetric.fromMap(Map<String, dynamic> map, String id) {
+    return InspectionMetric(
       id: id,
       title: map['title'] ?? '',
       iconName: map['iconName'] ?? 'medical_services',

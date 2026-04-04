@@ -1,5 +1,5 @@
 /// Chatbot Knowledge Base
-/// Contains structured Q&A data for the SMC Health Assistant.
+/// Contains structured Q&A data for the SMC Inspection Assistant.
 class ChatbotKnowledgeBase {
   /// Map of keywords/phrases to specific medical responses.
   /// The key is a list of triggers (lowercase), and the value is the response key.
@@ -189,15 +189,15 @@ class ChatbotKnowledgeBase {
         'appointment',
     [
       'clinic',
-      'hospital',
+      'site',
       'center',
       'dispensary',
       'haspital',
       'davakhana',
       'दवाखाना',
       'अस्पताल'
-    ]: 'bot_hospital_info',
-    ['scheme', 'pmjay', 'health card', 'ayushman', 'yojana', 'योजना']:
+    ]: 'bot_site_info',
+    ['scheme', 'pmjay', 'inspection card', 'ayushman', 'yojana', 'योजना']:
         'schemes',
   };
 

@@ -6,7 +6,7 @@ class Citizen {
   final String name;
   final String phone;
   final String email;
-  final String healthId;
+  final String inspectionId;
   final DateTime dateOfBirth;
   final String bloodGroup;
   final String address;
@@ -17,7 +17,7 @@ class Citizen {
     required this.name,
     required this.phone,
     required this.email,
-    required this.healthId,
+    required this.inspectionId,
     required this.dateOfBirth,
     required this.bloodGroup,
     required this.address,
@@ -30,7 +30,7 @@ class Citizen {
       name: map['name'] ?? '',
       phone: map['phone'] ?? '',
       email: map['email'] ?? '',
-      healthId: map['healthId'] ?? '',
+      inspectionId: map['inspectionId'] ?? '',
       dateOfBirth: map['dateOfBirth'] != null
           ? DateTime.parse(map['dateOfBirth'])
           : DateTime.now(),
@@ -49,7 +49,7 @@ class Citizen {
       'name': name,
       'phone': phone,
       'email': email,
-      'healthId': healthId,
+      'inspectionId': inspectionId,
       'dateOfBirth': dateOfBirth.toIso8601String(),
       'bloodGroup': bloodGroup,
       'address': address,
@@ -68,8 +68,8 @@ class Citizen {
   }
 }
 
-/// Health Alert Model
-class HealthAlert {
+/// Inspection Alert Model
+class InspectionAlert {
   final String id;
   final String title;
   final String message;
@@ -77,7 +77,7 @@ class HealthAlert {
   final DateTime timestamp;
   final bool isRead;
 
-  HealthAlert({
+  InspectionAlert({
     required this.id,
     required this.title,
     required this.message,
@@ -86,8 +86,8 @@ class HealthAlert {
     this.isRead = false,
   });
 
-  factory HealthAlert.fromMap(Map<String, dynamic> map, String id) {
-    return HealthAlert(
+  factory InspectionAlert.fromMap(Map<String, dynamic> map, String id) {
+    return InspectionAlert(
       id: id,
       title: map['title'] ?? '',
       message: map['message'] ?? '',
@@ -139,7 +139,7 @@ class FamilyMember {
   final String relation; // e.g., 'Spouse', 'Child', 'Parent'
   final int age;
   final String gender;
-  final String healthId;
+  final String inspectionId;
   final String? profileImageUrl;
   final List<String> chronicConditions;
 
@@ -149,7 +149,7 @@ class FamilyMember {
     required this.relation,
     required this.age,
     required this.gender,
-    required this.healthId,
+    required this.inspectionId,
     this.profileImageUrl,
     this.chronicConditions = const [],
   });
@@ -161,7 +161,7 @@ class FamilyMember {
       relation: map['relation'] ?? 'Relative',
       age: map['age'] ?? 0,
       gender: map['gender'] ?? 'Other',
-      healthId: map['healthId'] ?? '',
+      inspectionId: map['inspectionId'] ?? '',
       profileImageUrl: map['profileImageUrl'],
       chronicConditions: List<String>.from(map['chronicConditions'] ?? []),
     );
@@ -173,7 +173,7 @@ class FamilyMember {
       'relation': relation,
       'age': age,
       'gender': gender,
-      'healthId': healthId,
+      'inspectionId': inspectionId,
       'profileImageUrl': profileImageUrl,
       'chronicConditions': chronicConditions,
     };

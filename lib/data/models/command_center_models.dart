@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// System Alert Model
+/// System Alert Model - Infrastructure Focus
 class SystemAlert {
   final String id;
   final String message;
@@ -22,7 +22,7 @@ class SystemAlert {
       message: map['message'] ?? '',
       severity: map['severity'] ?? 'info',
       timestamp: map['timestamp'] != null
-          ? DateTime.parse(map['timestamp'])
+          ? (map['timestamp'] is String ? DateTime.parse(map['timestamp']) : (map['timestamp'] as dynamic).toDate())
           : DateTime.now(),
       isRead: map['isRead'] ?? false,
     );
@@ -52,132 +52,80 @@ class SystemAlert {
     final now = DateTime.now();
     final difference = now.difference(timestamp);
 
-    if (difference.inMinutes < 1) {
-      return 'Just now';
-    } else if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m ago';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours}h ago';
-    } else {
-      return '${difference.inDays}d ago';
-    }
+    if (difference.inMinutes < 1) return 'Just now';
+    if (difference.inMinutes < 60) return '${difference.inMinutes}m ago';
+    if (difference.inHours < 24) return '${difference.inHours}h ago';
+    return '${difference.inDays}d ago';
   }
 }
 
-/// Hospital Intake Status Model
-class HospitalIntakeStatus {
+/// Asset Maintenance Status Model
+class AssetStatus {
   final String id;
   final String name;
-  final int bedAvailable;
-  final int bedTotal;
-  final int oxygenLevel; // percentage
-  final int triageWaitMinutes;
-  final bool intakeLocked;
+  final int healthScore;
+  final int maxHealth;
+  final int stabilityLevel; // percentage
+  final int repairBacklogDays;
+  final bool maintenanceLocked;
   final String? lockReason;
-  final double latitude;
-  final double longitude;
 
-  HospitalIntakeStatus({
+  AssetStatus({
     required this.id,
     required this.name,
-    required this.bedAvailable,
-    required this.bedTotal,
-    required this.oxygenLevel,
-    required this.triageWaitMinutes,
-    this.intakeLocked = false,
+    required this.healthScore,
+    required this.maxHealth,
+    required this.stabilityLevel,
+    required this.repairBacklogDays,
+    this.maintenanceLocked = false,
     this.lockReason,
-    this.latitude = 17.6599, // Default Bharat
-    this.longitude = 75.9064, // Default Bharat
   });
 
-  factory HospitalIntakeStatus.fromMap(Map<String, dynamic> map, String id) {
-    return HospitalIntakeStatus(
+  factory AssetStatus.fromMap(Map<String, dynamic> map, String id) {
+    return AssetStatus(
       id: id,
       name: map['name'] ?? '',
-      bedAvailable: map['bedAvailable'] ?? 0,
-      bedTotal: map['bedTotal'] ?? 0,
-      oxygenLevel: map['oxygenLevel'] ?? 0,
-      triageWaitMinutes: map['triageWaitMinutes'] ?? 0,
-      intakeLocked: map['intakeLocked'] ?? false,
+      healthScore: map['healthScore'] ?? map['bedAvailable'] ?? 0,
+      maxHealth: map['maxHealth'] ?? map['bedTotal'] ?? 100,
+      stabilityLevel: map['stabilityLevel'] ?? map['oxygenLevel'] ?? 0,
+      repairBacklogDays: map['repairBacklogDays'] ?? map['triageWaitMinutes'] ?? 0,
+      maintenanceLocked: map['maintenanceLocked'] ?? map['intakeLocked'] ?? false,
       lockReason: map['lockReason'],
-      latitude: (map['latitude'] ?? 17.6599).toDouble(),
-      longitude: (map['longitude'] ?? 75.9064).toDouble(),
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'bedAvailable': bedAvailable,
-      'bedTotal': bedTotal,
-      'oxygenLevel': oxygenLevel,
-      'triageWaitMinutes': triageWaitMinutes,
-      'intakeLocked': intakeLocked,
-      'lockReason': lockReason,
-      'latitude': latitude,
-      'longitude': longitude,
-    };
-  }
-
-  double get bedOccupancyPercentage {
-    if (bedTotal == 0) return 0;
-    return ((bedTotal - bedAvailable) / bedTotal) * 100;
-  }
+  double get integrityPercentage => (healthScore / maxHealth) * 100;
 
   Color get statusColor {
-    if (intakeLocked) return const Color(0xFFFF4D4D);
-    if (bedOccupancyPercentage > 90) return const Color(0xFFFF4D4D);
-    if (bedOccupancyPercentage > 75) return const Color(0xFFFFAB00);
+    if (integrityPercentage < 40) return const Color(0xFFFF4D4D);
+    if (integrityPercentage < 70) return const Color(0xFFFFAB00);
     return const Color(0xFF10B981);
-  }
-
-  String get statusText {
-    if (intakeLocked) return 'LOCKED';
-    if (bedOccupancyPercentage > 90) return 'CRITICAL';
-    if (bedOccupancyPercentage > 75) return 'HIGH';
-    return 'NORMAL';
   }
 }
 
-/// Command Center KPI Model
-class CommandCenterKPI {
-  final int activeCases;
-  final double icuCapacity; // percentage
-  final double hospitalStressIndex; // 0-100
+/// Command Center KPI Model - Infrastructure Focus
+class InfraKPI {
+  final int criticalDefects;
+  final double infrastructureUptime; // percentage
+  final double structuralRiskIndex; // 0-100
 
-  CommandCenterKPI({
-    required this.activeCases,
-    required this.icuCapacity,
-    required this.hospitalStressIndex,
+  InfraKPI({
+    required this.criticalDefects,
+    required this.infrastructureUptime,
+    required this.structuralRiskIndex,
   });
 
-  factory CommandCenterKPI.fromMap(Map<String, dynamic> map) {
-    return CommandCenterKPI(
-      activeCases: map['activeCases'] ?? 0,
-      icuCapacity: (map['icuCapacity'] ?? 0.0).toDouble(),
-      hospitalStressIndex: (map['hospitalStressIndex'] ?? 0.0).toDouble(),
+  factory InfraKPI.fromMap(Map<String, dynamic> map) {
+    return InfraKPI(
+      criticalDefects: map['criticalDefects'] ?? map['activeCases'] ?? 0,
+      infrastructureUptime: (map['infrastructureUptime'] ?? map['icuCapacity'] ?? 0.0).toDouble(),
+      structuralRiskIndex: (map['structuralRiskIndex'] ?? map['siteStressIndex'] ?? 0.0).toDouble(),
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'activeCases': activeCases,
-      'icuCapacity': icuCapacity,
-      'hospitalStressIndex': hospitalStressIndex,
-    };
-  }
-
-  Color get stressColor {
-    if (hospitalStressIndex > 80) return const Color(0xFFFF4D4D);
-    if (hospitalStressIndex > 60) return const Color(0xFFFFAB00);
+  Color get riskColor {
+    if (structuralRiskIndex > 80) return const Color(0xFFFF4D4D);
+    if (structuralRiskIndex > 50) return const Color(0xFFFFAB00);
     return const Color(0xFF10B981);
   }
-
-  String get stressLevel {
-    if (hospitalStressIndex > 80) return 'CRITICAL';
-    if (hospitalStressIndex > 60) return 'ELEVATED';
-    return 'NORMAL';
-  }
 }
-
-

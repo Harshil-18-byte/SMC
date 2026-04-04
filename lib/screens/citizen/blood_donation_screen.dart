@@ -265,7 +265,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              req['hospital'] ?? 'Unknown Hospital',
+                              req['site'] ?? 'Unknown Site',
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 14),
                               maxLines: 1,
@@ -278,7 +278,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
                                     size: 12, color: Colors.grey),
                                 const SizedBox(width: 4),
                                 Expanded(
-                                  child: Text(req['patientName'] ?? 'No Name',
+                                  child: Text(req['assetName'] ?? 'No Name',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(

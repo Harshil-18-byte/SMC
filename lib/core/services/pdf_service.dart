@@ -7,8 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:smc/data/models/citizen_model.dart';
 
 class PdfService {
-  /// Generates and opens a Health ID Card PDF
-  static Future<void> generateHealthIDCard(Citizen citizen) async {
+  /// Generates and opens a Inspection ID Card PDF
+  static Future<void> generateInspectionIDCard(Citizen citizen) async {
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -67,7 +67,7 @@ class PdfService {
                         pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            _buildSimpleInfo('HEALTH ID', citizen.healthId),
+                            _buildSimpleInfo('HEALTH ID', citizen.inspectionId),
                             pw.SizedBox(height: 10),
                             pw.Row(
                               children: [
@@ -89,7 +89,7 @@ class PdfService {
       ),
     );
 
-    await _saveAndOpenPdf(pdf, 'HealthID_${citizen.id}.pdf');
+    await _saveAndOpenPdf(pdf, 'InspectionID_${citizen.id}.pdf');
   }
 
   /// Generates and opens a Vaccination Certificate PDF
@@ -98,7 +98,7 @@ class PdfService {
     required String vaccineName,
     required String dose,
     required String date,
-    required String hospital,
+    required String site,
     required String certificateId,
   }) async {
     final pdf = pw.Document();
@@ -127,7 +127,7 @@ class PdfService {
                 ),
                 pw.Center(
                   child: pw.Text(
-                    'Department of Public Health',
+                    'Department of Public Inspection',
                     style: pw.TextStyle(fontSize: 14, color: PdfColors.blue700),
                   ),
                 ),
@@ -147,7 +147,7 @@ class PdfService {
                 _buildInfoRow('Vaccine:', vaccineName),
                 _buildInfoRow('Dose:', dose),
                 _buildInfoRow('Date of Vaccination:', date),
-                _buildInfoRow('Vaccination Center:', hospital),
+                _buildInfoRow('Vaccination Center:', site),
                 _buildInfoRow('Certificate ID:', certificateId),
                 pw.Spacer(),
                 pw.Divider(color: PdfColors.grey),
@@ -221,7 +221,7 @@ class PdfService {
                             color: PdfColors.blue800,
                           ),
                         ),
-                        pw.Text('Health Management System (HMS)',
+                        pw.Text('Inspection Management System (HMS)',
                             style: pw.TextStyle(
                                 fontSize: 12, color: PdfColors.blue600)),
                       ],
@@ -239,7 +239,7 @@ class PdfService {
                 pw.Row(
                   children: [
                     pw.Expanded(
-                        child: _buildSimpleInfo('Patient Name', citizenName)),
+                        child: _buildSimpleInfo('Asset Name', citizenName)),
                     pw.Expanded(child: _buildSimpleInfo('Date', date)),
                   ],
                 ),
@@ -299,7 +299,7 @@ class PdfService {
                 pw.Divider(color: PdfColors.grey300),
                 pw.Center(
                   child: pw.Text(
-                      'This is a computer-generated health record from the SMC Health Portal.',
+                      'This is a computer-generated inspection record from the SMC Inspection Portal.',
                       style: const pw.TextStyle(
                           fontSize: 8, color: PdfColors.grey600)),
                 ),

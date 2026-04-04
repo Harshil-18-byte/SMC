@@ -5,19 +5,19 @@ import 'package:animate_do/animate_do.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 import 'package:smc/data/services/firestore_service.dart';
 
-class HospitalResourceTrackerScreen extends StatefulWidget {
-  const HospitalResourceTrackerScreen({super.key});
+class SiteResourceTrackerScreen extends StatefulWidget {
+  const SiteResourceTrackerScreen({super.key});
 
   @override
-  State<HospitalResourceTrackerScreen> createState() =>
-      _HospitalResourceTrackerScreenState();
+  State<SiteResourceTrackerScreen> createState() =>
+      _SiteResourceTrackerScreenState();
 }
 
-class _HospitalResourceTrackerScreenState
-    extends State<HospitalResourceTrackerScreen> {
+class _SiteResourceTrackerScreenState
+    extends State<SiteResourceTrackerScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   bool _isLoading = true;
-  List<Map<String, dynamic>> _hospitals = [];
+  List<Map<String, dynamic>> _sites = [];
   int _totalBeds = 0;
   int _availableBeds = 0;
   double _avgOxygen = 0.0;
@@ -31,7 +31,7 @@ class _HospitalResourceTrackerScreenState
   Future<void> _loadData() async {
     try {
       final data = await _firestoreService.getCollection(
-          collection: 'hospital_intake_status');
+          collection: 'site_intake_status');
 
       int total = 0;
       int available = 0;
@@ -50,7 +50,7 @@ class _HospitalResourceTrackerScreenState
 
       if (mounted) {
         setState(() {
-          _hospitals = data;
+          _sites = data;
           _totalBeds = total;
           _availableBeds = available;
           _avgOxygen = oxyCount > 0 ? oxygenSum / oxyCount : 0.0;
@@ -93,7 +93,7 @@ class _HospitalResourceTrackerScreenState
                     const SizedBox(height: 24),
                     FadeInUp(child: _buildDemandTrend(l10n, isDark)),
                     const SizedBox(height: 24),
-                    _buildHospitalList(l10n, isDark),
+                    _buildSiteList(l10n, isDark),
                   ],
                 ),
               ),
@@ -231,12 +231,12 @@ class _HospitalResourceTrackerScreenState
     );
   }
 
-  Widget _buildHospitalList(AppLocalizations l10n, bool isDark) {
-    if (_hospitals.isEmpty) {
+  Widget _buildSiteList(AppLocalizations l10n, bool isDark) {
+    if (_sites.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.only(top: 40),
-          child: Text("No hospital data found",
+          child: Text("No site data found",
               style: TextStyle(color: Colors.grey[500])),
         ),
       );
@@ -249,7 +249,7 @@ class _HospitalResourceTrackerScreenState
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Hospital-wise Assets",
+              "Site-wise Assets",
               style:
                   GoogleFonts.outfit(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -257,7 +257,7 @@ class _HospitalResourceTrackerScreenState
           ],
         ),
         const SizedBox(height: 16),
-        ..._hospitals.map((h) {
+        ..._sites.map((h) {
           final available = (h['bedAvailable'] as num?)?.toInt() ?? 0;
           final total = (h['bedTotal'] as num?)?.toInt() ?? 10;
           final oxy = (h['oxygenLevel'] as num?)?.toInt() ?? 85;
@@ -294,7 +294,7 @@ class _HospitalResourceTrackerScreenState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(h['name'] ?? 'Unknown Hospital',
+                        Text(h['name'] ?? 'Unknown Site',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
                         const SizedBox(height: 8),

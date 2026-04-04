@@ -10,8 +10,8 @@ class AdminProfileScreen extends StatelessWidget {
     // Mock data for Admin
     final adminData = {
       'name': 'Dr. Anjali Deshpande',
-      'role': 'Chief Health Officer',
-      'department': 'Disease Surveillance',
+      'role': 'Chief Inspection Officer',
+      'department': 'Defect Surveillance',
       'email': 'anjali.deshpande@smc.gov.in',
       'phone': '+91 98765 43210',
       'location': 'SMC Command Center, Bharat',

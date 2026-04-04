@@ -43,7 +43,7 @@ const Map<String, String> en = {
 
   // Roles
   'admin': 'Admin',
-  'hospital': 'Hospital',
+  'site': 'Site',
   'field_worker': 'Field Worker',
   'citizen': 'Citizen',
 
@@ -55,12 +55,12 @@ const Map<String, String> en = {
   'analytics': 'Analytics',
 
   // Citizen
-  'health_id': 'Health ID',
-  'health_records': 'Health Records',
+  'inspection_id': 'Inspection ID',
+  'inspection_records': 'Inspection Records',
   'appointments': 'Appointments',
   'vaccination': 'Vaccination',
   'emergency_sos': 'Emergency SOS',
-  'hospital_finder': 'Hospital Finder',
+  'site_finder': 'Site Finder',
 
   // Field Worker
   'visits': 'Visits',
@@ -70,15 +70,15 @@ const Map<String, String> en = {
 
   // Admin
   'surveillance': 'Infrastructure Surveillance',
-  'hospital_status': 'Hospital Status',
+  'site_status': 'Site Status',
   'medicine_inventory': 'Medicine Inventory',
   'emergency_alerts': 'Emergency Alerts',
   'user_management': 'User Management',
   'audit_logs': 'Audit Logs',
-  'system_health': 'System Health',
+  'system_inspection': 'System Inspection',
 
-  // Hospital
-  'patients': 'Patients',
+  // Site
+  'assets': 'Assets',
   'beds': 'Beds',
   'bed_availability': 'Bed Availability',
 
@@ -90,13 +90,13 @@ const Map<String, String> en = {
 
   // Admin Features
   'command_center': 'Command Center',
-  'disease_monitoring': 'Defect Monitoring',
+  'defect_monitoring': 'Defect Monitoring',
   'live_heatmap': 'Live Heatmap',
   'infrastructure': 'Infrastructure',
   'system_logs': 'System Logs',
   'switch_domain': 'Switch Domain',
   'key_metrics': 'KEY METRICS',
-  'active_patients': 'Active Patients',
+  'active_assets': 'Active Assets',
   'available_beds': 'Available Beds',
   'active_doctors': 'Active Doctors',
   'vs_last_week': 'vs last week',
@@ -104,8 +104,8 @@ const Map<String, String> en = {
   'critical_alerts': 'Critical Alerts',
   'weekly_trends': 'Weekly Trends',
 
-  // System Health
-  'health_metrics': 'Health Metrics',
+  // System Inspection
+  'inspection_metrics': 'Inspection Metrics',
   'maintenance': 'Maintenance',
   'system_metrics': 'SYSTEM METRICS',
   'critical': 'Critical',
@@ -115,16 +115,16 @@ const Map<String, String> en = {
   'completed': 'Completed',
 
   // Citizen Features
-  'digital_health_id': 'Digital Health ID',
-  'my_health_records': 'My Health Records',
+  'digital_inspection_id': 'Digital Inspection ID',
+  'my_inspection_records': 'My Inspection Records',
   'my_appointments': 'My Appointments',
   'vaccination_portal': 'Vaccination Portal',
-  'find_hospital': 'Find Hospital',
+  'find_site': 'Find Site',
   'emergency_sos_title': 'EMERGENCY SOS',
   'hold_sos': 'Press and Hold Button for 3 Seconds',
   'welcome_back': 'Welcome back,',
   'quick_actions': 'QUICK ACTIONS',
-  'health_alerts': 'HEALTH ALERTS',
+  'inspection_alerts': 'HEALTH ALERTS',
   'sos': 'SOS',
   'sos_sent': 'SOS SIGNAL SENT!\nHelp is on the way.',
   'cancel_alert': 'CANCEL ALERT',
@@ -149,15 +149,15 @@ const Map<String, String> en = {
   'filter_options_soon': 'Filter options coming soon in next update.',
   'updated_just_now': 'Updated moments ago',
 
-  // Hospital Dashboard
-  'hospital_staff': 'Hospital & Staff',
-  'live_hospital_status': 'Live Hospital Status',
+  // Site Dashboard
+  'site_staff': 'Site & Staff',
+  'live_site_status': 'Live Site Status',
   'view_staff_schedule': 'View Staff Schedule',
   'bed_management': 'Bed Management',
   'view_all': 'View All',
   'icu_beds': 'ICU Beds',
   'general_beds': 'General Beds',
-  'patient_queue': 'Patient Queue',
+  'asset_queue': 'Asset Queue',
   'manage': 'Manage',
   'waiting_for_assessment': 'Waiting for assessment',
 
@@ -208,11 +208,11 @@ const Map<String, String> en = {
   'direct_access_message':
       'Direct access enabled. Choose a department to proceed.',
   'admin_domain_subtitle': 'Administrative & Analytics Control',
-  'fw_domain_subtitle': 'Symptom Tracking & Hospital Coordination',
-  'hospital_portal': 'Hospital Portal',
-  'hospital_domain_subtitle': 'Patient Medical Records & Bed Management',
+  'fw_domain_subtitle': 'Symptom Tracking & Site Coordination',
+  'site_portal': 'Site Portal',
+  'site_domain_subtitle': 'Asset Medical Records & Bed Management',
   'citizen_portal': 'Citizen Portal',
-  'citizen_domain_subtitle': 'My Health, Records & Emergency SOS',
+  'citizen_domain_subtitle': 'My Inspection, Records & Emergency SOS',
   'dev_mode_label': 'Bharat Infra • Developer Mode',
 
   // Citizen Home Highlights
@@ -226,7 +226,7 @@ const Map<String, String> en = {
   'syncing_msg': 'Syncing offline data...',
   'connecting_msg': 'Connecting to National Server...',
   'fetching_tasks_msg': 'Fetching your tasks...',
-  'syncing_records_msg': 'Syncing health records...',
+  'syncing_records_msg': 'Syncing inspection records...',
   'getting_ready_msg': 'Getting ready...',
 
   // Generic
@@ -244,7 +244,7 @@ const Map<String, String> en = {
 
   // Immersive Dashboard
   'magic_deck': 'YOUR MAGIC DECK',
-  'city_health_index': 'NATIONAL INFRA INDEX',
+  'city_inspection_index': 'NATIONAL INFRA INDEX',
   'ai_insights': 'AI INSIGHTS',
   'city_vitals_heatmap': 'CITY VITALS HEATMAP',
   'launch_3d_analytics': 'Launch 3D Analytics',
@@ -262,7 +262,7 @@ const Map<String, String> en = {
   // Chatbot
   'chat_hello':
       'Hello! I am your Bharat Infra Assistant. How can I help you today?',
-  'chat_thank_you': 'You\'re very welcome! Stay safe and healthy.',
+  'chat_thank_you': 'You\'re very welcome! Stay safe and inspectiony.',
   'chat_bye': 'Goodbye! Take care of yourself.',
   'chat_who_are_you':
       'I am the Bharat Infra Assistant, an AI designed to help you with infrastructure queries and guidance.',
@@ -285,7 +285,7 @@ const Map<String, String> en = {
   'become_donor': 'Become a Life Saver',
   'blood_type': 'Blood Type',
   'donate_now': 'Donate Now',
-  'donation_points': 'You earned 50 Health Points!',
+  'donation_points': 'You earned 50 Inspection Points!',
 
   // Environmental
   'aqi_alerts': 'Air Quality & Heat Alerts',
@@ -300,18 +300,18 @@ const Map<String, String> en = {
   'oxygen_status': 'Oxygen Levels',
   'ventilator_avail': 'Ventilators Available',
 
-  // Personal Health
+  // Personal Inspection
   'medicine_inventory_short': 'Medicine Inventory',
   'add_medicine': 'Add Medicine',
   'expiry_date': 'Expiry Date',
   'low_stock_alert': 'Low Stock Alert!',
-  'vitals_trends': 'Health Vitals Analytics',
+  'vitals_trends': 'Inspection Vitals Analytics',
   'bp_trend': 'BP Trend',
   'sugar_trend': 'Blood Sugar Trend',
 
   // Volunteer
   'volunteer_network': 'Volunteer Network',
-  'health_camps': 'Upcoming Health Camps',
+  'inspection_camps': 'Upcoming Inspection Camps',
   'join_as_volunteer': 'Join as Volunteer',
   'elderly_care': 'Elderly Wellness Check',
   'member_vitals': 'Family Member Vitals',
@@ -320,9 +320,9 @@ const Map<String, String> en = {
   'fallback_1':
       'I\'m not sure I understand. Could you describe your symptoms in more detail?',
   'fallback_2':
-      'I can help with common ailments, guidance on diseases, and healthy living. What\'s on your mind?',
+      'I can help with common ailments, guidance on defects, and inspectiony living. What\'s on your mind?',
   'fallback_3':
-      'Could you clarify? I want to ensure I give you the correct health information.',
+      'Could you clarify? I want to ensure I give you the correct inspection information.',
   'fallback_4':
       'I\'m still learning! Please try asking about specific symptoms like \'headache\', \'fever\', or conditions like \'diabetes\'.',
 
@@ -332,7 +332,7 @@ const Map<String, String> en = {
   'stroke':
       '⚠️ CRITICAL: These could be signs of a stroke. Act FAST:\n• Face: Is it drooping?\n• Arms: Can they raise both?\n• Speech: Is it slurred?\n• Time: Call 108 immediately.',
   'suicide':
-      '⚠️ Emotional Support Required. You are not alone.\n\nPlease contact the Jeevan Aastha Helpline at 1800 233 3330 (available 24/7) or go to the nearest hospital emergency department.',
+      '⚠️ Emotional Support Required. You are not alone.\n\nPlease contact the Jeevan Aastha Helpline at 1800 233 3330 (available 24/7) or go to the nearest site emergency department.',
   'accident':
       '⚠️ For severe injuries or uncontrolled bleeding, seek immediate medical attention. Call 108 for an ambulance.',
   'choking':
@@ -352,7 +352,7 @@ const Map<String, String> en = {
   'stomach':
       'Stomach issues can result from food poisoning or viral gastroenteritis.\n\n• Drink ORS (Oral Rehydration Solution) to prevent dehydration.\n• Eat bland foods (bananas, rice, toast).\n• Avoid dairy and spicy foods.\n\nSee a doctor if you see blood, have severe pain, or symptoms persist > 2 days.',
   'dehydration':
-      'Signs of dehydration include dry mouth, dark urine, and dizziness.\nDrink water or ORS immediately. Severe dehydration requires IV fluids at a hospital.',
+      'Signs of dehydration include dry mouth, dark urine, and dizziness.\nDrink water or ORS immediately. Severe dehydration requires IV fluids at a site.',
   'dengue':
       'Dengue is a viral infection transmitted by mosquitoes.\n\nSymptoms: High fever, severe headache, pain behind eyes, joint/muscle pain, rash.\n\nPrevention: Use mosquito repellent, wear long sleeves, and eliminate standing water.',
   'malaria':
@@ -360,39 +360,39 @@ const Map<String, String> en = {
   'covid':
       'COVID-19 affects different people in different ways.\n\nCommon symptoms: Fever, cough, tiredness, loss of taste/smell, breathing difficulty.\nIsolate yourself and get tested if you have symptoms. Vaccination is highly recommended.',
   'tuberculosis':
-      'Tuberculosis (TB) mainly affects the lungs.\n\nSymptoms: Cough ending 3+ weeks, chest pain, coughing up blood, fatigue, weight loss, night sweats.\nTB is curable with a full course of treatment available free at SMC centers.',
+      'Tuberculosis (TB) mainly affects the lungs.\n\nSymptoms: Cough ending 3+ weeks, chest pain, coughing up blood, fatigue, weight loss, night sweats.\nTB is curable with a full course of repair action available free at SMC centers.',
   'chickenpox':
-      'Chickenpox causes an itchy rash with red blisters.\nIt is highly contagious. Keep the patient isolated, hydrated, and prevent scratching to avoid scarring. Vaccination is available.',
+      'Chickenpox causes an itchy rash with red blisters.\nIt is highly contagious. Keep the asset isolated, hydrated, and prevent scratching to avoid scarring. Vaccination is available.',
   'hepatitis':
       'Jaundice (yellowing of skin/eyes) can indicate Hepatitis (liver infection).\nSee a doctor immediately for blood tests. Avoid alcohol and spicy/oily foods.',
   'hiv':
-      'HIV attacks the body\'s immune system. Spread through body fluids.\nIt is manageable with Antiretroviral Therapy (ART). Free testing and counseling are available at government hospitals.',
+      'HIV attacks the body\'s immune system. Spread through body fluids.\nIt is manageable with Antiretroviral Therapy (ART). Free testing and counseling are available at government sites.',
   'typhoid':
       'Typhoid fever is a bacterial infection spread through contaminated food/water.\n\nSymptoms: High fever, weakness, stomach pain, headache.\nVaccines are available. Ensure you drink safe, treated water.',
   'diabetes':
-      'Diabetes requires careful management of blood sugar levels.\n\n• Monitor blood sugar regularly.\n• Maintain a healthy diet low in refined sugars and carbs.\n• Exercise regularly (walk 30 mins/day).\n• Take prescribed medication/insulin.',
+      'Diabetes requires careful management of blood sugar levels.\n\n• Monitor blood sugar regularly.\n• Maintain a inspectiony diet low in refined sugars and carbs.\n• Exercise regularly (walk 30 mins/day).\n• Take prescribed medication/insulin.',
   'blood_pressure':
-      'High blood pressure (Hypertension) often has no signs but damages the heart/kidneys.\n\n• Reduce salt intake (sodium).\n• Maintain a healthy weight.\n• Exercise regularly.\n• Limit alcohol and quit smoking.',
+      'High blood pressure (Hypertension) often has no signs but damages the heart/kidneys.\n\n• Reduce salt intake (sodium).\n• Maintain a inspectiony weight.\n• Exercise regularly.\n• Limit alcohol and quit smoking.',
   'asthma':
       'Asthma causes airways to narrow and swell.\nTriggers: Dust, pollen, cold air, smoke.\nAlways carry your rescue inhaler. If symptoms worsen despite medication, seek emergency help.',
   'cancer':
-      'Cancer refers to diseases involving abnormal cell growth.\n\nEarly detection saves lives. Screenings are available for various types (breast, cervical, oral).\nConsult an oncologist for persistent lumps, unexplained weight loss, or changes in bodily functions.',
+      'Cancer refers to defects involving abnormal cell growth.\n\nEarly detection saves lives. Screenings are available for various types (breast, cervical, oral).\nConsult an oncologist for persistent lumps, unexplained weight loss, or changes in bodily functions.',
   'thyroid':
       'Thyroid issues can cause weight changes, fatigue, and mood swings.\nA simple blood test (TSH) can diagnose it. Medication is usually effective.',
   'pregnancy':
-      'Prenatal care is vital for mother and baby.\n\n• Take Folic Acid and Iron supplements as prescribed.\n• Attend regular checkups at your SMC Health Center.\n• Eat a nutritious diet.',
+      'Prenatal care is vital for mother and baby.\n\n• Take Folic Acid and Iron supplements as prescribed.\n• Attend regular checkups at your SMC Inspection Center.\n• Eat a nutritious diet.',
   'period':
-      'Menstrual health is important.\nSevere pain or heavy bleeding is not normal—consult a gynecologist.\nMaintain hygiene and use sanitary pads or cups.',
+      'Menstrual inspection is important.\nSevere pain or heavy bleeding is not normal—consult a gynecologist.\nMaintain hygiene and use sanitary pads or cups.',
   'pcos':
-      'PCOS is a hormonal disorder causing irregular periods, weight gain, and acne.\nLifestyle changes (diet/exercise) are the first line of treatment. Consult a gynaecologist.',
+      'PCOS is a hormonal disorder causing irregular periods, weight gain, and acne.\nLifestyle changes (diet/exercise) are the first line of repair action. Consult a gynaecologist.',
   'vaccine':
-      'Vaccinations protect children from serious diseases like Polio, Measles, and Tetanus.\nCheck the SMC Immunization Schedule card. Vaccines are free at government centers.',
+      'Vaccinations protect children from serious defects like Polio, Measles, and Tetanus.\nCheck the SMC Immunization Schedule card. Vaccines are free at government centers.',
   'child_nutrition':
       'Proper nutrition is crucial for child growth.\nBreastfeed exclusively for the first 6 months. Introduce nutritious solid foods afterwards.',
   'anxiety':
       'Anxiety is a common response to stress.\n\n• Practice deep breathing exercises.\n• Limit caffeine and alcohol.\n• Talk to a friend or counselor.',
   'depression':
-      'Depression is a medical condition, not a weakness.\nSymptoms: Persistent sadness, loss of interest, fatigue.\nHelp is available. Talk to a mental health professional at Civil Hospital.',
+      'Depression is a medical condition, not a weakness.\nSymptoms: Persistent sadness, loss of interest, fatigue.\nHelp is available. Talk to a mental inspection professional at Civil Site.',
   'acne':
       'Acne is common. Keep skin clean, avoid touching your face, and drink water.\nFor rashes, avoid self-medication and see a dermatologist to rule out infections.',
   'hair_loss':
@@ -402,13 +402,13 @@ const Map<String, String> en = {
   'sleep':
       'Adults generally need 7-9 hours of sleep.\n\n• Maintain a consistent sleep schedule.\n• Avoid screens (phones/TV) before bed.\n• Keep the room cool and dark.',
   'exercise':
-      'Aim for at least 150 minutes of moderate activity per week (e.g., brisk walking).\nRegular exercise lowers risk of heart disease, diabetes, and depression.',
+      'Aim for at least 150 minutes of moderate activity per week (e.g., brisk walking).\nRegular exercise lowers risk of heart defect, diabetes, and depression.',
   'appointment':
       'You can book appointments directly through this app.\n\nGo to the \'Appointments\' section in the main dashboard to find a doctor or clinic near you.',
-  'bot_hospital_info':
-      'SMC runs several urban health centers and hospitals.\n\nUse the \'Hospital Finder\' feature in the app to locate the nearest facility.',
+  'bot_site_info':
+      'SMC runs several urban inspection centers and sites.\n\nUse the \'Site Finder\' feature in the app to locate the nearest facility.',
   'schemes':
-      'Government schemes like PMJAY provide free treatment for eligible families.\nVisit your nearest SMC Zone Office or Civil Hospital to check eligibility and apply for your card.',
+      'Government schemes like PMJAY provide free repair action for eligible families.\nVisit your nearest SMC Zone Office or Civil Site to check eligibility and apply for your card.',
 
   // IoT Integration
   'menu_iot': 'IoT Hub',
@@ -428,8 +428,8 @@ const Map<String, String> en = {
   'iot_traffic_sensors': 'Traffic Monitoring',
   'iot_smart_lights': 'Smart Street Lights',
   'iot_waste_bins': 'Smart Waste Bins',
-  'iot_my_health_devices': 'My Health Devices',
-  'iot_smartwatch': 'Health Smartwatch',
+  'iot_my_inspection_devices': 'My Inspection Devices',
+  'iot_smartwatch': 'Inspection Smartwatch',
   'iot_bp_monitor': 'BP Monitor',
   'iot_smart_scale': 'Smart Scale',
   'iot_home_environment': 'Home Environment',
@@ -443,29 +443,29 @@ const Map<String, String> en = {
   'iot_sensor_history': 'Sensor History',
   'iot_recent_readings': 'Recent Readings',
   'iot_device_info': 'Device Information',
-  'bot_health_assistant': 'Health Assistant',
+  'bot_inspection_assistant': 'Inspection Assistant',
   'bot_online': 'Online',
   'bot_smart_city_ai': 'Smart City AI',
   'bot_type_symptoms': 'Type symptoms...',
   'bot_thinking': 'Analyzing symptoms...',
-  'env_city_health_index': 'Infra Health Index',
+  'env_city_inspection_index': 'Infra Inspection Index',
   'env_aqi': 'AQI',
   'env_temp': 'Temp',
   'env_uv': 'UV',
   'env_good': 'Good',
   'env_warm': 'Warm',
   'env_safe': 'Safe',
-  'env_health_advice': 'Health Advice',
+  'env_inspection_advice': 'Inspection Advice',
   'env_ward_aqi': 'Region-wise Air Quality',
   'err_generic': 'Something went wrong. Please try again later.',
 
   // New Feature Screens
-  'hospital_infra': 'Hospital Infrastructure',
+  'site_infra': 'Site Infrastructure',
   'infra_report': 'Infrastructure Report',
-  'patient_summary': 'Patient Summary',
+  'asset_summary': 'Asset Summary',
   'visit_summary': 'Visit Summary',
-  'hospital_infra_desc': 'Equipment, departments, and facility status',
+  'site_infra_desc': 'Equipment, departments, and facility status',
   'infra_report_desc': 'Compliance, audits, and maintenance logs',
-  'patient_summary_desc': 'View patient health overview and vitals',
+  'asset_summary_desc': 'View asset inspection overview and vitals',
   'visit_summary_desc': 'Detailed visit report and findings',
 };

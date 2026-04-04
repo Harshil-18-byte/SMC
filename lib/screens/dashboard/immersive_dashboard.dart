@@ -118,7 +118,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
                             children: [
                               _buildGreetingWithAnimation(),
                               const SizedBox(height: 12),
-                              _buildLiveHealthScore(),
+                              _buildLiveInspectionScore(),
                             ],
                           ),
                         ),
@@ -189,9 +189,9 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
     );
   }
 
-  Widget _buildLiveHealthScore() {
+  Widget _buildLiveInspectionScore() {
     return StreamBuilder<int>(
-      stream: _getCityHealthScoreStream(),
+      stream: _getCityInspectionScoreStream(),
       builder: (context, snapshot) {
         final score = snapshot.data ?? 84;
         return Row(
@@ -221,7 +221,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context).cityHealthIndex,
+                  AppLocalizations.of(context).cityInspectionIndex,
                   style: const TextStyle(
                     color: Colors.white38,
                     fontSize: 10,
@@ -230,7 +230,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
                   ),
                 ),
                 Text(
-                  _getHealthStatusText(context, score),
+                  _getInspectionStatusText(context, score),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -441,7 +441,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
     return l10n.translate('good_evening');
   }
 
-  Stream<int> _getCityHealthScoreStream() {
+  Stream<int> _getCityInspectionScoreStream() {
     return Stream.periodic(
         const Duration(seconds: 5), (i) => 80 + math.Random().nextInt(10));
   }
@@ -452,7 +452,7 @@ class _ImmersiveDashboardState extends State<ImmersiveDashboard>
     return Colors.orangeAccent;
   }
 
-  String _getHealthStatusText(BuildContext context, int score) {
+  String _getInspectionStatusText(BuildContext context, int score) {
     final l10n = AppLocalizations.of(context);
     if (score >= 90) return l10n.exceptional;
     if (score >= 80) return l10n.stableStatus;

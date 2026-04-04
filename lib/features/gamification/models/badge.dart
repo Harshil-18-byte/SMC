@@ -97,12 +97,12 @@ class BadgeLibrary {
         coinsReward: 10,
         unlockedFeatures: ['daily_tips'],
         rarityScore: 5.0,
-        realImpactDescription: 'Monitored health of your first families',
+        realImpactDescription: 'Monitored inspection of your first families',
         impactMetrics: {'families_helped': 1},
         congratsMessage:
             'Welcome to the team! Every journey starts with a single step.',
         shareMessage:
-            'I just started my journey as a health field worker with SMC!',
+            'I just started my journey as a inspection field worker with SMC!',
         certificateTemplate: 'first_day_certificate',
       ),
 
@@ -123,9 +123,9 @@ class BadgeLibrary {
         unlockedFeatures: ['advanced_analytics'],
         rarityScore: 15.0,
         realImpactDescription:
-            'Provided consistent health monitoring for a full week',
+            'Provided consistent inspection monitoring for a full week',
         impactMetrics: {'families_monitored': 50},
-        congratsMessage: 'Your dedication is making Bharat healthier!',
+        congratsMessage: 'Your dedication is making Bharat inspectionier!',
         shareMessage: 'One week of making a difference in my community! 💪',
         certificateTemplate: 'weekly_dedication',
       ),
@@ -148,8 +148,8 @@ class BadgeLibrary {
         rarityScore: 30.0,
         realImpactDescription: 'Monitored 200+ families over a month',
         impactMetrics: {'families_monitored': 200},
-        congratsMessage: 'You are now a pillar of community health!',
-        shareMessage: 'Celebrating 30 days of keeping Bharat healthy! 🏅',
+        congratsMessage: 'You are now a pillar of community inspection!',
+        shareMessage: 'Celebrating 30 days of keeping Bharat inspectiony! 🏅',
         certificateTemplate: 'monthly_excellence',
       ),
 
@@ -170,7 +170,7 @@ class BadgeLibrary {
         unlockedFeatures: ['mentor_program', 'advanced_tools'],
         rarityScore: 60.0,
         realImpactDescription:
-            'Provided uninterrupted health monitoring for over 3 months',
+            'Provided uninterrupted inspection monitoring for over 3 months',
         impactMetrics: {'families_monitored': 700, 'streak': 100},
         congratsMessage: 'Your unwavering commitment is legendary!',
         shareMessage:
@@ -205,7 +205,7 @@ class BadgeLibrary {
       const Badge(
         id: 'outbreak_preventer',
         name: 'Outbreak Preventer',
-        description: 'Help identify and report a disease cluster',
+        description: 'Help identify and report a defect cluster',
         tier: BadgeTier.platinum,
         category: BadgeCategory.impact,
         iconAsset: 'assets/badges/outbreak_preventer.svg',
@@ -221,8 +221,8 @@ class BadgeLibrary {
             'Prevented potential outbreak affecting hundreds',
         impactMetrics: {'potential_cases_prevented': 100},
         congratsMessage:
-            'You stopped an outbreak! You are a guardian of public health!',
-        shareMessage: 'Helped prevent a disease outbreak in my community! 🛡️',
+            'You stopped an outbreak! You are a guardian of public inspection!',
+        shareMessage: 'Helped prevent a defect outbreak in my community! 🛡️',
         certificateTemplate: 'outbreak_preventer_certificate',
       ),
 
@@ -244,7 +244,7 @@ class BadgeLibrary {
         rarityScore: 80.0,
         totalHoldersLimit: 100, // Only 100 people can have this
         realImpactDescription:
-            'Protected 10 families from severe health complications',
+            'Protected 10 families from severe inspection complications',
         impactMetrics: {'lives_protected': 10},
         congratsMessage:
             'You are truly an angel! 10 lives protected because of you!',
@@ -273,7 +273,7 @@ class BadgeLibrary {
         impactMetrics: {'accurate_reports': 200},
         congratsMessage: 'Excellence is your standard! Your data saves lives!',
         shareMessage:
-            'Maintaining 95%+ accuracy in health monitoring! Quality matters! ✨',
+            'Maintaining 95%+ accuracy in inspection monitoring! Quality matters! ✨',
         certificateTemplate: 'quality_excellence',
       ),
 
@@ -344,7 +344,7 @@ class BadgeLibrary {
         congratsMessage:
             'You are building the future! 5 workers trained by you!',
         shareMessage:
-            'Proud to mentor the next generation of health workers! 📚',
+            'Proud to mentor the next generation of inspection workers! 📚',
         certificateTemplate: 'mentor_certification',
       ),
 
@@ -364,7 +364,7 @@ class BadgeLibrary {
         coinsReward: 300,
         unlockedFeatures: ['milestone_tracker'],
         rarityScore: 35.0,
-        realImpactDescription: 'Monitored health of 100 families',
+        realImpactDescription: 'Monitored inspection of 100 families',
         impactMetrics: {'families_monitored': 100},
         congratsMessage: '100 visits! You are making history!',
         shareMessage: 'Just hit 100 households! Century club member! 💯',
@@ -400,25 +400,25 @@ class BadgeLibrary {
   static List<Badge> getCitizenBadges() {
     return [
       const Badge(
-        id: 'health_conscious',
-        name: 'Health Conscious',
-        description: 'Complete your first health check-in',
+        id: 'inspection_conscious',
+        name: 'Inspection Conscious',
+        description: 'Complete your first inspection check-in',
         tier: BadgeTier.bronze,
         category: BadgeCategory.milestone,
-        iconAsset: 'assets/badges/health_conscious.svg',
+        iconAsset: 'assets/badges/inspection_conscious.svg',
         primaryColor: Color(0xFF20B2AA),
         accentColor: Color(0xFF48D1CC),
         unlockCriteria: {'check_ins': 1},
         pointsRequired: 0,
         xpReward: 20,
         coinsReward: 5,
-        unlockedFeatures: ['health_tracking'],
+        unlockedFeatures: ['inspection_tracking'],
         rarityScore: 5.0,
-        realImpactDescription: 'Started your health monitoring journey',
+        realImpactDescription: 'Started your inspection monitoring journey',
         impactMetrics: {'self_care_actions': 1},
-        congratsMessage: 'Great start! Your health is your wealth!',
-        shareMessage: 'Taking charge of my health with SMC! 💚',
-        certificateTemplate: 'health_start',
+        congratsMessage: 'Great start! Your inspection is your wealth!',
+        shareMessage: 'Taking charge of my inspection with SMC! 💚',
+        certificateTemplate: 'inspection_start',
       ),
       const Badge(
         id: 'vaccination_champion',
@@ -444,7 +444,7 @@ class BadgeLibrary {
       const Badge(
         id: 'family_guardian',
         name: 'Family Guardian',
-        description: 'Add and monitor health of 5 family members',
+        description: 'Add and monitor inspection of 5 family members',
         tier: BadgeTier.gold,
         category: BadgeCategory.community,
         iconAsset: 'assets/badges/family_guardian.svg',
@@ -456,11 +456,11 @@ class BadgeLibrary {
         coinsReward: 100,
         unlockedFeatures: ['family_dashboard'],
         rarityScore: 25.0,
-        realImpactDescription: 'Keeping your entire family healthy',
+        realImpactDescription: 'Keeping your entire family inspectiony',
         impactMetrics: {'family_members_monitored': 5},
         congratsMessage: 'You are keeping your family safe! Amazing!',
         shareMessage:
-            'Monitoring health of my entire family! Family first! 👨👩👧👦',
+            'Monitoring inspection of my entire family! Family first! 👨👩👧👦',
         certificateTemplate: 'family_care',
       ),
     ];

@@ -33,7 +33,7 @@ class VaccinationPortalScreen extends StatelessWidget {
               context,
               'COVID-19 Booster',
               'Available for 18+ years',
-              'Civil Hospital Bharat',
+              'Civil Site Bharat',
               Icons.vaping_rooms_rounded,
               const Color(0xFF137fec),
             ),
@@ -137,7 +137,7 @@ class VaccinationPortalScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Your Health, Protected',
+                  'Your Inspection, Protected',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -318,7 +318,7 @@ class VaccinationPortalScreen extends StatelessWidget {
                 vaccineName: title,
                 dose: subtitle,
                 date: '15 Jan 2026',
-                hospital: 'SMC Civil Hospital, Bharat',
+                site: 'SMC Civil Site, Bharat',
                 certificateId: 'SMC-VAC-2026-X89',
               );
             },

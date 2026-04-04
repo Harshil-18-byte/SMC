@@ -3,22 +3,22 @@ import 'package:smc/core/widgets/smc_back_button.dart';
 import 'package:smc/core/theme/theme_switcher.dart';
 import 'package:smc/core/localization/app_localizations.dart';
 
-/// Patient Summary Screen
-/// Compact patient health summary visible from both Citizen and Field Worker sides
-class PatientSummaryScreen extends StatelessWidget {
-  final String? patientId;
-  final String? patientName;
+/// Asset Summary Screen
+/// Compact asset inspection summary visible from both Citizen and Field Worker sides
+class AssetSummaryScreen extends StatelessWidget {
+  final String? assetId;
+  final String? assetName;
 
-  const PatientSummaryScreen({super.key, this.patientId, this.patientName});
+  const AssetSummaryScreen({super.key, this.assetId, this.assetName});
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final name = patientName ?? 'Suresh Patil';
+    final name = assetName ?? 'Suresh Patil';
 
     return Scaffold(
       appBar: SMCAppBar(
-        title: AppLocalizations.of(context).translate('patient_summary'),
+        title: AppLocalizations.of(context).translate('asset_summary'),
         actions: const [ThemeSwitcher(), SizedBox(width: 8)],
       ),
       body: SingleChildScrollView(
@@ -26,8 +26,8 @@ class PatientSummaryScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Patient Identity Card
-            _buildPatientCard(context, isDark, name),
+            // Asset Identity Card
+            _buildAssetCard(context, isDark, name),
             const SizedBox(height: 20),
 
             // Vitals Snapshot
@@ -78,7 +78,7 @@ class PatientSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPatientCard(BuildContext context, bool isDark, String name) {
+  Widget _buildAssetCard(BuildContext context, bool isDark, String name) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -115,7 +115,7 @@ class PatientSummaryScreen extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
-                const Text('Health ID: SOL-4522-8901',
+                const Text('Inspection ID: SOL-4522-8901',
                     style: TextStyle(color: Colors.white70, fontSize: 12)),
                 const SizedBox(height: 2),
                 const Text('Age: 40  •  Blood Group: O+  •  Male',
@@ -294,7 +294,7 @@ class PatientSummaryScreen extends StatelessWidget {
       },
       {
         'date': 'Jan 28, 2026',
-        'type': 'Hospital Visit',
+        'type': 'Site Visit',
         'by': 'Dr. James Chen',
         'notes': 'Quarterly diabetes checkup'
       },

@@ -42,7 +42,7 @@ const Map<String, String> mr = {
 
   // Roles
   'admin': 'प्रशासक',
-  'hospital': 'रुग्णालय',
+  'site': 'रुग्णालय',
   'field_worker': 'फील्ड वर्कर',
   'citizen': 'नागरिक',
 
@@ -54,12 +54,12 @@ const Map<String, String> mr = {
   'analytics': 'विश्लेषण',
 
   // Citizen
-  'health_id': 'आरोग्य ID',
-  'health_records': 'आरोग्य नोंदी',
+  'inspection_id': 'आरोग्य ID',
+  'inspection_records': 'आरोग्य नोंदी',
   'appointments': 'भेटी',
   'vaccination': 'लसीकरण',
   'emergency_sos': 'आपत्कालीन SOS',
-  'hospital_finder': 'रुग्णालय शोधा',
+  'site_finder': 'रुग्णालय शोधा',
 
   // Field Worker
   'visits': 'भेटी',
@@ -69,15 +69,15 @@ const Map<String, String> mr = {
 
   // Admin
   'surveillance': 'रोग निगरानी',
-  'hospital_status': 'रुग्णालय स्थिती',
+  'site_status': 'रुग्णालय स्थिती',
   'medicine_inventory': 'औषध यादी',
   'emergency_alerts': 'आपत्कालीन सूचना',
   'user_management': 'वापरकर्ता व्यवस्थापन',
   'audit_logs': 'ऑडिट लॉग',
-  'system_health': 'सिस्टम आरोग्य',
+  'system_inspection': 'सिस्टम आरोग्य',
 
-  // Hospital
-  'patients': 'रुग्ण',
+  // Site
+  'assets': 'रुग्ण',
   'beds': 'बेड',
   'bed_availability': 'बेड उपलब्धता',
 
@@ -89,13 +89,13 @@ const Map<String, String> mr = {
 
   // Admin Features
   'command_center': 'कमांड सेंटर',
-  'disease_monitoring': 'रोग देखरेख',
+  'defect_monitoring': 'रोग देखरेख',
   'live_heatmap': 'थेट हीटमैप',
   'infrastructure': 'पायाभूत सुविधा',
   'system_logs': 'सिस्टम लॉग',
   'switch_domain': 'डोमेन बदला',
   'key_metrics': 'मुख्य आकडेवारी',
-  'active_patients': 'सक्रिय रुग्ण',
+  'active_assets': 'सक्रिय रुग्ण',
   'available_beds': 'उपलब्ध बेड',
   'active_doctors': 'सक्रिय डॉक्टर',
   'vs_last_week': 'मागील आठवड्याच्या तुलनेत',
@@ -103,8 +103,8 @@ const Map<String, String> mr = {
   'critical_alerts': 'महत्वाच्या सूचना',
   'weekly_trends': 'साप्ताहिक कल',
 
-  // System Health
-  'health_metrics': 'आरोग्य आकडेवारी',
+  // System Inspection
+  'inspection_metrics': 'आरोग्य आकडेवारी',
   'maintenance': 'देखभाल',
   'system_metrics': 'सिस्टम आकडेवारी',
   'critical': 'गंभीर',
@@ -114,18 +114,18 @@ const Map<String, String> mr = {
   'completed': 'पूर्ण झाले',
 
   // Citizen Features
-  'digital_health_id': 'डिजिटल आरोग्य ID',
-  'my_health_records': 'माझ्या आरोग्य नोंदी',
+  'digital_inspection_id': 'डिजिटल आरोग्य ID',
+  'my_inspection_records': 'माझ्या आरोग्य नोंदी',
   'my_appointments': 'माझ्या भेटी',
   'vaccination_portal': 'लसीकरण पोर्टल',
-  'find_hospital': 'रुग्णालय शोधा',
+  'find_site': 'रुग्णालय शोधा',
   'emergency_sos_title': 'आपत्कालीन SOS',
   'hold_sos': '3 सेकंदांसाठी बटण दाबून ठेवा',
   'sos_sent': 'SOS सिग्नल पाठविला!\nमदत येत आहे.',
   'cancel_alert': 'सूचना रद्द करा',
   'welcome_back': 'स्वागत आहे,',
   'quick_actions': 'त्वरित कृती',
-  'health_alerts': 'आरोग्य सूचना',
+  'inspection_alerts': 'आरोग्य सूचना',
   'sos': 'SOS',
   'unknown_user': 'अज्ञात वापरकर्ता',
   'standard_user': 'मानक वापरकर्ता',
@@ -135,8 +135,8 @@ const Map<String, String> mr = {
   'direct_access_message': 'थेट प्रवेश सक्षम. पुढे जाण्यासाठी एक विभाग निवडा.',
   'admin_domain_subtitle': 'प्रशासकीय आणि विश्लेषण नियंत्रण',
   'fw_domain_subtitle': 'लक्षण मागोवा आणि रुग्णालय समन्वय',
-  'hospital_portal': 'रुग्णालय पोर्टल',
-  'hospital_domain_subtitle': 'रुग्ण वैद्यकीय नोंदी आणि बेड व्यवस्थापन',
+  'site_portal': 'रुग्णालय पोर्टल',
+  'site_domain_subtitle': 'रुग्ण वैद्यकीय नोंदी आणि बेड व्यवस्थापन',
   'citizen_portal': 'नागरी पोर्टल',
   'citizen_domain_subtitle': 'माझे आरोग्य, नोंदी आणि आपत्कालीन SOS',
   'dev_mode_label': 'SMC स्मार्ट सिटी • डेव्हलपर मोड',
@@ -245,7 +245,7 @@ const Map<String, String> mr = {
       'आठवड्यातून किमान 150 मिनिटे मध्यम हालचाल (उदा., वेगाने चालणे) करण्याचे लक्ष्य ठेवा.\nनियमित व्यायामामुळे हृदयविकार, मधुमेह आणि नैराश्याचा धोका कमी होतो.',
   'appointment':
       'तुम्ही थेट या ॲपद्वारे भेटी बुक करू शकता.\n\nतुमच्या जवळचे डॉक्टर किंवा क्लिनिक शोधण्यासाठी मुख्य डॅशबोर्डमधील \'भेटी\' विभागावर जा.',
-  'bot_hospital_info':
+  'bot_site_info':
       'एसएमसी अनेक शहरी आरोग्य केंद्रे आणि रुग्णालये चालवते.\n\nजवळची सुविधा शोधण्यासाठी ॲपमधील \'रुग्णालय शोधा\' वैशिष्ट्य वापरा.',
   'schemes':
       'पीएमजेएवाय सारख्या सरकारी योजना पात्र कुटुंबांसाठी मोफत उपचार देतात।\nपात्रता तपासण्यासाठी आणि तुमच्या कार्डसाठी अर्ज करण्यासाठी तुमच्या जवळच्या एसएमसी झोन कार्यालय किंवा सिव्हिल हॉस्पिटलला भेट द्या.',
@@ -275,15 +275,15 @@ const Map<String, String> mr = {
   'filter_options_soon': 'फिल्टर पर्याय पुढील अपडेटमध्ये उपलब्ध होतील.',
   'updated_just_now': 'आत्ताच अपडेट केले',
 
-  // Hospital Dashboard
-  'hospital_staff': 'रुग्णालय आणि कर्मचारी',
-  'live_hospital_status': 'थेट रुग्णालय स्थिती',
+  // Site Dashboard
+  'site_staff': 'रुग्णालय आणि कर्मचारी',
+  'live_site_status': 'थेट रुग्णालय स्थिती',
   'view_staff_schedule': 'कर्मचारी वेळापत्रक पहा',
   'bed_management': 'बेड व्यवस्थापन',
   'view_all': 'सर्व पहा',
   'icu_beds': 'आयसीयू बेड',
   'general_beds': 'सामान्य बेड',
-  'patient_queue': 'रुग्ण रांग',
+  'asset_queue': 'रुग्ण रांग',
   'manage': 'व्यवस्थापित करा',
   'waiting_for_assessment': 'मूल्यांकनाची वाट पहात आहे',
 
@@ -336,7 +336,7 @@ const Map<String, String> mr = {
 
   // Immersive Dashboard
   'magic_deck': 'तुमचा जादुई डेक',
-  'city_health_index': 'स्मार्ट सिटी आरोग्य निर्देशांक',
+  'city_inspection_index': 'स्मार्ट सिटी आरोग्य निर्देशांक',
   'ai_insights': 'एआय अंतर्दृष्टी',
   'city_vitals_heatmap': 'शहर आरोग्य हीटमॅप',
   'launch_3d_analytics': '3D ॲनालिटिक्स सुरू करा',
@@ -380,7 +380,7 @@ const Map<String, String> mr = {
   'oxygen_status': 'ऑक्सिजन पातळी',
   'ventilator_avail': 'व्हेंटिलेटर उपलब्ध',
 
-  // Personal Health
+  // Personal Inspection
   'medicine_inventory_short': 'औषध यादी',
   'add_medicine': 'औषध जोडा',
   'expiry_date': 'कालबाह्य तारीख',
@@ -391,7 +391,7 @@ const Map<String, String> mr = {
 
   // Volunteer
   'volunteer_network': 'SMC स्वयंसेवक नेटवर्क',
-  'health_camps': 'आगामी आरोग्य शिबिरे',
+  'inspection_camps': 'आगामी आरोग्य शिबिरे',
   'join_as_volunteer': 'स्वयंसेवक व्हा',
   'elderly_care': 'ज्येष्ठ नागरिक कल्याण तपासणी',
   'member_vitals': 'कुटुंबातील सदस्य आरोग्य',
@@ -414,7 +414,7 @@ const Map<String, String> mr = {
   'iot_traffic_sensors': 'वाहतूक देखरेख',
   'iot_smart_lights': 'स्मार्ट रस्ते दिवे',
   'iot_waste_bins': 'स्मार्ट कचरा पेटी',
-  'iot_my_health_devices': 'माझे आरोग्य डिव्हाइस',
+  'iot_my_inspection_devices': 'माझे आरोग्य डिव्हाइस',
   'iot_smartwatch': 'आरोग्य स्मार्टवॉच',
   'iot_bp_monitor': 'बीपी मॉनिटर',
   'iot_smart_scale': 'स्मार्ट वजन काटा',
@@ -429,19 +429,19 @@ const Map<String, String> mr = {
   'iot_sensor_history': 'सेन्सर इतिहास',
   'iot_recent_readings': 'अलीकडील रीडिंग',
   'iot_device_info': 'डिव्हाइस माहिती',
-  'bot_health_assistant': 'आरोग्य सहायक',
+  'bot_inspection_assistant': 'आरोग्य सहायक',
   'bot_online': 'ऑनलाइन',
   'bot_smart_city_ai': 'स्मार्ट सिटी एआई',
   'bot_type_symptoms': 'लक्षणे लिहा...',
   'bot_thinking': 'लक्षणांचे विश्लेषण करत आहे...',
-  'env_city_health_index': 'शहर आरोग्य निर्देशांक',
+  'env_city_inspection_index': 'शहर आरोग्य निर्देशांक',
   'env_aqi': 'एक्यूआय',
   'env_temp': 'तापमान',
   'env_uv': 'यूवी',
   'env_good': 'चांगले',
   'env_warm': 'उबदार',
   'env_safe': 'सुरक्षित',
-  'env_health_advice': 'आरोग्य सल्ला',
+  'env_inspection_advice': 'आरोग्य सल्ला',
   'env_ward_aqi': 'वार्ड-वार हवा गुणवत्ता',
   'err_generic': 'काहीतरी चुकीचे घडले. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा।',
 };

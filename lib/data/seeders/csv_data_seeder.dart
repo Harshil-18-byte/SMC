@@ -10,22 +10,22 @@ class CsvDataSeeder {
   Future<void> seedFromCsvs() async {
     debugPrint('🌱 Starting CSV data seeding...');
     try {
-      await _seedHospitals();
+      await _seedSites();
       await _seedDepartments();
       await _seedStaff();
       await _seedCitizens();
-      await _seedHealthRecords();
+      await _seedInspectionRecords();
       debugPrint('✅ CSV data seeding completed successfully!');
     } catch (e) {
       debugPrint('❌ CSV data seeding failed: $e');
     }
   }
 
-  Future<void> _seedHospitals() async {
-    debugPrint('  Seeding hospitals from CSV...');
+  Future<void> _seedSites() async {
+    debugPrint('  Seeding sites from CSV...');
     try {
       final String data =
-          await rootBundle.loadString('assets/data/hospitals.csv');
+          await rootBundle.loadString('assets/data/sites.csv');
       final List<List<dynamic>> rows = _parseCsv(data);
 
       if (rows.length < 2) return; // Header + 1 row minimum
@@ -33,21 +33,21 @@ class CsvDataSeeder {
       int count = 0;
       WriteBatch batch = _firestore.batch();
 
-      // Headers: hospital_id,hospital_name,ownership,area,beds,icu_beds,ventilators,bed_occupancy_rate,contact_phone,patient_load_label
+      // Headers: site_id,site_name,ownership,area,beds,icu_beds,ventilators,bed_occupancy_rate,contact_phone,asset_load_label
       final headers = rows[0].map((e) => e.toString().trim()).toList();
 
       for (int i = 1; i < rows.length; i++) {
         final row = rows[i];
         if (row.isEmpty) continue;
 
-        final Map<String, dynamic> hospital = {};
+        final Map<String, dynamic> site = {};
 
-        final id = row[headers.indexOf('hospital_id')].toString().trim();
-        hospital['id'] = id;
-        hospital['name'] = row[headers.indexOf('hospital_name')];
-        hospital['type'] = row[headers.indexOf('ownership')];
-        hospital['area'] = row[headers.indexOf('area')];
-        hospital['address'] = '${row[headers.indexOf('area')]}, Bharat';
+        final id = row[headers.indexOf('site_id')].toString().trim();
+        site['id'] = id;
+        site['name'] = row[headers.indexOf('site_name')];
+        site['type'] = row[headers.indexOf('ownership')];
+        site['area'] = row[headers.indexOf('area')];
+        site['address'] = '${row[headers.indexOf('area')]}, Bharat';
 
         final beds = int.tryParse(row[headers.indexOf('beds')].toString()) ?? 0;
         final occupancyRate = double.tryParse(
@@ -55,49 +55,49 @@ class CsvDataSeeder {
             0.0;
         final availableBeds = (beds * (1 - occupancyRate)).round();
 
-        hospital['bedTotal'] = beds;
-        hospital['bedAvailable'] = availableBeds;
-        hospital['icuBeds'] =
+        site['bedTotal'] = beds;
+        site['bedAvailable'] = availableBeds;
+        site['icuBeds'] =
             int.tryParse(row[headers.indexOf('icu_beds')].toString()) ?? 0;
-        hospital['ventilators'] =
+        site['ventilators'] =
             int.tryParse(row[headers.indexOf('ventilators')].toString()) ?? 0;
-        hospital['contact'] = row[headers.indexOf('contact_phone')];
-        hospital['patientLoad'] = row[headers.indexOf('patient_load_label')];
+        site['contact'] = row[headers.indexOf('contact_phone')];
+        site['assetLoad'] = row[headers.indexOf('asset_load_label')];
 
         // Better randomization to avoid a line (using math.Random with a seed for consistency)
         final randomLat = math.Random(i).nextDouble();
         final randomLng = math.Random(i + 100).nextDouble();
 
         // Spread around Bharat center (17.6599, 75.9064) within roughly 10km
-        hospital['latitude'] = 17.6599 + (randomLat - 0.5) * 0.15;
-        hospital['longitude'] = 75.9064 + (randomLng - 0.5) * 0.15;
+        site['latitude'] = 17.6599 + (randomLat - 0.5) * 0.15;
+        site['longitude'] = 75.9064 + (randomLng - 0.5) * 0.15;
 
-        // Add additional fields for hospital_intake_status compatibility
-        hospital['oxygenLevel'] = 70 + math.Random(i + 200).nextInt(30);
-        hospital['triageWaitMinutes'] = math.Random(i + 300).nextInt(60);
-        hospital['intakeLocked'] = availableBeds == 0;
-        hospital['ward'] = 'Ward ${math.Random(i + 400).nextInt(20) + 1}';
+        // Add additional fields for site_intake_status compatibility
+        site['oxygenLevel'] = 70 + math.Random(i + 200).nextInt(30);
+        site['triageWaitMinutes'] = math.Random(i + 300).nextInt(60);
+        site['intakeLocked'] = availableBeds == 0;
+        site['ward'] = 'Ward ${math.Random(i + 400).nextInt(20) + 1}';
 
-        final docRef = _firestore.collection('hospitals').doc(id);
-        batch.set(docRef, hospital);
+        final docRef = _firestore.collection('sites').doc(id);
+        batch.set(docRef, site);
 
-        // Also seed into hospital_intake_status for consistency across the app
+        // Also seed into site_intake_status for consistency across the app
         final intakeDocRef =
-            _firestore.collection('hospital_intake_status').doc(id);
-        batch.set(intakeDocRef, hospital);
+            _firestore.collection('site_intake_status').doc(id);
+        batch.set(intakeDocRef, site);
         count++;
 
         if (count % 400 == 0) {
           await batch.commit();
           batch = _firestore.batch();
-          debugPrint('    Committed batch of hospitals...');
+          debugPrint('    Committed batch of sites...');
         }
       }
 
       if (count % 400 != 0) await batch.commit();
-      debugPrint('  ✅ Seeded $count hospitals.');
+      debugPrint('  ✅ Seeded $count sites.');
     } catch (e) {
-      debugPrint('  ❌ Error seeding hospitals: $e');
+      debugPrint('  ❌ Error seeding sites: $e');
     }
   }
 
@@ -113,7 +113,7 @@ class CsvDataSeeder {
       int count = 0;
       WriteBatch batch = _firestore.batch();
 
-      // Headers: department_id,hospital_id,department,specialty
+      // Headers: department_id,site_id,department,specialty
       final headers = rows[0].map((e) => e.toString().trim()).toList();
 
       for (int i = 1; i < rows.length; i++) {
@@ -124,8 +124,8 @@ class CsvDataSeeder {
         final id = row[headers.indexOf('department_id')].toString().trim();
 
         dept['id'] = id;
-        dept['hospitalId'] =
-            row[headers.indexOf('hospital_id')].toString().trim();
+        dept['siteId'] =
+            row[headers.indexOf('site_id')].toString().trim();
         dept['name'] = row[headers.indexOf('department')];
         dept['specialty'] = row[headers.indexOf('specialty')];
 
@@ -157,7 +157,7 @@ class CsvDataSeeder {
       int count = 0;
       WriteBatch batch = _firestore.batch();
 
-      // Headers: staff_id,hospital_id,name,role,join_date,phone_masked
+      // Headers: staff_id,site_id,name,role,join_date,phone_masked
       final headers = rows[0].map((e) => e.toString().trim()).toList();
 
       for (int i = 1; i < rows.length; i++) {
@@ -168,8 +168,8 @@ class CsvDataSeeder {
         final id = row[headers.indexOf('staff_id')].toString().trim();
 
         staff['id'] = id;
-        staff['hospitalId'] =
-            row[headers.indexOf('hospital_id')].toString().trim();
+        staff['siteId'] =
+            row[headers.indexOf('site_id')].toString().trim();
         staff['name'] = row[headers.indexOf('name')];
         staff['role'] = row[headers.indexOf('role')];
         staff['joinDate'] = row[headers.indexOf('join_date')];
@@ -186,7 +186,7 @@ class CsvDataSeeder {
           staff['systemRole'] = 'staff';
         }
 
-        final docRef = _firestore.collection('hospital_staff').doc(id);
+        final docRef = _firestore.collection('site_staff').doc(id);
         batch.set(docRef, staff);
         count++;
 
@@ -252,11 +252,11 @@ class CsvDataSeeder {
     }
   }
 
-  Future<void> _seedHealthRecords() async {
-    debugPrint('  Seeding health records from CSV...');
+  Future<void> _seedInspectionRecords() async {
+    debugPrint('  Seeding inspection records from CSV...');
     try {
       final String data =
-          await rootBundle.loadString('assets/data/health_records.csv');
+          await rootBundle.loadString('assets/data/inspection_records.csv');
       final List<List<dynamic>> rows = _parseCsv(data);
 
       if (rows.length < 2) return;
@@ -264,7 +264,7 @@ class CsvDataSeeder {
       int count = 0;
       WriteBatch batch = _firestore.batch();
 
-      // Headers: record_id,citizen_id,diagnosis,treatment,doctor_id,hospital_id,date
+      // Headers: record_id,citizen_id,diagnosis,repair action,doctor_id,site_id,date
       final headers = rows[0].map((e) => e.toString().trim()).toList();
 
       for (int i = 1; i < rows.length; i++) {
@@ -278,14 +278,14 @@ class CsvDataSeeder {
         record['citizenId'] =
             row[headers.indexOf('citizen_id')].toString().trim();
         record['diagnosis'] = row[headers.indexOf('diagnosis')];
-        record['treatment'] = row[headers.indexOf('treatment')];
+        record['repair action'] = row[headers.indexOf('repair action')];
         record['doctorId'] =
             row[headers.indexOf('doctor_id')].toString().trim();
-        record['hospitalId'] =
-            row[headers.indexOf('hospital_id')].toString().trim();
+        record['siteId'] =
+            row[headers.indexOf('site_id')].toString().trim();
         record['date'] = row[headers.indexOf('date')];
 
-        final docRef = _firestore.collection('health_records').doc(id);
+        final docRef = _firestore.collection('inspection_records').doc(id);
         batch.set(docRef, record);
         count++;
 
@@ -296,9 +296,9 @@ class CsvDataSeeder {
       }
 
       if (count % 400 != 0) await batch.commit();
-      debugPrint('  ✅ Seeded $count health records.');
+      debugPrint('  ✅ Seeded $count inspection records.');
     } catch (e) {
-      debugPrint('  ❌ Error seeding health records: $e');
+      debugPrint('  ❌ Error seeding inspection records: $e');
     }
   }
 
